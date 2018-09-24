@@ -21,9 +21,14 @@ Route::Auth();
 Route::get('/home', 'HomeController@dashboard')->name('home');
 //Route::get('/registadmin','BarangController@redir');
 Route::get('/registbarang','BarangController@redir')->middleware('auth', 'cekstat');
+Route::post('/insertBarang','BarangController@insertBarang');
+Route::get('/viewbarang','BarangController@viewBarang')->middleware('auth', 'cekstat');
+Route::get('/viewbarangm','BarangController@viewBarangUser');
 Route::get('/forbidden', function () {
     return view('forbidden');
 });
+Route::get('/editbarang/{id}','BarangController@geteditBarang')->middleware('auth', 'cekstat');
+Route::post('/updateBarang/{id}','BarangController@editBarang')->middleware('auth', 'cekstat');
 Route::get('protected', ['middleware' => ['auth', 'admin'], function() {
     return "this page requires that you be logged in and an Admin";
 }]);

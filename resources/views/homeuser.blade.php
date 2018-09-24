@@ -15,6 +15,7 @@
                     @endif
 
                     You are logged in as user!
+                    <a href="/viewbarangm">Lihat Barang</a>
                 </div>
             </div>
         </div>

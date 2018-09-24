@@ -15,7 +15,8 @@
                     @endif
 
                     <h1>You are logged in as admin!</h1>
-                    <a href="/registbarang">Registrasi Barang</a>
+                    <a href="/registbarang">Registrasi Barang</a><br>
+                    <a href="/viewbarang">Lihat Barang</a>
                 </div>
             </div>
         </div>

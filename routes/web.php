@@ -19,9 +19,11 @@ Route::Auth();
 //Auth::routes();
 
 Route::get('/home', 'HomeController@dashboard')->name('home');
-Route::middleware('auth', function(){
-//Route::get('/registadmin','RegistAdminController@adminRegist');
-Route::get('/registadmin', function () {
-    return 'tes';
+//Route::get('/registadmin','BarangController@redir');
+Route::get('/registbarang','BarangController@redir')->middleware('auth', 'cekstat');
+Route::get('/forbidden', function () {
+    return view('forbidden');
 });
-});
+Route::get('protected', ['middleware' => ['auth', 'admin'], function() {
+    return "this page requires that you be logged in and an Admin";
+}]);

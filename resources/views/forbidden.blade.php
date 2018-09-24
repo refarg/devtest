@@ -14,11 +14,15 @@
                         </div>
                     @endif
 
-                    <h1>You are logged in as admin!</h1>
-                    <a href="/registbarang">Registrasi Barang</a>
+                    Admin-only area<br>If you are not redirected within 5 seconds,<br>please <a href="/">click here</a>.
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+        window.setTimeout(function () {
+            window.location = "/";
+        }, 5000);
+    </script>
 @endsection

@@ -26,4 +26,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'level',
     ];
+
+    public function isAdmin()
+{
+    return $this->level; // this looks for an admin column in your users table
+}
+
 }

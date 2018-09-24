@@ -27,6 +27,7 @@ Route::get('/viewbarangm','BarangController@viewBarangUser');
 Route::get('/forbidden', function () {
     return view('forbidden');
 });
+Route::get('/hapusbarang/{id}','BarangController@hapusBarang')->middleware('auth', 'cekstat');
 Route::get('/editbarang/{id}','BarangController@geteditBarang')->middleware('auth', 'cekstat');
 Route::post('/updateBarang/{id}','BarangController@editBarang')->middleware('auth', 'cekstat');
 Route::get('protected', ['middleware' => ['auth', 'admin'], function() {

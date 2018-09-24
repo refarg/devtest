@@ -24,7 +24,7 @@ class BarangController extends Controller
 
     			]);
     		barang::create($insert);
-        return view('welcome');
+        return view('viewbarang');
   }
 
   public function viewBarang(Request $request){
@@ -40,6 +40,12 @@ class BarangController extends Controller
   public function geteditBarang($id){
         $edit= barang::find($id);
         return view('editbarang',compact('edit'));
+  }
+
+  public function hapusBarang($id){
+        $edit= barang::find($id);
+        $edit->delete();
+        return redirect('viewbarang');
   }
 
   public function editBarang(Request $request, $id){

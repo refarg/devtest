@@ -22,6 +22,7 @@
   											<td class="text-center text-nowrap">Stok</td>
   											<td class="text-center text-nowrap">Harga Barang</td>
                         <td class="text-center text-nowrap">Edit</td>
+                        <td class="text-center text-nowrap">Hapus</td>
   										</tr>
                     @foreach($tampil as $data)
 										<tr>
@@ -31,6 +32,7 @@
 											<td class="text-center text-nowrap">{{$data->stok}}</td>
 											<td class="text-center text-nowrap">{{$data->hargabarang}}</td>
                       <td class="text-center text-nowrap"><a href="/editbarang/{{$data->idbarang}}">Edit</a></td>
+                      <td class="text-center text-nowrap"><a href="/hapusbarang/{{$data->idbarang}}">Hapus</a></td>
 										</tr>
 										@endforeach
                   </table>

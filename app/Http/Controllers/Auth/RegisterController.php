@@ -47,11 +47,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+      $messages=[
+        'regex' => 'The :attribute requires capital letter and numbers.',
+      ];
+      $validator = Validator::make($data, [
+          'name' => 'required|string|max:255|min:6',
+          'email' => 'required|string|email|max:255|unique:users',
+          'password' => ['required','min:8','confirmed','regex:/^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,50})$/'],
+      ], $messages);
+        return $validator;
+
     }
 
     /**

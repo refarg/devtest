@@ -2,10 +2,15 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Auth\Authenticatable;
+//use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+//use Illuminate\Auth\Passwords\CanResetPassword;
+//use Illuminate\Contracts\Auth\CanResetPassword as CanResetPassword;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPassword
 {
     use Notifiable;
 

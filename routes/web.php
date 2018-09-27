@@ -20,7 +20,8 @@ Route::Auth();
 
 Route::get('/home', 'HomeController@dashboard')->name('home');
 //Route::get('/registadmin','BarangController@redir');
-Route::get('/registbarang','BarangController@redir')->middleware('auth', 'cekstat');
+Route::get('/registbarang','BarangController@redir');
+//Route::get('/insertBarang','BarangController');
 Route::post('/insertBarang','BarangController@insertBarang');
 Route::get('/viewbarang','BarangController@viewBarang')->middleware('auth', 'cekstat');
 Route::get('/viewbarangm','BarangController@viewBarangUser');

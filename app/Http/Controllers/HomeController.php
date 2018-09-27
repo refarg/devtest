@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
-use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,8 +27,8 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function dashboard(){
-      if (Auth::User()->level=='1') {
+public function dashboard(){
+    if (Auth::User()->level=='1') {
 //  $redirectTo = '/dashboardAgen';  // code...
   return view('homeadmin');
 }else if(Auth::User()->level=='2') {
@@ -39,6 +39,5 @@ class HomeController extends Controller
     //$redirectTo = '/dashboardPengusaha';
     return view ('dashboardAdmin');
     }
-
-    }
+  }
 }

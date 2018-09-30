@@ -10,6 +10,7 @@ use App\barang;
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
+use App\pembelian;
 
 class BarangController extends Controller
 {
@@ -27,7 +28,6 @@ class BarangController extends Controller
     			'deskripsi' => $request->deskripsi,
     			'stok' => $request->stok,
     			'hargabarang' => $request->hargabarang,
-
     			]);
           barang::create($insert);
           return redirect('viewbarang');
@@ -38,6 +38,24 @@ class BarangController extends Controller
             ->withErrors($validator)
             ->withInput();
     }
+
+}
+
+public function beliBarang(Request $request){
+  $insert = ([
+        'idbarang' => $request->idbarang,
+        'iduser' => Auth::user()->id,
+        'jumlahbarang' => $request->jumlahbarang,
+        ]);
+        pembelian::create($insert);
+
+$sto = barang::select('idbarang','stok')
+->where('idbarang','=',$request->idbarang)
+->first();
+        $edit =barang::find($request->idbarang);
+        $edit->stok= $sto->stok - $request->jumlahbarang;
+        $edit->save();
+        return redirect('viewbarangm');
 
 }
 
@@ -53,6 +71,11 @@ public function validator(Request $request)
     return Validator::make($request->all(), $rules);
 }
 
+
+public function viewBeli(Request $request){
+      $tampil= pembelian::all();
+      return view('daftarbeli',compact('tampil'));
+}
 
   public function viewBarang(Request $request){
         $tampil= barang::all();

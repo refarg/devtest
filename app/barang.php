@@ -12,4 +12,8 @@ class barang extends Model
       'namabarang', 'jenisbarang', 'deskripsi', 'stok', 'hargabarang'
   ];
   public $timestamps=false;
+  public function pembelian()
+      {
+          return $this->hasMany('App\pembelian');
+      }
 }

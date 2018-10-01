@@ -11,6 +11,7 @@ use App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
 use App\pembelian;
+use User;
 
 class BarangController extends Controller
 {
@@ -72,14 +73,34 @@ public function validator(Request $request)
 }
 
 
-public function viewBeli(Request $request){
-      $tampil= pembelian::all();
+public function viewBeliadmin(Request $request){
+      //$tampil= pembelian::all();
+      $tampil=DB::table('pembelian')
+            ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
+            ->join('users', 'pembelian.iduser', '=', 'users.id')
+            ->select('pembelian.*', 'barang.*', 'users.*')
+            ->get();
+      return view('daftarbeli',compact('tampil'));
+}
+
+public function viewBeliuser(Request $request){
+      //$tampil= pembelian::all();
+      $tampil=DB::table('pembelian')
+            ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
+            ->join('users', 'pembelian.iduser', '=', 'users.id')
+            ->select('pembelian.*', 'barang.*', 'users.*')
+            ->where('pembelian.iduser','=',Auth::user()->id)
+            ->get();
       return view('daftarbeli',compact('tampil'));
 }
 
   public function viewBarang(Request $request){
         $tampil= barang::all();
         return view('viewbarang',compact('tampil'));
+  }
+  public function viewBarangmod(Request $request){
+        $tampil= barang::all();
+        return view('viewbarangmod',compact('tampil'));
   }
 
   public function viewBarangUser(Request $request){

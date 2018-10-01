@@ -14,8 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in as user!
-                    <a href="/viewbarangm">Lihat Barang</a>
+                    You are logged in as user!<br>
+                    <a href="/viewbarangm">Lihat Barang</a><br>
+                    <a href="/listbeli">Lihat Barang yang dibeli</a>
                 </div>
             </div>
         </div>

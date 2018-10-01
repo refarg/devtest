@@ -16,7 +16,9 @@
 
                     <h1>You are logged in as admin!</h1>
                     <a href="/registbarang">Registrasi Barang</a><br>
-                    <a href="/viewbarang">Lihat Barang</a>
+                    <a href="/viewbarang">Lihat Barang (List)</a><br>
+                    <a href="/viewbarangmodern">Lihat Barang (Grid)</a><br>
+                    <a href="/listpembelian">Lihat Barang yang Dibeli</a>
                 </div>
             </div>
         </div>

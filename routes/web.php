@@ -20,15 +20,17 @@ Route::Auth();
 
 Route::get('/home', 'HomeController@dashboard')->name('home');
 //Route::get('/registadmin','BarangController@redir');
-Route::get('/registbarang','BarangController@redir');
+Route::get('/registbarang','BarangController@redir')->middleware('auth', 'cekstat');
 //Route::get('/insertBarang','BarangController');
-Route::post('/insertBarang','BarangController@insertBarang');
+Route::post('/insertBarang','BarangController@insertBarang')->middleware('auth', 'cekstat');
 Route::get('/viewbarang','BarangController@viewBarang')->middleware('auth', 'cekstat');
+Route::get('/viewbarangmodern','BarangController@viewBarangmod')->middleware('auth', 'cekstat');
 Route::get('/viewbarangm','BarangController@viewBarangUser');
 Route::get('/forbidden', function () {
     return view('forbidden');
 });
-Route::get('/daftarbeli','BarangController@viewBeli')->middleware('auth', 'cekstat');
+Route::get('/listbeli','BarangController@viewBeliuser')->middleware('auth');
+Route::get('/listpembelian','BarangController@viewBeliadmin')->middleware('auth', 'cekstat');
 Route::post('/belibarang/{id}','BarangController@beliBarang')->middleware('auth');
 Route::get('/hapusbarang/{id}','BarangController@hapusBarang')->middleware('auth', 'cekstat');
 Route::get('/editbarang/{id}','BarangController@geteditBarang')->middleware('auth', 'cekstat');

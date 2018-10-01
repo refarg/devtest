@@ -16,7 +16,6 @@
 
                     <table class="table table-stripped table-bordered">
                       <tr style='font-weight:bold;'>
-  											<td class="text-center text-nowrap">ID Barang</td>
                         <td class="text-center text-nowrap">Nama Barang</td>
   											<td class="text-center text-nowrap">Nama User</td>
   											<td class="text-center text-nowrap">Jumlah Barang</td>
@@ -24,11 +23,10 @@
   										</tr>
                     @foreach($tampil as $data)
 										<tr>
-											<td class="text-center text-nowrap">{{$data->idbarang}}</td>
                       <td class="text-center text-nowrap">{{$data->namabarang}}</td>
 											<td class="text-center text-nowrap">{{$data->name}}</td>
 											<td class="text-center text-nowrap">{{$data->jumlahbarang}}</td>
-                      <td class="text-center text-nowrap">{{$data->created_at}}</td>
+                      <td class="text-center text-nowrap">{{$data->updated_at}}</td>
 										</tr>
 										@endforeach
                   </table>

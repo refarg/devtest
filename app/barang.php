@@ -9,7 +9,7 @@ class barang extends Model
   protected $table = 'barang';
   protected $primaryKey = 'idbarang';
   protected $fillable = [
-      'namabarang', 'jenisbarang', 'deskripsi', 'stok', 'hargabarang'
+      'namabarang', 'jenisbarang', 'deskripsi', 'stok', 'hargabarang','gambarbarang'
   ];
   public $timestamps=false;
   public function pembelian()

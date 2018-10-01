@@ -23,12 +23,16 @@ class BarangController extends Controller
     $validator = $this->validator($request);
     if($validator->passes())
     {
+      $file       = $request->file('gambar');
+      $fileName   = $file->getClientOriginalName();
+      $request->file('gambar')->move("image/", $fileName);
     $insert = ([
     			'namabarang' => $request->namabarang,
     			'jenisbarang' => $request->jenisbarang,
     			'deskripsi' => $request->deskripsi,
     			'stok' => $request->stok,
     			'hargabarang' => $request->hargabarang,
+          'gambarbarang' => $request->file('gambar')->getClientOriginalName(),
     			]);
           barang::create($insert);
           return redirect('viewbarang');
@@ -98,9 +102,16 @@ public function viewBeliuser(Request $request){
         $tampil= barang::all();
         return view('viewbarang',compact('tampil'));
   }
+
   public function viewBarangmod(Request $request){
         $tampil= barang::all();
         return view('viewbarangmod',compact('tampil'));
+  }
+
+  public function hapusBarangmod($id){
+        $edit= barang::find($id);
+        $edit->delete();
+        return redirect('viewbarangmod');
   }
 
   public function viewBarangUser(Request $request){
@@ -129,8 +140,19 @@ public function viewBeliuser(Request $request){
       $edit->deskripsi= $request->deskripsi;
       $edit->stok= $request->stok;
       $edit->hargabarang= $request->hargabarang;
-      $edit->save();
-      return redirect('viewbarang');
+
+      if($request->file('gambar')==""){
+        $edit->gambarbarang = $edit->gambarbarang;
+      }
+
+      else{
+      $file       = $request->file('gambar');
+      $fileName   = $file->getClientOriginalName();
+      $request->file('gambar')->move("image/", $fileName);
+      $edit->gambarbarang = $request->file('gambar')->getClientOriginalName();
+        }
+    $edit->save();
+    return redirect('viewbarang');
     }
     else
     {

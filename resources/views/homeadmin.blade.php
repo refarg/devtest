@@ -15,10 +15,11 @@
                     @endif
 
                     <h1>You are logged in as admin!</h1>
-                    <a href="/registbarang">Registrasi Barang</a><br>
-                    <a href="/viewbarang">Lihat Barang (List)</a><br>
-                    <a href="/viewbarangmodern">Lihat Barang (Grid)</a><br>
-                    <a href="/listpembelian">Lihat Barang yang Dibeli</a>
+                    <p><a class="btn btn-primary" href="/registbarang">Registrasi Barang</a></p>
+                    <p><a class="btn btn-default" href="/viewbarang">Lihat Barang (List)</a></p>
+                    <p><a class="btn btn-primary" href="/viewbarangmodern">Lihat Barang (Grid)</a></p>
+                    <p><a class="btn btn-danger" href="/viewbarangm">Lihat Barang sebagai user</a></p>
+                    <p><a class="btn btn-primary" href="/listpembelian">Lihat Barang yang Dibeli</a></p>
                 </div>
             </div>
         </div>

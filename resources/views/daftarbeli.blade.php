@@ -14,6 +14,7 @@
                         </div>
                     @endif
 
+                    @if(count($tampil) > 0)
                     <table class="table table-stripped table-bordered">
                       <tr style='font-weight:bold;'>
                         <td class="text-center text-nowrap">Nama Barang</td>
@@ -55,6 +56,9 @@
                     </div>
 										@endforeach
                   </table>
+                  @else
+                  <h4 class="text-center">Tidak ada barang di dalam keranjang belanja semua user saat ini</h4>
+                  @endif
                 </div>
             </div>
         </div>

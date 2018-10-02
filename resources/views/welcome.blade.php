@@ -81,6 +81,9 @@
                 <div class="title m-b-md">
                     {{ config('app.name') }}
                 </div>
+                <h4 class="m-b-md">
+                    Berpacu dalam prestasi? ha! <img src="{{url('image/dwad.jpg')}}" style="height:20px;width:auto;"/>
+                </h4>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>

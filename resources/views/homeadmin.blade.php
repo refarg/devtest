@@ -14,13 +14,13 @@
                         </div>
                     @endif
 
-                    <h1>You are logged in as admin!</h1>
+                    <h1>You are logged in as {{ Auth::user()->name }}!</h1>
                     <p><a class="btn btn-primary" href="/registbarang">Registrasi Barang</a></p>
                     <p><a class="btn btn-default" href="/viewbarang">Lihat Barang (List)</a></p>
-                    <p><a class="btn btn-primary" href="/viewbarangmod">Lihat Barang (Grid)</a></p>
-                    <p><a class="btn btn-danger" href="/viewbarangm">Lihat Barang sebagai user</a></p>
-                    <p><a class="btn btn-primary" href="/listpembelian">Lihat Barang yang Dibeli</a></p>
-                    <p><a class="btn btn-primary" href="/viewuserlist">Lihat User Terdaftar</a></p>
+                    <p><a class="btn btn-success" href="/viewbarangmod">Lihat Barang (Grid)</a></p>
+                    <p><a class="btn btn-warning" href="/viewbarangm">Lihat Barang sebagai user</a></p>
+                    <p><a class="btn btn-info" href="/listpembelian">Lihat Barang yang Dibeli</a></p>
+                    <p><a class="btn btn-danger" href="/viewuserlist">Lihat User Terdaftar</a></p>
                 </div>
             </div>
         </div>

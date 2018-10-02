@@ -9,10 +9,7 @@ class detailuser extends Model
   protected $table = 'detailuser';
   protected $primaryKey = 'iddetail';
   protected $fillable = [
-      'namalengkap','alamat','nomorponsel','avatar'
-  ];
-  protected $hidden = [
-      'iduser',
+      'iduser','namalengkap','alamat','nomorponsel','avatar',
   ];
   public $timestamps=false;
 }

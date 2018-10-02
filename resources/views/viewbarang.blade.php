@@ -1,5 +1,12 @@
+@section('js')
+<script src="{{asset('js/jquery.matchHeight-min.js')}}"></script>
+<script>
+$(function() {
+    $(".btnsumbit").attr("disabled", true);
+});
+</script>
+@endsection
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -31,8 +38,8 @@
 											<td class="text-center text-nowrap">{{$data->deskripsi}}</td>
 											<td class="text-center text-nowrap">{{$data->stok}}</td>
 											<td class="text-center text-nowrap">{{$data->hargabarang}}</td>
-                      <td class="text-center text-nowrap"><a href="/editbarang/{{$data->idbarang}}">Edit</a></td>
-                      <td class="text-center text-nowrap"><a href="/hapusbarang/{{$data->idbarang}}">Hapus</a></td>
+                      <td class="text-center text-nowrap"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary">Edit</a></td>
+                      <td class="text-center text-nowrap"><button onclick="location.href='/hapusbarang/{{$data->idbarang}}';'" class="btnsumbit btn btn-danger">Hapus</a></button>
 										</tr>
 										@endforeach
                   </table>

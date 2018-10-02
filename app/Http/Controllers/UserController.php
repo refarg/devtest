@@ -46,26 +46,22 @@ class UserController extends Controller
       $rules = [
         'namalengkap' => 'required|string|max:255',
         'alamat' => 'required|string|max:255',
-        'nomorponsel' => 'required|string',
+        'nomorponsel' => 'required|digits_between:10,13',
         'avatar' => 'mimes:jpeg,bmp,png',
       ];
       return Validator::make($request->all(), $rules);
   }
 
   public function updateProfile(Request $request, $id){
-if (!isset($edit) || !is_object($edit)) {
-    $edit = new \stdClass();
-    $edit = new detailuser();
-    $edit->find($id);
+    $edit = detailuser::all()->where('iduser',$id)->first();
     $validator = $this->validator($request);
     if($validator->passes())
     {
         $edit->namalengkap = $request->namalengkap;
         $edit->alamat = $request->alamat;
         $edit->nomorponsel = $request->nomorponsel;
-        $id = $request->iduser;
         if($request->file('avatar')==""){
-          $edit->avatar = $edit->avatar;
+          $request->avatar = $request->avatar;
         }
         else{
         $file       = $request->file('avatar');
@@ -74,8 +70,13 @@ if (!isset($edit) || !is_object($edit)) {
         $edit->avatar = $request->file('avatar')->getClientOriginalName();
           }
         //dd($edit);
-    $edit->save();
-    return redirect('viewuser');
+    $edit->update();
+    if (Auth::user()->level==1) {
+      return redirect('viewuserlist');
+    }
+    else{
+      return redirect('viewuser');
+    }
     }
     else
     {
@@ -84,5 +85,4 @@ if (!isset($edit) || !is_object($edit)) {
             ->withInput();
     }
   }
-}
 }

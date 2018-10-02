@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -14,7 +13,7 @@
                         </div>
                     @endif
 
-                    You are logged in as user!<br>
+                    You are logged in as {{ Auth::user()->name }}!<br>
                     <a href="/viewbarangm">Lihat Barang</a><br>
                     <a href="/listbeli">Lihat Barang yang dibeli</a>
                 </div>

@@ -2,6 +2,7 @@
 <script src="{{asset('js/jquery.matchHeight-min.js')}}"></script>
 <script>
 $(function() {
+    $(".btnsumbit").attr("disabled", true);
     $('.box').matchHeight();
     $('.cap').matchHeight();
 });
@@ -77,7 +78,7 @@ $(function() {
           Ingin melanjutkan?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btn btn-danger" onclick="location.href='/hapusbarangmod/{{$data->idbarang}}';">Hapus</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btnsumbit btn btn-danger" onclick="location.href='/hapusbarangmod/{{$data->idbarang}}';">Hapus</button>
       </div>
     </div>
   </div>

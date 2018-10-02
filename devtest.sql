@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2018 at 06:15 AM
+-- Generation Time: Oct 02, 2018 at 02:38 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -34,18 +34,46 @@ CREATE TABLE `barang` (
   `jenisbarang` varchar(99) COLLATE utf8_bin NOT NULL,
   `deskripsi` varchar(99) COLLATE utf8_bin NOT NULL,
   `stok` int(11) NOT NULL,
-  `hargabarang` int(11) NOT NULL
+  `hargabarang` int(11) NOT NULL,
+  `gambarbarang` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`idbarang`, `namabarang`, `jenisbarang`, `deskripsi`, `stok`, `hargabarang`) VALUES
-(1, 'Kopi Luwak Jember', 'Makanan / Minuman', 'Kopi Luwak yang diproses secara alami', 937, 200000),
-(2, 'Sapu Ijuk Ala-ala', 'Kerajinan', 'Sapu ijuk berhias corak batik makassar', 736, 40000),
-(4, 'Piringan Hitam Corak Batik', 'Kerajinan', 'Piringan hitam berhias corak batik dan manik-manik', 81, 100000),
-(5, 'Keranjang Sampah', 'Kerajinan', 'Keranjang Sampah era modern', 290, 300000);
+INSERT INTO `barang` (`idbarang`, `namabarang`, `jenisbarang`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
+(1, 'Kopi Luwak Jember', 'Makanan / Minuman', 'Kopi Luwak yang diproses secara alami', 770, 200000, ''),
+(2, 'Sapu Ijuk Ala-ala', 'Kerajinan', 'Sapu ijuk berhias corak batik makassar', 1059, 40000, ''),
+(4, 'Piringan Hitam Corak Batik', 'Kerajinan', 'Piringan hitam berhias corak batik dan manik-manik', 20, 100000, 'download.jpg'),
+(5, 'Keranjang Sampah', 'Kerajinan', 'Keranjang Sampah era modern', 290, 300000, 'maxresdefault.jpg'),
+(6, 'Tes', 'Tes', 'Tes', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
+(7, 'Mencoba', 'Kerajinan', 'Tes', 20, 90000, 'pexels-photo-206673.jpeg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detailuser`
+--
+
+CREATE TABLE `detailuser` (
+  `iddetail` int(11) NOT NULL,
+  `iduser` int(10) NOT NULL,
+  `namalengkap` varchar(255) COLLATE utf8_bin NOT NULL,
+  `alamat` varchar(255) COLLATE utf8_bin NOT NULL,
+  `nomorponsel` varchar(255) COLLATE utf8_bin NOT NULL,
+  `avatar` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `detailuser`
+--
+
+INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorponsel`, `avatar`) VALUES
+(1, 1, 'Refardo Gelora', 'Nyoba', '082412849212', ''),
+(2, 2, 'Admin', 'coba', '083851016003', 'blank-profile-picture-973460_960_720.png'),
+(3, 6, 'Masedo', '', '', ''),
+(4, 7, 'Josep', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -92,10 +120,7 @@ CREATE TABLE `pembelian` (
 
 INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 20, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
-(2, 1, 2, 20, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
-(3, 2, 2, 40, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
 (4, 4, 1, 30, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
-(5, 1, 1, 20, '2018-09-30 20:19:53', '2018-09-30 20:19:53'),
 (6, 2, 1, 100, '2018-09-30 20:19:56', '2018-09-30 20:19:56');
 
 -- --------------------------------------------------------
@@ -120,8 +145,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'RVVpGSPpRG8pdXxlHkbxcefEpQiuA3smUrA0K5mn8mtadtx4DRIhxCyAiER7', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'mC7KBMZTyHgXB8YFOSXSZBofAMCazqFQoAzTe3YDIiH0EKKNl0c8XFCYYYUk', '2018-09-27 05:38:34', '2018-09-27 05:38:34');
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'NvMhlM03eLaV4VrTFu3be2RSA3UThXRKGpNAseFlJhsBHQyfnYuqlDJzYWOz', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'avl6odnRCLHzeEtpHcrPxWtzZ9yfoGRja5KauPNoU9aiu8hnQ5kU1e7f86GE', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
+(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'p0I3UuTUNyEigs7vHMArOl3lwOc3aIghJ0DPNKFx0Tb41XRObmb7dhQ6WFLI', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -132,6 +159,13 @@ INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`idbarang`);
+
+--
+-- Indexes for table `detailuser`
+--
+ALTER TABLE `detailuser`
+  ADD PRIMARY KEY (`iddetail`),
+  ADD KEY `userdata` (`iduser`);
 
 --
 -- Indexes for table `migrations`
@@ -161,7 +195,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `detailuser`
+--
+ALTER TABLE `detailuser`
+  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -179,11 +219,17 @@ ALTER TABLE `pembelian`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `detailuser`
+--
+ALTER TABLE `detailuser`
+  ADD CONSTRAINT `userdata` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pembelian`

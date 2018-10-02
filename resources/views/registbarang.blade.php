@@ -20,13 +20,13 @@
                         </div>
                       </div>
 
-                        <div class="form-group{{ $errors->has('gambar') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('gambarbarang') ? ' has-error' : '' }}">
                         <label for="text" class="col-md-4 control-label">Gambar Barang</label>
                         <div class="col-md-6">
-                        <input type="file" id="inputgambar" class="validate form-control" name="gambar" placeholder="Gambar Barang" onchange="loadFile(event)" />
-                        @if ($errors->has('gambar'))
+                        <input type="file" id="inputgambar" class="validate form-control" name="gambarbarang" placeholder="Gambar Barang" onchange="loadFile(event)" />
+                        @if ($errors->has('gambarbarang'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('gambar') }}</strong>
+                                <strong>{{ $errors->first('gambarbarang') }}</strong>
                             </span>
                         @endif
                         </div>

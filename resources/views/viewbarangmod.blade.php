@@ -3,6 +3,7 @@
 <script>
 $(function() {
     $('.box').matchHeight();
+    $('.cap').matchHeight();
 });
 </script>
 @endsection
@@ -12,6 +13,15 @@ $(function() {
     .box {
         height: auto !important;
     }
+    .panel-footer {
+      position: absolute;
+      padding: 0 auto;
+      bottom: 0;
+    }
+}
+.thumbnail img {
+    height:250px;
+    width:100%;
 }
 </style>
 @endsection
@@ -41,18 +51,18 @@ $(function() {
       @else
       <img src="{{ asset('image/'.$data->gambarbarang) }}" alt="..." />
       @endif
-      <div class="caption">
+      <div class="caption cap">
         <h3>{{$data->namabarang}}</h3>
         <p>Jenis: {{$data->jenisbarang}}</p>
         <p>Deskripsi: {{$data->deskripsi}}</p>
         <p>Stok: {{$data->stok}} buah</p>
-        <p>Harga: Rp. {{$data->hargabarang}}</p>
-        <p class="text-center"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus">Hapus</button></p>
+        <p>Harga: Rp. {{number_format($data->hargabarang)}}</p>
       </div>
+        <p class="text-center"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}">Hapus</button></p>
     </div>
 </div>
 
-<div class="modal fade" id="modalHapus" role="dialog">
+<div class="modal fade" id="modalHapus{{$loop->iteration}}" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -63,14 +73,13 @@ $(function() {
       </div>
       <div class="modal-body">
         <p>Anda hendak menghapus data dengan keterangan berikut:
-          <p>Nama Barang: {{$data->namabarang}}<br>Stok: {{$data->stok}} buah<br>Harga: Rp. {{$data->hargabarang}}</p>
+          <p>Nama Barang: {{$data->namabarang}}<br>Stok: {{$data->stok}} buah<br>Harga: Rp. {{number_format($data->hargabarang)}}</p>
           Ingin melanjutkan?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btn btn-danger" onclick="location.href='/hapusbarangmod/{{$data->idbarang}}';">Hapus</button>
       </div>
     </div>
-
   </div>
 </div>
 @endforeach
@@ -81,5 +90,4 @@ $(function() {
             </div>
         </div>
     </div>
-<!-- Modal -->
 @endsection

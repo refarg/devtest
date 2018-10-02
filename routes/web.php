@@ -24,11 +24,17 @@ Route::get('/registbarang','BarangController@redir')->middleware('auth', 'ceksta
 //Route::get('/insertBarang','BarangController');
 Route::post('/insertBarang','BarangController@insertBarang')->middleware('auth', 'cekstat');
 Route::get('/viewbarang','BarangController@viewBarang')->middleware('auth', 'cekstat');
-Route::get('/viewbarangmodern','BarangController@viewBarangmod')->middleware('auth', 'cekstat');
+Route::get('/viewbarangmod','BarangController@viewBarangmod')->middleware('auth', 'cekstat');
 Route::get('/viewbarangm','BarangController@viewBarangUser');
+Route::post('/updateuser/{id}','UserController@updateProfile')->middleware('auth');
+Route::get('/viewuser','UserController@viewProfil')->middleware('auth');
+Route::get('/viewuserlist','UserController@viewAll')->middleware('auth','cekstat');
+Route::get('/viewuser/{id}','UserController@editGlobal')->middleware('auth', 'cekstat');
 Route::get('/forbidden', function () {
     return view('forbidden');
 });
+Route::get('/batalbelimod/{id}','BarangController@batalBelimod')->middleware('auth', 'cekstat');
+Route::get('/batalbeli/{id}','BarangController@batalBeli')->middleware('auth');
 Route::get('/listbeli','BarangController@viewBeliuser')->middleware('auth');
 Route::get('/listpembelian','BarangController@viewBeliadmin')->middleware('auth', 'cekstat');
 Route::post('/belibarang/{id}','BarangController@beliBarang')->middleware('auth');
@@ -36,6 +42,6 @@ Route::get('/hapusbarang/{id}','BarangController@hapusBarang')->middleware('auth
 Route::get('/hapusbarangmod/{id}','BarangController@hapusBarangmod')->middleware('auth', 'cekstat');
 Route::get('/editbarang/{id}','BarangController@geteditBarang')->middleware('auth', 'cekstat');
 Route::post('/updateBarang/{id}','BarangController@editBarang')->middleware('auth', 'cekstat');
-Route::get('protected', ['middleware' => ['auth', 'admin'], function() {
+Route::get('protected', ['middleware' => ['auth'], function() {
     return "this page requires that you be logged in and an Admin";
 }]);

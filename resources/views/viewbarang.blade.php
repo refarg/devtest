@@ -2,7 +2,7 @@
 <script src="{{asset('js/jquery.matchHeight-min.js')}}"></script>
 <script>
 $(function() {
-    $(".btnsumbit").attr("disabled", true);
+    $(".btnsumbit").attr("disabled", false);
 });
 </script>
 @endsection
@@ -39,8 +39,29 @@ $(function() {
 											<td class="text-center text-nowrap">{{$data->stok}}</td>
 											<td class="text-center text-nowrap">{{$data->hargabarang}}</td>
                       <td class="text-center text-nowrap"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary">Edit</a></td>
-                      <td class="text-center text-nowrap"><button onclick="location.href='/hapusbarang/{{$data->idbarang}}';'" class="btnsumbit btn btn-danger">Hapus</a></button>
+                      <input type="hidden" name="_token" value="{{ Session::token() }}">
+                      <td class="text-center text-nowrap"><button data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" type="button" class="btnsumbit btn btn-danger">Hapus</a></button>
 										</tr>
+                    <div class="modal fade" id="modalHapus{{$loop->iteration}}" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Konfirmasi Hapus Data</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Anda hendak menghapus data dengan keterangan berikut:
+                              <p>Nama Barang: {{$data->namabarang}}<br>Stok: {{$data->stok}} buah<br>Harga: Rp. {{number_format($data->hargabarang)}}</p>
+                              Ingin melanjutkan?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btnsumbit btn btn-danger" onclick="location.href='/hapusbarang/{{$data->idbarang}}';">Hapus</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 										@endforeach
                   </table>
                 </div>

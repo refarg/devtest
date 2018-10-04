@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2018 at 07:07 PM
+-- Generation Time: Oct 04, 2018 at 11:50 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `barang` (
   `idbarang` int(11) NOT NULL,
   `namabarang` varchar(99) COLLATE utf8_bin NOT NULL,
-  `jenisbarang` varchar(99) COLLATE utf8_bin NOT NULL,
+  `idjenis` int(11) NOT NULL,
   `deskripsi` varchar(99) COLLATE utf8_bin NOT NULL,
   `stok` int(11) NOT NULL,
   `hargabarang` int(11) NOT NULL,
@@ -42,11 +42,11 @@ CREATE TABLE `barang` (
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`idbarang`, `namabarang`, `jenisbarang`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
-(4, 'Piringan Hitam Corak Batik', 'Kerajinan', 'Piringan hitam berhias corak batik dan manik-manik', 20, 100000, 'download.jpg'),
-(5, 'Keranjang Sampah', 'Kerajinan', 'Keranjang Sampah era modern', 290, 300000, 'maxresdefault.jpg'),
-(6, 'Gambar Waterfall', 'Kerajinan', 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
-(7, 'Mencoba', 'Kerajinan', 'Tes', 20, 90000, 'pexels-photo-206673.jpeg');
+INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
+(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 20, 100000, 'download.jpg'),
+(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 290, 300000, 'maxresdefault.jpg'),
+(6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
+(7, 'Mencoba', 2, 'Tes', 10, 90000, 'pexels-photo-206673.jpeg');
 
 -- --------------------------------------------------------
 
@@ -76,6 +76,25 @@ INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorp
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jenisbarang`
+--
+
+CREATE TABLE `jenisbarang` (
+  `idjenis` int(11) NOT NULL,
+  `jenisbarang` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `jenisbarang`
+--
+
+INSERT INTO `jenisbarang` (`idjenis`, `jenisbarang`) VALUES
+(1, 'Batik'),
+(2, 'Dekorasi Ruangan');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -96,6 +115,13 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8_bin NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('jose@mail.com', '$2y$10$o3mMYrBk2jPDt8l7pFh4bO0VDk8OtlHpgp2kfxfuXvcWSYMhZC/Im', '2018-10-04 01:52:37');
 
 -- --------------------------------------------------------
 
@@ -142,9 +168,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'tsTJhv5STsrdiJbS8Cb3ypGgYGjQFopUn92yyth3Ke4eAFECdyX0oOvcljYM', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', '7IVtU8sz0BMK7ifAidaBCpdAFxeLjEzdStF51inf0Uu0l7mQHol4pIA4azlw', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'TErLviGKr55X5kMhQw6EMUUJIOBQXsNwnx7RmBsjVgjSI0tTpwRR2t8qbjTA', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'CyVos9el9LixJA2f8jST0oKhLiocrzBkWTw2xdfA7wdkcdQRNL8OgoHj55x8', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'TIY7s7tzgqJb0nqiF9EcrUUOgvUjvUxtNT9sNLf7Tf2Ngt0O6v0LvAdZGqY6', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -154,7 +180,8 @@ INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token
 -- Indexes for table `barang`
 --
 ALTER TABLE `barang`
-  ADD PRIMARY KEY (`idbarang`);
+  ADD PRIMARY KEY (`idbarang`),
+  ADD KEY `jenisid` (`idjenis`);
 
 --
 -- Indexes for table `detailuser`
@@ -162,6 +189,12 @@ ALTER TABLE `barang`
 ALTER TABLE `detailuser`
   ADD PRIMARY KEY (`iddetail`),
   ADD KEY `userdata` (`iduser`);
+
+--
+-- Indexes for table `jenisbarang`
+--
+ALTER TABLE `jenisbarang`
+  ADD PRIMARY KEY (`idjenis`);
 
 --
 -- Indexes for table `migrations`
@@ -191,13 +224,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `detailuser`
 --
 ALTER TABLE `detailuser`
-  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `jenisbarang`
+--
+ALTER TABLE `jenisbarang`
+  MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -215,11 +254,17 @@ ALTER TABLE `pembelian`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `barang`
+--
+ALTER TABLE `barang`
+  ADD CONSTRAINT `jenisid` FOREIGN KEY (`idjenis`) REFERENCES `jenisbarang` (`idjenis`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detailuser`

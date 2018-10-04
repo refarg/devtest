@@ -23,7 +23,7 @@
                         <div class="form-group{{ $errors->has('gambarbarang') ? ' has-error' : '' }}">
                         <label for="text" class="col-md-4 control-label">Gambar Barang</label>
                         <div class="col-md-6">
-                        <input type="file" id="inputgambar" class="validate form-control" name="gambarbarang" placeholder="Gambar Barang" onchange="loadFile(event)" />
+                        <input type="file" id="inputgambar" class="form-control" name="gambarbarang" placeholder="Gambar Barang" onchange="loadFile(event)" />
                         @if ($errors->has('gambarbarang'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('gambarbarang') }}</strong>
@@ -47,7 +47,17 @@
                             <div class="form-group{{ $errors->has('jenisbarang') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Jenis Barang</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="jenisbarang" placeholder="Jenis Barang" />
+                              <select class="form-control" name="jenisbarang">
+                                <option value="none" disabled selected>Pilih Jenis Barang</option>
+                                @foreach($disp as $data)
+                                <option value="{{$data->idjenis}}">{{$data->jenisbarang}}</option>
+                                @endforeach
+                              </select>
+                              @if ($errors->has('jenisbarang'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('jenisbarang') }}</strong>
+                                  </span>
+                              @endif
                             </div>
                             </div>
 

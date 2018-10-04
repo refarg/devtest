@@ -52,9 +52,9 @@ class RegisterController extends Controller
         'regex' => 'The :attribute requires capital letter and numbers.',
       ];
       $validator = Validator::make($data, [
-          'name' => 'required|string|max:255|min:6',
+          'name' => 'required|string|max:20',
           'email' => 'required|string|email|max:255|unique:users',
-          'password' => ['required','min:8','confirmed','regex:/^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,50})$/'],
+          'password' => ['required','max:8','confirmed','regex:/^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,50})$/'],
       ], $messages);
         return $validator;
 

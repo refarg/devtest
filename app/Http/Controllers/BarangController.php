@@ -12,11 +12,15 @@ use Illuminate\Support\Facades\Validator;
 use Redirect;
 use App\pembelian;
 use User;
+use App\jenisbarang;
 
 class BarangController extends Controller
 {
   public function redir() {
-  return view('registbarang');
+    $disp=DB::table('jenisbarang')
+          ->select('jenisbarang.*')
+          ->get();
+  return view('registbarang', compact('disp'));
   }
 
   public function insertBarang(Request $request){
@@ -26,7 +30,7 @@ class BarangController extends Controller
       if($request->file('gambar')==""){
         $insert = ([
               'namabarang' => $request->namabarang,
-              'jenisbarang' => $request->jenisbarang,
+              'idjenis' => $request->jenisbarang,
               'deskripsi' => $request->deskripsi,
               'stok' => $request->stok,
               'hargabarang' => $request->hargabarang,
@@ -38,13 +42,14 @@ class BarangController extends Controller
       $request->file('gambarbarang')->move("image/", $fileName);
       $insert = ([
             'namabarang' => $request->namabarang,
-            'jenisbarang' => $request->jenisbarang,
+            'idjenis' => $request->jenisbarang,
             'deskripsi' => $request->deskripsi,
             'stok' => $request->stok,
             'hargabarang' => $request->hargabarang,
             'gambarbarang' => $request->file('gambarbarang')->getClientOriginalName(),
             ]);
     }
+    //dd($insert);
           barang::create($insert);
           return redirect('viewbarang');
     }
@@ -102,7 +107,7 @@ public function validator(Request $request)
       'namabarang' => 'required|string|max:255',
       'jenisbarang' => 'required|string|max:255',
       'deskripsi' => 'required|string',
-      'stok' => 'required|integer',
+      'stok' => 'required|integer|min:0',
       'hargabarang' => 'required|integer',
       'gambarbarang' => 'mimes:jpeg,bmp,png',
     ];
@@ -132,12 +137,18 @@ public function viewBeliuser(Request $request){
 }
 
   public function viewBarang(Request $request){
-        $tampil= barang::all();
+      $tampil=DB::table('barang')
+              ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
+              ->select('barang.*', 'jenisbarang.*')
+              ->get();
         return view('viewbarang',compact('tampil'));
   }
 
   public function viewBarangmod(Request $request){
-        $tampil= barang::all();
+    $tampil=DB::table('barang')
+            ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
+            ->select('barang.*', 'jenisbarang.*')
+            ->get();
         return view('viewbarangmod',compact('tampil'));
   }
 
@@ -148,13 +159,36 @@ public function viewBeliuser(Request $request){
   }
 
   public function viewBarangUser(Request $request){
-        $tampil= barang::all();
+    $tampil=DB::table('barang')
+            ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
+            ->select('barang.*', 'jenisbarang.*')
+            ->get();
         return view('viewbarangm',compact('tampil'));
   }
 
   public function geteditBarang($id){
         $edit= barang::find($id);
-        return view('editbarang',compact('edit'));
+        // $edit=DB::table('barang')
+        //         ->join('jenisbarang', 'jenisbarang.idjenis', '=', 'barang.idjenis')
+        //         ->select('barang.*')
+        //         ->where('barang.idbarang','=',$id)
+        //         ->get();
+        //dd($edit);
+
+         // $getjen=DB::table('jenisbarang')
+         //       ->select('jenisbarang.*')
+         //       ->where('jenisbarang.idjenis','=',$edit->idjenis)
+         //       ->get();
+
+         $getjen = jenisbarang::find($edit->idjenis);
+
+         $disp=DB::table('jenisbarang')
+               ->select('jenisbarang.*')
+               ->get();
+
+        //dd($getjen);
+        //dd($edit , $disp, $getjen);
+        return view('editbarang',compact('edit', 'disp' ,'getjen'));
   }
 
   public function hapusBarang($id){
@@ -169,7 +203,7 @@ public function viewBeliuser(Request $request){
     if($validator->passes())
     {
       $edit->namabarang= $request->namabarang;
-      $edit->jenisbarang= $request->jenisbarang;
+      $edit->idjenis= $request->jenisbarang;
       $edit->deskripsi= $request->deskripsi;
       $edit->stok= $request->stok;
       $edit->hargabarang= $request->hargabarang;

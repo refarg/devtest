@@ -2,7 +2,7 @@
 <script src="{{asset('js/jquery.matchHeight-min.js')}}"></script>
 <script>
 $(function() {
-    $(".btnsumbit").attr("disabled", true);
+    $(".btnsumbit").attr("disabled", false);
     $('.box').matchHeight();
     $('.cap').matchHeight();
 });

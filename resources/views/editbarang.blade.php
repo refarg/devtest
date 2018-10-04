@@ -8,7 +8,6 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Update Barang</div>
-
                 <div class="panel-body">
                     <form class="form-horizontal" enctype="multipart/form-data" action="/updateBarang/{{$edit->idbarang}}" method="POST">
                         {{ csrf_field() }}
@@ -54,12 +53,19 @@
                             <div class="form-group{{ $errors->has('jenisbarang') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Jenis Barang</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="jenisbarang" value="{{$edit->jenisbarang}}" />
-                            @if ($errors->has('jenisbarang'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('jenisbarang') }}</strong>
-                                </span>
-                            @endif
+                              <select id="dropdown" class="form-control" name="jenisbarang">
+                                <option value="{{$getjen->idjenis}}" selected>{{$getjen->jenisbarang}}</option>
+                                @foreach($disp as $qtl)
+                                @if($qtl->idjenis != $getjen->idjenis)
+                                <option value="{{$qtl->idjenis}}">{{$qtl->jenisbarang}}</option>
+                                @endif
+                                @endforeach
+                              </select>
+                              @if ($errors->has('jenisbarang'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('jenisbarang') }}</strong>
+                                  </span>
+                              @endif
                             </div>
                             </div>
 

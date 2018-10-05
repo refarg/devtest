@@ -33,7 +33,7 @@ $(function() {
   										</tr>
                     @foreach($tampil as $data)
 										<tr>
-											<td class="text-center text-nowrap">{{$data->namabarang}}</td>
+											<td class="text-center text-nowrap"><a href="/viewbarang/{{$data->idbarang}}" title="Melihat Barang">{{$data->namabarang}}</a></td>
 											<td class="text-center text-nowrap">{{$data->jenisbarang}}</td>
 											<td class="text-center text-nowrap">{{$data->deskripsi}}</td>
 											<td class="text-center text-nowrap">{{$data->stok}}</td>

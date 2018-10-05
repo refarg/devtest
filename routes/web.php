@@ -24,6 +24,10 @@ Route::get('/registbarang','BarangController@redir')->middleware('auth', 'ceksta
 //Route::get('/insertBarang','BarangController');
 Route::post('/insertBarang','BarangController@insertBarang')->middleware('auth', 'cekstat');
 Route::get('/viewbarang','BarangController@viewBarang')->middleware('auth', 'cekstat');
+Route::get('/viewbarang/{id}','BarangController@viewBarangSatuan')->middleware('auth');
+Route::post('/postkomen/{id}','BarangController@postkomen')->middleware('auth');
+Route::post('/editkomen/{id}','BarangController@editkomen')->middleware('auth');
+Route::get('/hapuskomentar/{id}','BarangController@hapuskom')->middleware('auth');
 Route::get('/viewbarangmod','BarangController@viewBarangmod')->middleware('auth', 'cekstat');
 Route::get('/viewbarangm','BarangController@viewBarangUser');
 Route::post('/updateuser/{id}','UserController@updateProfile')->middleware('auth');

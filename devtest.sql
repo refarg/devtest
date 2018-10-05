@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2018 at 11:50 AM
+-- Generation Time: Oct 05, 2018 at 06:02 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -95,6 +95,30 @@ INSERT INTO `jenisbarang` (`idjenis`, `jenisbarang`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `komentarbarang`
+--
+
+CREATE TABLE `komentarbarang` (
+  `idkomentar` int(11) NOT NULL,
+  `idbarang` int(11) NOT NULL,
+  `iduser` int(10) NOT NULL,
+  `komentar` varchar(255) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `komentarbarang`
+--
+
+INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`) VALUES
+(1, 4, 1, 'blablabla'),
+(2, 5, 2, 'tessss'),
+(3, 6, 6, 'coba'),
+(4, 7, 7, 'ngetes'),
+(5, 4, 2, 'coba');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -167,8 +191,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'tsTJhv5STsrdiJbS8Cb3ypGgYGjQFopUn92yyth3Ke4eAFECdyX0oOvcljYM', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'TErLviGKr55X5kMhQw6EMUUJIOBQXsNwnx7RmBsjVgjSI0tTpwRR2t8qbjTA', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', '3E34akjTCbsOfUhzsZ5PK3g0ZEGGzFQKLshKSlRexw0tIjH3khuclUDEmrN4', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'b5tKXNGhauXqed8r8X55DbSL574P4qUDhD9WVzyGrTT3QjDnNcXH0NfoUerV', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
 (7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'TIY7s7tzgqJb0nqiF9EcrUUOgvUjvUxtNT9sNLf7Tf2Ngt0O6v0LvAdZGqY6', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
@@ -195,6 +219,12 @@ ALTER TABLE `detailuser`
 --
 ALTER TABLE `jenisbarang`
   ADD PRIMARY KEY (`idjenis`);
+
+--
+-- Indexes for table `komentarbarang`
+--
+ALTER TABLE `komentarbarang`
+  ADD PRIMARY KEY (`idkomentar`);
 
 --
 -- Indexes for table `migrations`
@@ -237,6 +267,12 @@ ALTER TABLE `detailuser`
 --
 ALTER TABLE `jenisbarang`
   MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `komentarbarang`
+--
+ALTER TABLE `komentarbarang`
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`

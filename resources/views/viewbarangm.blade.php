@@ -38,7 +38,6 @@ $(function() {
 <div class="row">
 @foreach($tampil as $data)
 <div class="col-sm-6 col-md-4">
-<form class="tr" method="post" action="/belibarang/{{$data->idbarang}}">
   {{ csrf_field() }}
     <div class="thumbnail box">
       @if(is_null($data->gambarbarang))
@@ -55,21 +54,8 @@ $(function() {
         <p>Stok: {{$data->stok}} buah</p>
         <p>Harga: Rp. {{number_format($data->hargabarang)}}</p>
       </div>
-      @if($data->stok==0)
-      <a href="" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalKosong">Stok Kosong</a>
-      @elseif($data->stok>0)
-      <div class="row">
-      <div class="col-xs-6">
-      <input type="text" class="form-control" name="jumlahbarang" placeholder="Jumlah yang ingin dibeli" required/>
+      <a href="/viewbarang/{{$data->idbarang}}" title="Lihat {{$data->namabarang}}" class="btn btn-primary btn-block">Lihat Barang</a>
     </div>
-    <div class="col-xs-6">
-      <input type="hidden" class="form-control" name="idbarang" value="{{$data->idbarang}}" readonly/>
-      <button type="submit" class="btn btn-primary btn-block">Beli</button>
-    </div>
-  </div>
-      @endif
-    </div>
-</form>
 </div>
 @endforeach
 </div>
@@ -79,23 +65,5 @@ $(function() {
             </div>
         </div>
     </div>
-</div>
-<div class="modal fade" id="modalKosong" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Barang Habis</h4>
-      </div>
-      <div class="modal-body">
-        <p>Stok barang yang anda pilih kosong.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-      </div>
-    </div>
-  </div>
 </div>
 @endsection

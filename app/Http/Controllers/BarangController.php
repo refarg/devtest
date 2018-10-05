@@ -13,6 +13,7 @@ use Redirect;
 use App\pembelian;
 use User;
 use App\jenisbarang;
+use App\KomentarBarang;
 
 class BarangController extends Controller
 {
@@ -142,6 +143,51 @@ public function viewBeliuser(Request $request){
               ->select('barang.*', 'jenisbarang.*')
               ->get();
         return view('viewbarang',compact('tampil'));
+  }
+
+  public function viewBarangSatuan(Request $request,$id){
+      $show=DB::table('barang')
+              ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
+              ->select('barang.*', 'jenisbarang.*')
+              ->where('barang.idbarang','=',$id)
+              ->first();
+
+      $komeng=DB::table('komentarbarang')
+              ->join('users','komentarbarang.iduser','=','users.id')
+              ->select('komentarbarang.*', 'users.name')
+              ->where('komentarbarang.idbarang','=',$id)
+              ->get();
+
+              //dd($show, $komeng);
+        return view('viewbarangsat',compact('show','komeng'));
+  }
+
+  public function postkomen(Request $request, $id){
+    $insert=([
+          'idbarang' => $id,
+          'iduser' => Auth::user()->id,
+          'komentar' => $request->komentar,
+          ]);
+
+          KomentarBarang::create($insert);
+          return Redirect::back();
+
+  }
+
+  public function hapuskom(Request $request, $id){
+    $del = KomentarBarang::find($id);
+    //dd($del);
+    $del->delete();
+          return Redirect::back();
+
+  }
+
+  public function editkomen(Request $request, $id){
+    $edit = KomentarBarang::find($id);
+    //dd($edit);
+    $edit->komentar = $request->komentar;
+    $edit->save();
+          return Redirect::back();
   }
 
   public function viewBarangmod(Request $request){

@@ -1,6 +1,3 @@
-@section('js')
-<script src="{{asset('js/loadgam.js')}}" type="text/javascript"></script>
-@endsection
 @extends('layouts.app')
 @section('content')
 <div class="container">
@@ -19,9 +16,9 @@
                           @elseif( $show->gambarbarang == '')
                           <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
                           @else
-                          <img src="{{ asset('image/'.$show->gambarbarang) }}" id="showgambar" alt="Gambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="{{ asset('image/'.$show->gambarbarang) }}" alt="Gambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
                           @endif
-                            <p class="text-center" style="font-weight:bold;">Preview Gambar</p>
+                            <p class="text-center" style="font-weight:bold;">Contoh Barang</p>
                         </div>
                       </div>
 
@@ -92,17 +89,17 @@
                             @if($show->stok==0)
                             <a href="" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalKosong">Stok Kosong</a>
                             @elseif($show->stok>0)
-                            <input type="text" class="form-control" name="jumlahbarang" placeholder="Jumlah yang ingin dibeli" required/>
-                            <input type="hidden" class="form-control" name="idbarang" value="{{$show->idbarang}}" readonly/>
+                            <input type="number" min="1" max="{{$show->stok}}" class="form-control" name="jumlahbarang" placeholder="Jumlah barang yang ingin dibeli" required/>
                             @endif
                             </div>
                         </div>
-
+                        @if($show->stok>0)
                         <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                         <button type="submit" class="btn btn-primary btn-block">Beli</button>
                         </div>
                         </div>
+                        @endif
                             </form>
                       </div>
                 </div>
@@ -114,7 +111,7 @@
   <div class="panel panel-default col-sm-8 col-md-offset-2">
 <div class="row">
 <div class="col-sm-8 col-md-offset-0">
-<h3>Komentar Pembeli</h3>
+<h3>Komentar</h3>
 </div>
 </div>
 @foreach($komeng as $komen)
@@ -127,14 +124,16 @@
 
 <div class="col-sm-10 col-md-offset-0">
 <div class="panel panel-default">
-<div class="panel-heading">
-<strong>{{$komen->name}}</strong> <span class="text-muted float-right">commented 5 days ago</span>
+<div class="panel-heading clearfix">
+<strong>{{$komen->name}}</strong> <span class="text-muted">dikirim pada {{date("d M Y H:i:s", strtotime($komen->updated_at))}}</span>
+<div class="pull-right">
 @if(Auth::User()->id==$komen->iduser)
-<span class="text-muted"><a data-toggle="modal" data-target="#modalEdit{{$loop->iteration}}" class="btn-sm btn-primary float-right">Edit</a></span>
-<span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger float-right">Hapus</a></span>
+<span class="text-muted"><a data-toggle="modal" data-target="#modalEdit{{$loop->iteration}}" class="btn-sm btn-primary">Edit</a></span>
+<span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger">Hapus</a></span>
 @elseif(Auth::User()->level==1)
-<span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger float-right">Hapus (Admin)</a></span>
+<span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger">Hapus (Admin)</a></span>
 @endif
+</div>
 </div>
 <div class="panel-body">
 {{$komen->komentar}}
@@ -142,7 +141,7 @@
 </div>
 </div>
 </div>
-
+@if(Auth::User()->id==$komen->iduser)
 <div class="modal fade" id="modalEdit{{$loop->iteration}}" role="dialog">
   <div class="modal-dialog">
 
@@ -164,7 +163,7 @@
     </div>
   </div>
 </div>
-
+@endif
 <div class="modal fade" id="modalHapus{{$loop->iteration}}" role="dialog">
   <div class="modal-dialog">
 

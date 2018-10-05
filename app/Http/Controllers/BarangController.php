@@ -14,6 +14,7 @@ use App\pembelian;
 use User;
 use App\jenisbarang;
 use App\KomentarBarang;
+use Illuminate\Support\Facades\Crypt;
 
 class BarangController extends Controller
 {
@@ -63,21 +64,22 @@ class BarangController extends Controller
 
 }
 
-public function beliBarang(Request $request){
+public function beliBarang(Request $request, $id){
   $insert = ([
-        'idbarang' => $request->idbarang,
+        'idbarang' => Crypt::decryptString($id),
         'iduser' => Auth::user()->id,
         'jumlahbarang' => $request->jumlahbarang,
         ]);
         pembelian::create($insert);
 
 $sto = barang::select('idbarang','stok')
-->where('idbarang','=',$request->idbarang)
+->where('idbarang','=',Crypt::decryptString($id))
 ->first();
-        $edit =barang::find($request->idbarang);
+        $edit =barang::find(Crypt::decryptString($id));
         $edit->stok= $sto->stok - $request->jumlahbarang;
+        //dd($insert, $sto);
         $edit->save();
-        return redirect('viewbarangm');
+        return Redirect::back();
 }
 
 public function batalBeli(Request $request, $id){
@@ -151,7 +153,7 @@ public function viewBeliuser(Request $request){
               ->select('barang.*', 'jenisbarang.*')
               ->where('barang.idbarang','=',$id)
               ->first();
-
+      $show->idbarang=Crypt::encryptString($show->idbarang);
       $komeng=DB::table('komentarbarang')
               ->join('users','komentarbarang.iduser','=','users.id')
               ->select('komentarbarang.*', 'users.name')
@@ -164,7 +166,7 @@ public function viewBeliuser(Request $request){
 
   public function postkomen(Request $request, $id){
     $insert=([
-          'idbarang' => $id,
+          'idbarang' => Crypt::decryptString($id),
           'iduser' => Auth::user()->id,
           'komentar' => $request->komentar,
           ]);
@@ -175,19 +177,25 @@ public function viewBeliuser(Request $request){
   }
 
   public function hapuskom(Request $request, $id){
-    $del = KomentarBarang::find($id);
+$del = KomentarBarang::find($id);
+    if (Auth::user()->level==1 || Auth::user()->id==$del->iduser) {
     //dd($del);
     $del->delete();
           return Redirect::back();
-
+}
   }
 
   public function editkomen(Request $request, $id){
     $edit = KomentarBarang::find($id);
+    if (Auth::user()->id==$edit->iduser) {
     //dd($edit);
     $edit->komentar = $request->komentar;
     $edit->save();
           return Redirect::back();
+    }
+    else{
+      return 'hayo';
+    }
   }
 
   public function viewBarangmod(Request $request){
@@ -209,6 +217,7 @@ public function viewBeliuser(Request $request){
             ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
             ->select('barang.*', 'jenisbarang.*')
             ->get();
+    //dd($tampil);
         return view('viewbarangm',compact('tampil'));
   }
 

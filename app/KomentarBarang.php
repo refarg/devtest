@@ -11,5 +11,5 @@ class KomentarBarang extends Model
   protected $fillable = [
       'idbarang','iduser','komentar'
   ];
-  public $timestamps=false;
+  public $timestamps=true;
 }

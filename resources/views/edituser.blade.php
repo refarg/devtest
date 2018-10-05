@@ -42,7 +42,7 @@ $("#confirmedit").click(function(){
                       <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                       <label for="text" class="col-md-4 control-label">Avatar</label>
                       <div class="col-md-6">
-                      <input type="file" id="inputgambar" class="form-control" name="avatar" placeholder="Avatar" onchange="loadFile(event)" />
+                      <input type="file" accept="image/*" id="inputgambar" class="form-control" name="avatar" placeholder="Avatar" onchange="loadFile(event)" />
                       @if ($errors->has('avatar'))
                           <span class="help-block">
                               <strong>{{ $errors->first('avatar') }}</strong>
@@ -78,7 +78,7 @@ $("#confirmedit").click(function(){
                             <div class="form-group{{ $errors->has('nomorponsel') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Nomor Ponsel</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="nomorponsel" value="{{$edit->nomorponsel}}" />
+                            <input type="number" min="0" class="form-control" name="nomorponsel" value="{{$edit->nomorponsel}}" />
                             @if ($errors->has('nomorponsel'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nomorponsel') }}</strong>

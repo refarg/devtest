@@ -23,7 +23,7 @@
                         <div class="form-group{{ $errors->has('gambarbarang') ? ' has-error' : '' }}">
                         <label for="text" class="col-md-4 control-label">Gambar Barang</label>
                         <div class="col-md-6">
-                        <input type="file" id="inputgambar" class="form-control" name="gambarbarang" placeholder="Gambar Barang" onchange="loadFile(event)" />
+                        <input type="file" accept="image/*" id="inputgambar" class="form-control" name="gambarbarang" placeholder="Gambar Barang" onchange="loadFile(event)" />
                         @if ($errors->has('gambarbarang'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('gambarbarang') }}</strong>
@@ -76,7 +76,7 @@
                             <div class="form-group{{ $errors->has('stok') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Stok</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="stok" placeholder="Stok"/>
+                            <input type="number" min="1" class="form-control" name="stok" placeholder="Stok"/>
                             @if ($errors->has('stok'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('stok') }}</strong>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2018 at 06:02 AM
+-- Generation Time: Oct 05, 2018 at 04:17 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -43,8 +43,8 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
-(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 20, 100000, 'download.jpg'),
-(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 290, 300000, 'maxresdefault.jpg'),
+(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 16, 100000, 'download.jpg'),
+(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 286, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
 (7, 'Mencoba', 2, 'Tes', 10, 90000, 'pexels-photo-206673.jpeg');
 
@@ -69,7 +69,7 @@ CREATE TABLE `detailuser` (
 
 INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorponsel`, `avatar`) VALUES
 (1, 1, 'Refardo', 'Jl. Kenongo', '085465123546', NULL),
-(2, 2, 'Mimin ilapyu', 'Jl. Tes', '083851016003', 'blank-profile-picture-973460_960_720.png'),
+(2, 2, 'Mimin ilapyu', 'Jl. Tes', '083851016002', 'blank-profile-picture-973460_960_720.png'),
 (3, 6, 'Masedo', 'nganu', '085465412326', 'blank-profile-picture-973460_960_720.png'),
 (4, 7, 'Josep', 'Jl. Masteng', '089832192857', NULL);
 
@@ -102,19 +102,21 @@ CREATE TABLE `komentarbarang` (
   `idkomentar` int(11) NOT NULL,
   `idbarang` int(11) NOT NULL,
   `iduser` int(10) NOT NULL,
-  `komentar` varchar(255) COLLATE utf8_bin NOT NULL
+  `komentar` varchar(255) COLLATE utf8_bin NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `komentarbarang`
 --
 
-INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`) VALUES
-(1, 4, 1, 'blablabla'),
-(2, 5, 2, 'tessss'),
-(3, 6, 6, 'coba'),
-(4, 7, 7, 'ngetes'),
-(5, 4, 2, 'coba');
+INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, 'blablabla', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
+(2, 5, 2, 'tessss', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
+(3, 6, 6, 'coba', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
+(4, 7, 7, 'ngetes', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
+(5, 4, 2, 'nganu', '2018-10-05 13:15:12', '2018-10-05 06:15:12');
 
 -- --------------------------------------------------------
 
@@ -167,7 +169,13 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `created_at`, `updated_at`) VALUES
-(4, 4, 1, 30, '2018-10-01 03:17:53', '0000-00-00 00:00:00');
+(4, 4, 1, 30, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
+(8, 5, 7, 20, '2018-10-05 04:03:35', '2018-10-05 04:03:35'),
+(9, 4, 7, 2, '2018-10-05 04:24:49', '2018-10-05 04:24:49'),
+(10, 4, 7, 2, '2018-10-05 04:25:13', '2018-10-05 04:25:13'),
+(11, 5, 7, 4, '2018-10-05 04:25:46', '2018-10-05 04:25:46'),
+(12, 4, 2, 2, '2018-10-05 04:36:22', '2018-10-05 04:36:22'),
+(13, 4, 2, 2, '2018-10-05 04:36:52', '2018-10-05 04:36:52');
 
 -- --------------------------------------------------------
 
@@ -191,10 +199,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', '3E34akjTCbsOfUhzsZ5PK3g0ZEGGzFQKLshKSlRexw0tIjH3khuclUDEmrN4', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'b5tKXNGhauXqed8r8X55DbSL574P4qUDhD9WVzyGrTT3QjDnNcXH0NfoUerV', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'JY6R20uJj2ZeHF2RIJHLQGMOU5hTYbVsefGsbXWnvjOCmT1AnWnvw71oAv0C', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'llf1k64tLt7DmMKZtpxM04r3GQ7eRsDzWii7MJCF2IKMGgekWyhmKdU036iz', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'TIY7s7tzgqJb0nqiF9EcrUUOgvUjvUxtNT9sNLf7Tf2Ngt0O6v0LvAdZGqY6', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'lBeoSWwWGRDYsxLfhsrR5Fsfonf9DiAiwEfEykH9k7B95MWbwJrInEg7dZTk', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -224,7 +232,9 @@ ALTER TABLE `jenisbarang`
 -- Indexes for table `komentarbarang`
 --
 ALTER TABLE `komentarbarang`
-  ADD PRIMARY KEY (`idkomentar`);
+  ADD PRIMARY KEY (`idkomentar`),
+  ADD KEY `idbarang` (`idbarang`),
+  ADD KEY `iduser` (`iduser`);
 
 --
 -- Indexes for table `migrations`
@@ -272,7 +282,7 @@ ALTER TABLE `jenisbarang`
 -- AUTO_INCREMENT for table `komentarbarang`
 --
 ALTER TABLE `komentarbarang`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -284,7 +294,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -307,6 +317,13 @@ ALTER TABLE `barang`
 --
 ALTER TABLE `detailuser`
   ADD CONSTRAINT `userdata` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `komentarbarang`
+--
+ALTER TABLE `komentarbarang`
+  ADD CONSTRAINT `komentarbarang_ibfk_1` FOREIGN KEY (`idbarang`) REFERENCES `barang` (`idbarang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `komentarbarang_ibfk_2` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pembelian`

@@ -53,7 +53,7 @@ $(function() {
       <img src="{{ asset('image/'.$data->gambarbarang) }}" alt="..." />
       @endif
       <div class="caption cap">
-        <h3>{{$data->namabarang}}</h3>
+        <h3><a href="/viewbarang/{{$data->idbarang}}">{{$data->namabarang}}</a></h3>
         <p>Jenis: {{$data->jenisbarang}}</p>
         <p>Deskripsi: {{$data->deskripsi}}</p>
         <p>Stok: {{$data->stok}} buah</p>

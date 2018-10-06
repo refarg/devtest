@@ -14,6 +14,7 @@ use App\pembelian;
 use User;
 use App\jenisbarang;
 use App\KomentarBarang;
+use App\replykomentarbarang;
 use Illuminate\Support\Facades\Crypt;
 
 class BarangController extends Controller
@@ -66,16 +67,16 @@ class BarangController extends Controller
 
 public function beliBarang(Request $request, $id){
   $insert = ([
-        'idbarang' => Crypt::decryptString($id),
+        'idbarang' => $id,
         'iduser' => Auth::user()->id,
         'jumlahbarang' => $request->jumlahbarang,
         ]);
         pembelian::create($insert);
 
 $sto = barang::select('idbarang','stok')
-->where('idbarang','=',Crypt::decryptString($id))
+->where('idbarang','=',$id)
 ->first();
-        $edit =barang::find(Crypt::decryptString($id));
+        $edit =barang::find($id);
         $edit->stok= $sto->stok - $request->jumlahbarang;
         //dd($insert, $sto);
         $edit->save();
@@ -123,7 +124,7 @@ public function viewBeliadmin(Request $request){
       $tampil=DB::table('pembelian')
             ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
             ->join('users', 'pembelian.iduser', '=', 'users.id')
-            ->select('pembelian.*', 'barang.*', 'users.*' , DB::raw('jumlahbarang*hargabarang as total'))
+            ->select('pembelian.*', 'barang.*', 'users.name' , DB::raw('jumlahbarang*hargabarang as total'))
             ->get();
       return view('daftarbeli',compact('tampil'));
 }
@@ -133,7 +134,7 @@ public function viewBeliuser(Request $request){
       $tampil=DB::table('pembelian')
             ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
             ->join('users', 'pembelian.iduser', '=', 'users.id')
-            ->select('pembelian.*', 'barang.*', 'users.*' , DB::raw('jumlahbarang*hargabarang as total'))
+            ->select('pembelian.*', 'barang.*', 'users.name' , DB::raw('jumlahbarang*hargabarang as total'))
             ->where('pembelian.iduser','=',Auth::user()->id)
             ->get();
       return view('daftarbeliuser',compact('tampil'));
@@ -147,26 +148,41 @@ public function viewBeliuser(Request $request){
         return view('viewbarang',compact('tampil'));
   }
 
+  public function viewBarangUser(Request $request){
+    $tampil=DB::table('barang')
+            ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
+            ->select('barang.*', 'jenisbarang.*')
+            ->get();
+    //dd($tampil);
+        return view('viewbarangm',compact('tampil'));
+  }
+
   public function viewBarangSatuan(Request $request,$id){
       $show=DB::table('barang')
               ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
               ->select('barang.*', 'jenisbarang.*')
               ->where('barang.idbarang','=',$id)
               ->first();
-      $show->idbarang=Crypt::encryptString($show->idbarang);
       $komeng=DB::table('komentarbarang')
               ->join('users','komentarbarang.iduser','=','users.id')
               ->select('komentarbarang.*', 'users.name')
               ->where('komentarbarang.idbarang','=',$id)
               ->get();
+      $replykom=DB::table('replykomentarbarang')
+              ->join('users','replykomentarbarang.iduser','=','users.id')
+              ->join('komentarbarang','komentarbarang.idkomentar','=','replykomentarbarang.idkomentar')
+              ->select('replykomentarbarang.*', 'users.name')
+              ->where([['komentarbarang.idbarang','=',$id]])
+              ->get();
 
-              //dd($show, $komeng);
-        return view('viewbarangsat',compact('show','komeng'));
+              //dd($komeng, $replykom);
+              //dd($show, $komeng, $replykom);
+        return view('viewbarangsat',compact('show','komeng','replykom'));
   }
 
   public function postkomen(Request $request, $id){
     $insert=([
-          'idbarang' => Crypt::decryptString($id),
+          'idbarang' => $id,
           'iduser' => Auth::user()->id,
           'komentar' => $request->komentar,
           ]);
@@ -198,6 +214,40 @@ $del = KomentarBarang::find($id);
     }
   }
 
+  public function postreply(Request $request, $idkomen){
+    $insert=([
+          'idkomentar' => $idkomen,
+          'iduser' => Auth::user()->id,
+          'replykomentar' => $request->replykom,
+          ]);
+    //dd($insert);
+          replykomentarbarang::create($insert);
+          return Redirect::back();
+
+  }
+
+  public function hapusreply(Request $request, $id){
+$del = replykomentarbarang::find($id);
+    if (Auth::user()->level==1 || Auth::user()->id==$del->iduser) {
+    //dd($del);
+    $del->delete();
+          return Redirect::back();
+}
+  }
+
+  public function editreply(Request $request, $id){
+    $edit = replykomentarbarang::find($id);
+    if (Auth::user()->id==$edit->iduser) {
+    //dd($edit);
+    $edit->replykomentar = $request->replykomentar;
+    $edit->save();
+          return Redirect::back();
+    }
+    else{
+      return 'hayo';
+    }
+  }
+
   public function viewBarangmod(Request $request){
     $tampil=DB::table('barang')
             ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
@@ -210,15 +260,6 @@ $del = KomentarBarang::find($id);
         $edit= barang::find($id);
         $edit->delete();
         return redirect('viewbarangmod');
-  }
-
-  public function viewBarangUser(Request $request){
-    $tampil=DB::table('barang')
-            ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
-            ->select('barang.*', 'jenisbarang.*')
-            ->get();
-    //dd($tampil);
-        return view('viewbarangm',compact('tampil'));
   }
 
   public function geteditBarang($id){

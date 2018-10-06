@@ -14,7 +14,7 @@
                     @endif
 
                     You are logged in as {{ Auth::user()->name }}!<br>
-                    <a href="/viewbarangm">Lihat Barang</a><br>
+                    <a href="/viewbarang">Lihat Barang</a><br>
                     <a href="/listbeli">Lihat Barang yang dibeli</a>
                 </div>
             </div>

@@ -1,4 +1,23 @@
 @extends('layouts.app')
+@section('js')
+@foreach($komeng as $komen)
+<script>
+$(".reply{{$komen->idkomentar}}").hide();
+$("#reply{{$komen->idkomentar}}").click(function(){
+$(".reply{{$komen->idkomentar}}").toggle(0,$(".komm").hide(),$(".btnko").show());
+});
+</script>
+@endforeach
+<script>
+$(".btnko").hide();
+$(".btnko").click(function(){
+    $(".rep").hide();
+    $(".komm").show();
+    $(".btnko").hide();
+});
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -127,11 +146,14 @@
 <div class="panel-heading clearfix">
 <strong>{{$komen->name}}</strong> <span class="text-muted">dikirim pada {{date("d M Y H:i:s", strtotime($komen->updated_at))}}</span>
 <div class="pull-right">
+@if(!Auth::guest())
+<span class="text-muted"><a id="reply{{$komen->idkomentar}}" class="btnrp btn-sm btn-success">Balas</a></span>
 @if(Auth::User()->id==$komen->iduser)
 <span class="text-muted"><a data-toggle="modal" data-target="#modalEdit{{$loop->iteration}}" class="btn-sm btn-primary">Edit</a></span>
 <span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger">Hapus</a></span>
 @elseif(Auth::User()->level==1)
 <span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger">Hapus (Admin)</a></span>
+@endif
 @endif
 </div>
 </div>
@@ -141,7 +163,96 @@
 </div>
 </div>
 </div>
-@if(Auth::User()->id==$komen->iduser)
+@if(!Auth::guest())
+<div class="col-sm-12 rep reply{{$komen->idkomentar}}">
+  <div class="panel panel-default">
+<div class="panel-heading">Tambahkan Balasan Komentar sebagai {{Auth::user()->name}}</div>
+<div class="panel-body">
+  <form class="form-horizontal" enctype="multipart/form-data" action="/postreply/{{$komen->idkomentar}}" method="POST">
+    {{csrf_field()}}
+  <textarea class="form-control" rows="5" id="comment" name="replykom"></textarea>
+  <button type="submit" class="pull-right btn btn-primary float-right">Submit</button>
+  </form>
+</div>
+  </div>
+</div>
+@endif
+@foreach($replykom as $reply)
+@if($reply->idkomentar==$komen->idkomentar)
+<div class="row">
+<div class="col-sm-2 col-md-offset-1">
+<div class="thumbnail">
+<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+</div>
+</div>
+
+<div class="col-sm-9 col-md-offset-0">
+<div class="panel panel-default">
+<div class="panel-heading clearfix">
+<strong>{{$reply->name}}</strong> <span class="text-muted">dikirim pada {{date("d M Y H:i:s", strtotime($reply->created_at))}}</span>
+<div class="pull-right">
+@if(Auth::guest())
+@elseif(Auth::User()->id==$reply->iduser)
+<span class="text-muted"><a data-toggle="modal" data-target="#modalEditReply{{$loop->iteration}}" class="btn-sm btn-primary">Edit</a></span>
+<span class="text-muted"><a data-toggle="modal" data-target="#modalHapusReply{{$loop->iteration}}" class="btn-sm btn-danger">Hapus</a></span>
+@endif
+</div>
+</div>
+<div class="panel-body">
+{{$reply->replykomentar}}
+</div>
+</div>
+</div>
+</div>
+
+@if(!Auth::guest() && Auth::User()->id==$reply->iduser)
+<div class="modal fade" id="modalEditReply{{$loop->iteration}}" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form class="form-horizontal" enctype="multipart/form-data" action="/editreply/{{$reply->idreply}}" method="POST">
+        {{csrf_field()}}
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Mengedit Komentar Balasan</h4>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control" rows="5" id="comment" name="replykomentar">{{$reply->replykomentar}}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button> <button type="submit" class="btnsumbit btn btn-primary">Simpan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endif
+@if(!Auth::guest() && Auth::User()->id==$reply->iduser)
+<div class="modal fade" id="modalHapusReply{{$loop->iteration}}" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Konfirmasi Hapus Komentar Balasan</h4>
+      </div>
+      <div class="modal-body">
+        <p>Anda hendak menghapus komentar balasan<br>
+          Ingin melanjutkan?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btnsumbit btn btn-danger" onclick="location.href='/hapusreply/{{$reply->idreply}}';">Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+@endif
+@endforeach
+@if(!Auth::guest() && Auth::User()->id==$komen->iduser)
 <div class="modal fade" id="modalEdit{{$loop->iteration}}" role="dialog">
   <div class="modal-dialog">
 
@@ -164,6 +275,7 @@
   </div>
 </div>
 @endif
+@if(!Auth::guest() && Auth::User()->id==$komen->iduser)
 <div class="modal fade" id="modalHapus{{$loop->iteration}}" role="dialog">
   <div class="modal-dialog">
 
@@ -183,15 +295,22 @@
     </div>
   </div>
 </div>
+@endif
 @endforeach
-<div class="col-sm-12">
+@if(!Auth::guest())
+<div class="btnko col-sm-12">
+  <div class="panel panel-default">
+<button type="button" class="btn btn-primary btn-block">Tampilkan Kotak Komentar</button>
+</div>
+</div>
+<div class="col-sm-12 komm">
   <div class="panel panel-default">
 <div class="panel-heading">Tambahkan Komentar sebagai {{Auth::user()->name}}</div>
 <div class="panel-body">
   <form class="form-horizontal" enctype="multipart/form-data" action="/postkomen/{{$show->idbarang}}" method="POST">
     {{csrf_field()}}
   <textarea class="form-control" rows="5" id="comment" name="komentar"></textarea>
-  <button type="submit" class="btn btn-primary float-right">Submit</button>
+  <button type="submit" class="pull-right btn btn-primary float-right">Submit</button>
   </form>
 </div>
   </div>
@@ -199,4 +318,5 @@
 </div>
 </div>
 </div>
+@endif
 @endsection

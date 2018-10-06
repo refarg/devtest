@@ -15,6 +15,7 @@
     @yield('css')
 </head>
 <body>
+
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -56,7 +57,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/viewbarangm') }}">Lihat Barang</a></li>
+                                <li><a href="{{ url('/viewbarang') }}">Lihat Barang</a></li>
                                 <li>
                                     <a href="{{ url('/listbeli') }}">
                                         Lihat Keranjang Belanja
@@ -95,8 +96,7 @@
     </div>
 
     <!-- Scripts -->
-
-    <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
     @yield('js')
 </body>
 </html>

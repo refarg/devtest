@@ -29,7 +29,7 @@
                       <td class="text-center text-nowrap">{{$data->namabarang}}</td>
 											<td class="text-center text-nowrap">{{$data->name}}</td>
 											<td class="text-center text-nowrap">{{$data->jumlahbarang}}</td>
-                      <td class="text-center text-nowrap">{{$data->updated_at}}</td>
+                      <td class="text-center text-nowrap">{{date("d M Y H:i:s", strtotime($data->updated_at))}}</td>
                       <td class="text-center text-nowrap">Rp. {{number_format($data->total)}}</td>
                       <td class="text-center text-nowrap"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBatal{{$loop->iteration}}">Batal Beli</button></td>
 										</tr>

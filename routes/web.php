@@ -19,33 +19,52 @@ Route::Auth();
 //Auth::routes();
 
 Route::get('/home', 'HomeController@dashboard')->name('home');
-//Route::get('/registadmin','BarangController@redir');
-Route::get('/registbarang','BarangController@redir')->middleware('auth', 'cekstat');
-//Route::get('/insertBarang','BarangController');
-Route::post('/insertBarang','BarangController@insertBarang')->middleware('auth', 'cekstat');
-Route::get('/viewbarang','BarangController@viewBarang')->middleware('auth', 'cekstat');
-Route::get('/viewbarang/{id}','BarangController@viewBarangSatuan')->middleware('auth');
-Route::post('/postkomen/{id}','BarangController@postkomen')->middleware('auth');
-Route::post('/editkomen/{id}','BarangController@editkomen')->middleware('auth');
-Route::get('/hapuskomentar/{id}','BarangController@hapuskom')->middleware('auth');
-Route::get('/viewbarangmod','BarangController@viewBarangmod')->middleware('auth', 'cekstat');
-Route::get('/viewbarangm','BarangController@viewBarangUser');
-Route::post('/updateuser/{id}','UserController@updateProfile')->middleware('auth');
-Route::get('/viewuser','UserController@viewProfil')->middleware('auth');
-Route::get('/viewuserlist','UserController@viewAll')->middleware('auth','cekstat');
-Route::get('/viewuser/{id}','UserController@editGlobal')->middleware('auth', 'cekstat');
+Route::get('/viewbarang/{id}','BarangController@viewBarangSatuan');
+Route::get('/viewbarang','BarangController@viewBarangUser');
+
+Route::middleware(['auth'])->group(function () {
+  //CRUD Komentar User
+  Route::post('/postkomen/{id}','BarangController@postkomen');
+  Route::post('/editkomen/{id}','BarangController@editkomen');
+  Route::get('/hapuskomentar/{id}','BarangController@hapuskom');
+  //CRUD Reply Komentar User
+  Route::post('/postreply/{idkomen}','BarangController@postreply');
+  Route::post('/editreply/{id}','BarangController@editreply');
+  Route::get('/hapusreply/{id}','BarangController@hapusreply');
+  //RU Profil User
+  Route::get('/viewuser','UserController@viewProfil');
+  //Pembelian, pembatalan, dan cek keranjang belanja user
+  Route::get('/listbeli','BarangController@viewBeliuser');
+  Route::get('/batalbeli/{id}','BarangController@batalBeli');
+  Route::post('/belibarang/{id}','BarangController@beliBarang');
+});
+
+
+
+Route::middleware(['auth','cekstat'])->group(function () {
+//Registrasi Barang
+Route::get('/registbarang','BarangController@redir');
+Route::post('/insertBarang','BarangController@insertBarang');
+//Melihat Barang (List dan Grid), RUD
+Route::get('/viewbarangm','BarangController@viewBarang');
+Route::get('/viewbarangmod','BarangController@viewBarangmod');
+//Melihat daftar user dan update data user
+Route::get('/viewuserlist','UserController@viewAll');
+Route::get('/viewuser/{id}','UserController@editGlobal');
+Route::post('/updateuser/{id}','UserController@updateProfile');
+//Melakukan edit barang
+Route::get('/editbarang/{id}','BarangController@geteditBarang');
+Route::post('/updateBarang/{id}','BarangController@editBarang');
+//Menghapus barang dari tampilan list dan Grid
+Route::get('/hapusbarang/{id}','BarangController@hapusBarang');
+Route::get('/hapusbarangmod/{id}','BarangController@hapusBarangmod');
+//Melihat keranjang belanja semua user
+Route::get('/listpembelian','BarangController@viewBeliadmin');
+//Membatalkan pembelian oleh admin
+Route::get('/batalbelimod/{id}','BarangController@batalBelimod');
+
+});
+
 Route::get('/forbidden', function () {
     return view('forbidden');
 });
-Route::get('/batalbelimod/{id}','BarangController@batalBelimod')->middleware('auth', 'cekstat');
-Route::get('/batalbeli/{id}','BarangController@batalBeli')->middleware('auth');
-Route::get('/listbeli','BarangController@viewBeliuser')->middleware('auth');
-Route::get('/listpembelian','BarangController@viewBeliadmin')->middleware('auth', 'cekstat');
-Route::post('/belibarang/{id}','BarangController@beliBarang')->middleware('auth');
-Route::get('/hapusbarang/{id}','BarangController@hapusBarang')->middleware('auth', 'cekstat');
-Route::get('/hapusbarangmod/{id}','BarangController@hapusBarangmod')->middleware('auth', 'cekstat');
-Route::get('/editbarang/{id}','BarangController@geteditBarang')->middleware('auth', 'cekstat');
-Route::post('/updateBarang/{id}','BarangController@editBarang')->middleware('auth', 'cekstat');
-Route::get('protected', ['middleware' => ['auth'], function() {
-    return "this page requires that you be logged in and an Admin";
-}]);

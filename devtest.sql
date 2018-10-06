@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2018 at 04:17 PM
+-- Generation Time: Oct 06, 2018 at 07:57 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -44,9 +44,9 @@ CREATE TABLE `barang` (
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
 (4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 16, 100000, 'download.jpg'),
-(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 286, 300000, 'maxresdefault.jpg'),
+(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 310, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
-(7, 'Mencoba', 2, 'Tes', 10, 90000, 'pexels-photo-206673.jpeg');
+(7, 'Mencoba', 2, 'Tes', 5, 90000, 'pexels-photo-206673.jpeg');
 
 -- --------------------------------------------------------
 
@@ -114,9 +114,9 @@ CREATE TABLE `komentarbarang` (
 INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`, `created_at`, `updated_at`) VALUES
 (1, 4, 1, 'blablabla', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
 (2, 5, 2, 'tessss', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
-(3, 6, 6, 'coba', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
 (4, 7, 7, 'ngetes', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
-(5, 4, 2, 'nganu', '2018-10-05 13:15:12', '2018-10-05 06:15:12');
+(5, 4, 2, 'nganu', '2018-10-05 13:15:12', '2018-10-05 06:15:12'),
+(7, 6, 6, 'bang buruan di-update dong stoknya', '2018-10-06 10:29:56', '2018-10-06 10:29:56');
 
 -- --------------------------------------------------------
 
@@ -137,6 +137,7 @@ CREATE TABLE `migrations` (
 --
 
 CREATE TABLE `password_resets` (
+  `idresets` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `token` varchar(255) COLLATE utf8_bin NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -146,8 +147,8 @@ CREATE TABLE `password_resets` (
 -- Dumping data for table `password_resets`
 --
 
-INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('jose@mail.com', '$2y$10$o3mMYrBk2jPDt8l7pFh4bO0VDk8OtlHpgp2kfxfuXvcWSYMhZC/Im', '2018-10-04 01:52:37');
+INSERT INTO `password_resets` (`idresets`, `email`, `token`, `created_at`) VALUES
+(2, 'refardo@gmail.com', '$2y$10$lriUqOC3U3aUy6Sq9apBxOCuoe0umngfhyjKlHLfi8QezKr3JJn2q', '2018-10-06 10:16:32');
 
 -- --------------------------------------------------------
 
@@ -170,12 +171,38 @@ CREATE TABLE `pembelian` (
 
 INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `created_at`, `updated_at`) VALUES
 (4, 4, 1, 30, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
-(8, 5, 7, 20, '2018-10-05 04:03:35', '2018-10-05 04:03:35'),
 (9, 4, 7, 2, '2018-10-05 04:24:49', '2018-10-05 04:24:49'),
 (10, 4, 7, 2, '2018-10-05 04:25:13', '2018-10-05 04:25:13'),
-(11, 5, 7, 4, '2018-10-05 04:25:46', '2018-10-05 04:25:46'),
 (12, 4, 2, 2, '2018-10-05 04:36:22', '2018-10-05 04:36:22'),
-(13, 4, 2, 2, '2018-10-05 04:36:52', '2018-10-05 04:36:52');
+(13, 4, 2, 2, '2018-10-05 04:36:52', '2018-10-05 04:36:52'),
+(14, 7, 1, 5, '2018-10-06 08:38:06', '2018-10-06 08:38:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `replykomentarbarang`
+--
+
+CREATE TABLE `replykomentarbarang` (
+  `idreply` int(11) NOT NULL,
+  `idkomentar` int(11) NOT NULL,
+  `iduser` int(10) NOT NULL,
+  `replykomentar` varchar(255) COLLATE utf8_bin NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `replykomentarbarang`
+--
+
+INSERT INTO `replykomentarbarang` (`idreply`, `idkomentar`, `iduser`, `replykomentar`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 'tes bro', '2018-10-06 12:02:18', '0000-00-00 00:00:00'),
+(2, 1, 2, 'bener bro', '2018-10-06 12:53:31', '2018-10-06 05:53:31'),
+(3, 5, 2, 'gini coy', '2018-10-06 07:37:35', '2018-10-06 07:37:35'),
+(4, 1, 2, 'oyi', '2018-10-06 08:02:28', '2018-10-06 08:02:28'),
+(6, 5, 1, 'okay siap akmj', '2018-10-06 09:36:33', '2018-10-06 09:36:33'),
+(8, 7, 6, 'saya mau beli soalnya', '2018-10-06 10:30:14', '2018-10-06 10:30:14');
 
 -- --------------------------------------------------------
 
@@ -199,10 +226,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'JY6R20uJj2ZeHF2RIJHLQGMOU5hTYbVsefGsbXWnvjOCmT1AnWnvw71oAv0C', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'llf1k64tLt7DmMKZtpxM04r3GQ7eRsDzWii7MJCF2IKMGgekWyhmKdU036iz', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'oHYu4UlNBCVo5YBX4USgFnEHWOqtEUETmVWxxAwleBpXx5gxnT9v0GHGRXZb', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', '8OCtdQarCJkgaL8TkNt4sYUgGW9NsUR8WzOVPnqbCf2sPvaSoJKrRdiSjd3B', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'lBeoSWwWGRDYsxLfhsrR5Fsfonf9DiAiwEfEykH9k7B95MWbwJrInEg7dZTk', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', '2O2dCrgbGgl4ytMmZwPQo9Ezw41IGuIkqEBlqwE3qx9IIb7okt0IZ3IAmCwt', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -213,7 +240,7 @@ INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`idbarang`),
-  ADD KEY `jenisid` (`idjenis`);
+  ADD KEY `barang_ibfk_1` (`idjenis`);
 
 --
 -- Indexes for table `detailuser`
@@ -243,12 +270,26 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD PRIMARY KEY (`idresets`);
+
+--
 -- Indexes for table `pembelian`
 --
 ALTER TABLE `pembelian`
   ADD PRIMARY KEY (`idpembelian`),
   ADD KEY `idbarang` (`idbarang`),
   ADD KEY `iduser` (`iduser`);
+
+--
+-- Indexes for table `replykomentarbarang`
+--
+ALTER TABLE `replykomentarbarang`
+  ADD PRIMARY KEY (`idreply`),
+  ADD KEY `komenid` (`idkomentar`),
+  ADD KEY `replyuserid` (`iduser`);
 
 --
 -- Indexes for table `users`
@@ -264,13 +305,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `detailuser`
 --
 ALTER TABLE `detailuser`
-  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jenisbarang`
@@ -291,16 +332,28 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  MODIFY `idresets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `replykomentarbarang`
+--
+ALTER TABLE `replykomentarbarang`
+  MODIFY `idreply` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -310,7 +363,7 @@ ALTER TABLE `users`
 -- Constraints for table `barang`
 --
 ALTER TABLE `barang`
-  ADD CONSTRAINT `jenisid` FOREIGN KEY (`idjenis`) REFERENCES `jenisbarang` (`idjenis`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`idjenis`) REFERENCES `jenisbarang` (`idjenis`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detailuser`
@@ -331,6 +384,13 @@ ALTER TABLE `komentarbarang`
 ALTER TABLE `pembelian`
   ADD CONSTRAINT `barangid` FOREIGN KEY (`idbarang`) REFERENCES `barang` (`idbarang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `userid` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `replykomentarbarang`
+--
+ALTER TABLE `replykomentarbarang`
+  ADD CONSTRAINT `komenid` FOREIGN KEY (`idkomentar`) REFERENCES `komentarbarang` (`idkomentar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `replyuserid` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

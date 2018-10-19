@@ -35,8 +35,11 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/viewuser','UserController@viewProfil');
   //Pembelian, pembatalan, dan cek keranjang belanja user
   Route::get('/listbeli','BarangController@viewBeliuser');
+  Route::get('/listbeli/detail/{idbeli}','BarangController@viewdetBeli');
   Route::get('/batalbeli/{id}','BarangController@batalBeli');
   Route::post('/belibarang/{id}','BarangController@beliBarang');
+  //Kirim bukti pembayaran
+  Route::post('/submitbukti/{bukti}','BarangController@sendBukti');
 });
 
 
@@ -62,6 +65,8 @@ Route::get('/hapusbarangmod/{id}','BarangController@hapusBarangmod');
 Route::get('/listpembelian','BarangController@viewBeliadmin');
 //Membatalkan pembelian oleh admin
 Route::get('/batalbelimod/{id}','BarangController@batalBelimod');
+//Validasi pembayaran oleh Admin
+Route::get('/verifikasi/{idbayar}','BarangController@doverif');
 
 });
 

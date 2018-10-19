@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2018 at 07:57 PM
+-- Generation Time: Oct 19, 2018 at 07:12 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -43,8 +43,8 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
-(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 16, 100000, 'download.jpg'),
-(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 310, 300000, 'maxresdefault.jpg'),
+(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 14, 100000, 'download.jpg'),
+(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 300, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
 (7, 'Mencoba', 2, 'Tes', 5, 90000, 'pexels-photo-206673.jpeg');
 
@@ -161,6 +161,8 @@ CREATE TABLE `pembelian` (
   `idbarang` int(11) NOT NULL,
   `iduser` int(10) NOT NULL,
   `jumlahbarang` int(11) NOT NULL,
+  `statusverif` tinyint(1) NOT NULL,
+  `buktibayar` varchar(255) COLLATE utf8_bin NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -169,13 +171,15 @@ CREATE TABLE `pembelian` (
 -- Dumping data for table `pembelian`
 --
 
-INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `created_at`, `updated_at`) VALUES
-(4, 4, 1, 30, '2018-10-01 03:17:53', '0000-00-00 00:00:00'),
-(9, 4, 7, 2, '2018-10-05 04:24:49', '2018-10-05 04:24:49'),
-(10, 4, 7, 2, '2018-10-05 04:25:13', '2018-10-05 04:25:13'),
-(12, 4, 2, 2, '2018-10-05 04:36:22', '2018-10-05 04:36:22'),
-(13, 4, 2, 2, '2018-10-05 04:36:52', '2018-10-05 04:36:52'),
-(14, 7, 1, 5, '2018-10-06 08:38:06', '2018-10-06 08:38:06');
+INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `statusverif`, `buktibayar`, `created_at`, `updated_at`) VALUES
+(4, 4, 1, 30, 1, 'vcredist19102018220614.bmp', '2018-10-19 15:43:39', '2018-10-19 15:43:39'),
+(9, 4, 7, 2, 0, '', '2018-10-05 04:24:49', '2018-10-05 04:24:49'),
+(10, 4, 7, 2, 0, '', '2018-10-05 04:25:13', '2018-10-05 04:25:13'),
+(12, 4, 2, 2, 0, '', '2018-10-05 04:36:22', '2018-10-05 04:36:22'),
+(13, 4, 2, 2, 0, '', '2018-10-05 04:36:52', '2018-10-05 04:36:52'),
+(14, 7, 1, 5, 0, '', '2018-10-06 08:38:06', '2018-10-06 08:38:06'),
+(15, 5, 2, 10, 0, '', '2018-10-19 13:15:13', '2018-10-19 13:15:13'),
+(16, 4, 1, 2, 0, '', '2018-10-19 13:41:33', '2018-10-19 13:41:33');
 
 -- --------------------------------------------------------
 
@@ -226,10 +230,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'oHYu4UlNBCVo5YBX4USgFnEHWOqtEUETmVWxxAwleBpXx5gxnT9v0GHGRXZb', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', '8OCtdQarCJkgaL8TkNt4sYUgGW9NsUR8WzOVPnqbCf2sPvaSoJKrRdiSjd3B', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', '0e6mLr17LPafqRuMMWy32LbEmmapq1hizaOHUGwpMxsph1QFsjjhV7sJExN8', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'WaxCFwdcTb7Jw8uQjsAYBGMyxLVcbmRIOHkkoKGctvIImDepB321QowUb0cw', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', '2O2dCrgbGgl4ytMmZwPQo9Ezw41IGuIkqEBlqwE3qx9IIb7okt0IZ3IAmCwt', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', '2TdBSGSW4cbj1PLQrdjE6gBB2VIxhqNd7rjMuRSZb7oOWlBrF7OClDj8w9Wu', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -341,7 +345,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `replykomentarbarang`

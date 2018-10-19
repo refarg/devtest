@@ -16,6 +16,7 @@ use App\jenisbarang;
 use App\KomentarBarang;
 use App\replykomentarbarang;
 use Illuminate\Support\Facades\Crypt;
+use Carbon\Carbon;
 
 class BarangController extends Controller
 {
@@ -41,15 +42,21 @@ class BarangController extends Controller
               ]);
     }
     else{
-      $fileName   = $request->file('gambarbarang')->getClientOriginalName();
-      $request->file('gambarbarang')->move("image/", $fileName);
+
+      $orname = $request->file('gambarbarang')->getClientOriginalName();
+      $filename = pathinfo($orname, PATHINFO_FILENAME);
+      $ext = $request->file('gambarbarang')->getClientOriginalExtension();
+      $tgl = Carbon::now()->format('dmYHis');
+      $newname = $filename . $tgl . "." . $ext;
+      $request->file('gambarbarang')->move("image/", $newname);
+
       $insert = ([
             'namabarang' => $request->namabarang,
             'idjenis' => $request->jenisbarang,
             'deskripsi' => $request->deskripsi,
             'stok' => $request->stok,
             'hargabarang' => $request->hargabarang,
-            'gambarbarang' => $request->file('gambarbarang')->getClientOriginalName(),
+            'gambarbarang' => $newname,
             ]);
     }
     //dd($insert);
@@ -70,7 +77,10 @@ public function beliBarang(Request $request, $id){
         'idbarang' => $id,
         'iduser' => Auth::user()->id,
         'jumlahbarang' => $request->jumlahbarang,
+        'statusverif' => 0 ,
+        'buktibayar' => '',
         ]);
+  dd($insert);
         pembelian::create($insert);
 
 $sto = barang::select('idbarang','stok')
@@ -124,7 +134,9 @@ public function viewBeliadmin(Request $request){
       $tampil=DB::table('pembelian')
             ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
             ->join('users', 'pembelian.iduser', '=', 'users.id')
-            ->select('pembelian.*', 'barang.*', 'users.name' , DB::raw('jumlahbarang*hargabarang as total'))
+            ->join('detailuser', 'pembelian.iduser', '=', 'detailuser.iduser')
+            ->select('pembelian.*', 'barang.*', 'users.name', 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
+            ->orderBy('pembelian.created_at', 'asc')
             ->get();
       return view('daftarbeli',compact('tampil'));
 }
@@ -134,10 +146,29 @@ public function viewBeliuser(Request $request){
       $tampil=DB::table('pembelian')
             ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
             ->join('users', 'pembelian.iduser', '=', 'users.id')
-            ->select('pembelian.*', 'barang.*', 'users.name' , DB::raw('jumlahbarang*hargabarang as total'))
+            ->join('detailuser', 'pembelian.iduser', '=', 'detailuser.iduser')
+            ->select('pembelian.*', 'barang.*', 'users.name' , 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
             ->where('pembelian.iduser','=',Auth::user()->id)
+            ->orderBy('pembelian.created_at', 'asc')
             ->get();
       return view('daftarbeliuser',compact('tampil'));
+}
+
+public function viewdetBeli(Request $request, $idbeli){
+      //$tampil= pembelian::all();
+      $tampil=DB::table('pembelian')
+            ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
+            ->join('users', 'pembelian.iduser', '=', 'users.id')
+            ->join('detailuser', 'pembelian.iduser', '=', 'detailuser.iduser')
+            ->select('pembelian.*', 'barang.*', 'users.name' , 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
+            ->where('pembelian.idpembelian','=',$idbeli)
+            ->first();
+      if(Auth::user()->level==1 || Auth::user()->id==$tampil->iduser){
+      return view('viewdetailbeli',compact('tampil'));
+    }
+    else{
+      return redirect('home');
+    }
 }
 
   public function viewBarang(Request $request){
@@ -179,6 +210,27 @@ public function viewBeliuser(Request $request){
               //dd($show, $komeng, $replykom);
         return view('viewbarangsat',compact('show','komeng','replykom'));
   }
+
+
+  public function sendBukti(Request $request, $bukti){
+    $edit = pembelian::where('idpembelian','=',$bukti)->first();
+    $orname = $request->file('buktipembayaran')->getClientOriginalName();
+    $filename = pathinfo($orname, PATHINFO_FILENAME);
+    $ext = $request->file('buktipembayaran')->getClientOriginalExtension();
+    $tgl = Carbon::now()->format('dmYHis');
+    $newname = $filename . $tgl . "." . $ext;
+    $edit->buktibayar = $newname;
+    $request->file('buktipembayaran')->move("buktitrf/", $newname);
+    $edit->save();
+          return Redirect::back();
+  }
+
+public function doverif(Request $request, $idbayar){
+  $val = pembelian::find($idbayar);
+  $val->statusverif = 1;
+  $val->save();
+  return Redirect::back();
+}
 
   public function postkomen(Request $request, $id){
     $insert=([
@@ -309,10 +361,15 @@ $del = replykomentarbarang::find($id);
       }
 
       else{
-      $file       = $request->file('gambarbarang');
-      $fileName   = $file->getClientOriginalName();
-      $request->file('gambarbarang')->move("image/", $fileName);
-      $edit->gambarbarang = $request->file('gambarbarang')->getClientOriginalName();
+
+      $orname = $request->file('gambarbarang')->getClientOriginalName();
+      $filename = pathinfo($orname, PATHINFO_FILENAME);
+      $ext = $request->file('gambarbarang')->getClientOriginalExtension();
+      $tgl = Carbon::now()->format('dmYHis');
+      $newname = $filename . $tgl . "." . $ext;
+      $request->file('gambarbarang')->move("image/", $newname);
+
+      $edit->gambarbarang = $newname;
         }
     $edit->save();
     return redirect('viewbarang');

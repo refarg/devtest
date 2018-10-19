@@ -64,10 +64,13 @@ class UserController extends Controller
           $request->avatar = $request->avatar;
         }
         else{
-        $file       = $request->file('avatar');
-        $fileName   = $file->getClientOriginalName();
-        $request->file('avatar')->move("profileimage/", $fileName);
-        $edit->avatar = $request->file('avatar')->getClientOriginalName();
+        $orname = $request->file('avatar')->getClientOriginalName();
+        $filename = pathinfo($orname, PATHINFO_FILENAME);
+        $ext = $request->file('avatar')->getClientOriginalExtension();
+        $tgl = Carbon::now()->format('dmYHis');
+        $newname = $filename . $tgl . "." . $ext;
+        $edit->avatar = $newname;
+        $request->file('avatar')->move("profileimage/", $newname);
           }
         //dd($edit);
     $edit->update();

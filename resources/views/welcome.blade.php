@@ -82,7 +82,7 @@
                     {{ config('app.name') }}
                 </div>
                 <h4 class="m-b-md">
-                    Berpacu dalam prestasi? ha! <img src="{{url('image/dwad.jpg')}}" style="height:20px;width:auto;"/>
+                    E-Commerce Kerajinan Lokal Daerah Jember
                 </h4>
 
                 <div class="links">

@@ -144,7 +144,7 @@ $(".btnko").click(function(){
 <div class="col-sm-10 col-md-offset-0">
 <div class="panel panel-default">
 <div class="panel-heading clearfix">
-<strong>{{$komen->name}}</strong> <span class="text-muted">dikirim pada {{date("d M Y H:i:s", strtotime($komen->updated_at))}}</span>
+<strong>{{$komen->name}}</strong> <span class="text-muted">dikirim pada {{ Carbon\Carbon::parse($komen->created_at)->formatLocalized('%d %B %Y %H:%I:%S')}}</span>
 <div class="pull-right">
 @if(!Auth::guest())
 <span class="text-muted"><a id="reply{{$komen->idkomentar}}" class="btnrp btn-sm btn-success">Balas</a></span>
@@ -152,7 +152,7 @@ $(".btnko").click(function(){
 <span class="text-muted"><a data-toggle="modal" data-target="#modalEdit{{$loop->iteration}}" class="btn-sm btn-primary">Edit</a></span>
 <span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger">Hapus</a></span>
 @elseif(Auth::User()->level==1)
-<span class="text-muted"><a data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" class="btn-sm btn-danger">Hapus (Admin)</a></span>
+<span class="text-muted"><a data-toggle="modal" data-target="#modalHapusAdm{{$loop->iteration}}" class="btn-sm btn-danger">Hapus (Admin)</a></span>
 @endif
 @endif
 </div>
@@ -189,7 +189,7 @@ $(".btnko").click(function(){
 <div class="col-sm-9 col-md-offset-0">
 <div class="panel panel-default">
 <div class="panel-heading clearfix">
-<strong>{{$reply->name}}</strong> <span class="text-muted">dikirim pada {{date("d M Y H:i:s", strtotime($reply->created_at))}}</span>
+<strong>{{$reply->name}}</strong> <span class="text-muted">dikirim pada {{ Carbon\Carbon::parse($komen->created_at)->formatLocalized('%d %B %Y %H:%I:%S')}}</span>
 <div class="pull-right">
 @if(Auth::guest())
 @elseif(Auth::User()->id==$reply->iduser)
@@ -296,6 +296,29 @@ $(".btnko").click(function(){
   </div>
 </div>
 @endif
+
+@if(!Auth::guest() && Auth::User()->level==1)
+<div class="modal fade" id="modalHapusAdm{{$loop->iteration}}" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Konfirmasi Hapus Komentar</h4>
+      </div>
+      <div class="modal-body">
+        <p>Anda hendak menghapus komentar<br>
+          Ingin melanjutkan?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btnsumbit btn btn-danger" onclick="location.href='/hapuskomentar/{{$komen->idkomentar}}';">Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
 @endforeach
 @if(!Auth::guest())
 <div class="btnko col-sm-12">

@@ -1,7 +1,7 @@
+@extends('layouts.app')
 @section('js')
 <script src="{{asset('js/loadgam.js')}}" type="text/javascript"></script>
 @endsection
-@extends('layouts.app')
 @section('content')
 <div class="container">
     <div class="row">
@@ -88,12 +88,15 @@
                             <div class="form-group{{ $errors->has('hargabarang') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Harga Barang</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="hargabarang" placeholder="Harga Barang"/>
+                              <div class="input-group">
+                              <div class="input-group-addon">Rp.</div>
+                            <input type="number" min="0" class="form-control" name="hargabarang" placeholder="Harga Barang"/>
                             @if ($errors->has('hargabarang'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('hargabarang') }}</strong>
                                 </span>
                             @endif
+                            </div>
                             </div>
                             </div>
 

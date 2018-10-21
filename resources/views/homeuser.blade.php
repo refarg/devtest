@@ -2,7 +2,19 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+      <div class="col-sm-3">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">Menu</div>
+                          <div class="panel-body">
+                              <div class="list-group">
+                                  <a href="/viewbarang" class="list-group-item">Lihat Semua Barang</a>
+                                  <a href="/listbeli" class="list-group-item">Daftar Barang Dipesan</a>
+                                  <a href="/viewuser" class="list-group-item">Lihat Profil Pengguna</a>
+                              </div>
+                            </div>
+                      </div>
+      </div>
+        <div class="col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
 
@@ -13,9 +25,8 @@
                         </div>
                     @endif
 
-                    You are logged in as {{ Auth::user()->name }}!<br>
-                    <a href="/viewbarang">Lihat Barang</a><br>
-                    <a href="/listbeli">Lihat Barang yang dibeli</a>
+                    Anda masuk sebagai {{ Auth::user()->name }}!<br>
+
                 </div>
             </div>
         </div>

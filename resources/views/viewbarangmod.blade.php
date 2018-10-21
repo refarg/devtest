@@ -24,15 +24,30 @@ $(function() {
     height:250px;
     width:100%;
 }
+
+.panel-heading h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    width: 75%;
+    padding-top: 8px;
+}
 </style>
 @endsection
 @extends('layouts.app')
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12 col-md-offset-0">
+        <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Daftar Barang</div>
+                <div class="panel-heading">
+                  <h3 class="panel-title pull-left">
+                  Daftar Barang
+                </h3>
+                    <a href="/registbarang" class="btn btn-sm btn-primary pull-right">Tambah Barang</a>
+                  <div class="clearfix"></div>
+                </div>
 
                 <div class="panel-body">
                     @if (session('status'))

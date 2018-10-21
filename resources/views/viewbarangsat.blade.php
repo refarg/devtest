@@ -127,9 +127,9 @@ $(".btnko").click(function(){
     </div>
 </div>
 <div class="container">
-  <div class="panel panel-default col-sm-8 col-md-offset-2">
+  <div class="panel panel-default col-md-8 col-md-offset-2">
 <div class="row">
-<div class="col-sm-8 col-md-offset-0">
+<div class="col-md-8 col-md-offset-0">
 <h3>Komentar</h3>
 </div>
 </div>
@@ -180,7 +180,7 @@ $(".btnko").click(function(){
 @foreach($replykom as $reply)
 @if($reply->idkomentar==$komen->idkomentar)
 <div class="row">
-<div class="col-sm-2 col-md-offset-1">
+<div class="col-xs-2 col-md-offset-1">
 <div class="thumbnail">
 <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 </div>
@@ -326,7 +326,7 @@ $(".btnko").click(function(){
 <button type="button" class="btn btn-primary btn-block">Tampilkan Kotak Komentar</button>
 </div>
 </div>
-<div class="col-sm-12 komm">
+<div class="col-md-12 komm">
   <div class="panel panel-default">
 <div class="panel-heading">Tambahkan Komentar sebagai {{Auth::user()->name}}</div>
 <div class="panel-body">

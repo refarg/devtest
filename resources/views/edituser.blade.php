@@ -28,11 +28,11 @@ $("#confirmedit").click(function(){
                         <div class="col-md-12">
 
                           @if(is_null($edit->avatar))
-                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="thumbnail img-responsive center-block" />
                           @elseif( $edit->avatar == '')
-                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block thumbnail" />
                           @else
-                          <img src="{{ asset('profileimage/'.$edit->avatar) }}" id="showgambar" alt="Gambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="{{ asset('profileimage/'.$edit->avatar) }}" id="showgambar" alt="Gambar" style="max-width:200px;max-height:200px;" class="thumbnail img-responsive center-block" />
                           @endif
 
                             <p class="text-center" style="font-weight:bold;">Preview Gambar</p>

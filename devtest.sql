@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2018 at 07:12 PM
+-- Generation Time: Oct 21, 2018 at 07:39 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -69,7 +69,7 @@ CREATE TABLE `detailuser` (
 
 INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorponsel`, `avatar`) VALUES
 (1, 1, 'Refardo', 'Jl. Kenongo', '085465123546', NULL),
-(2, 2, 'Mimin ilapyu', 'Jl. Tes', '083851016002', 'blank-profile-picture-973460_960_720.png'),
+(2, 2, 'Admin', 'Jl. Tes', '083851016002', 'blank-profile-picture-973460_960_720.png'),
 (3, 6, 'Masedo', 'nganu', '085465412326', 'blank-profile-picture-973460_960_720.png'),
 (4, 7, 'Josep', 'Jl. Masteng', '089832192857', NULL);
 
@@ -173,7 +173,7 @@ CREATE TABLE `pembelian` (
 
 INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `statusverif`, `buktibayar`, `created_at`, `updated_at`) VALUES
 (4, 4, 1, 30, 1, 'vcredist19102018220614.bmp', '2018-10-19 15:43:39', '2018-10-19 15:43:39'),
-(9, 4, 7, 2, 0, '', '2018-10-05 04:24:49', '2018-10-05 04:24:49'),
+(9, 4, 7, 2, 1, 'Pemandangan-Alam-Terindah-di-Indonesia21102018234038.jpg', '2018-10-21 16:44:49', '2018-10-21 16:44:49'),
 (10, 4, 7, 2, 0, '', '2018-10-05 04:25:13', '2018-10-05 04:25:13'),
 (12, 4, 2, 2, 0, '', '2018-10-05 04:36:22', '2018-10-05 04:36:22'),
 (13, 4, 2, 2, 0, '', '2018-10-05 04:36:52', '2018-10-05 04:36:52'),
@@ -231,9 +231,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', '0e6mLr17LPafqRuMMWy32LbEmmapq1hizaOHUGwpMxsph1QFsjjhV7sJExN8', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'WaxCFwdcTb7Jw8uQjsAYBGMyxLVcbmRIOHkkoKGctvIImDepB321QowUb0cw', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'ChwUU93wojuzHWKmDhrTgoYf09bhymUAzsoFMo2w5sPMDl7RASW8j7MyzKxX', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', '2TdBSGSW4cbj1PLQrdjE6gBB2VIxhqNd7rjMuRSZb7oOWlBrF7OClDj8w9Wu', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'ygoqK2u2lc4QW7weDYN3f54947LtpcuuJ8PR8F9ZmMtPUvTNBbnGG39CLY2R', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables

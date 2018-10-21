@@ -12,11 +12,47 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+
+    body{
+      background:linear-gradient(#a6a6a6, #fff) no-repeat;
+      height: 100vh;
+    }
+
+
+    .navbar{
+      background:#404040;
+      border-bottom:2px solid ;
+    }
+    .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text, .navbar-default .navbar-brand{
+      color:white;
+    }
+    .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+    color: #ccc;
+    background-color: transparent;
+    }
+    .full-height {
+        height: 100vh;
+    }
+
+    .panel{
+      background:#b3b3b3;
+      color:#fff;
+      border:1px solid #cccccc;
+    }
+    .panel-default>.panel-heading, .panel-default>.panel-footer{
+      background:#fff;
+      color:#666;
+    }
+    .modal-content{
+      background:#a6a6a6;
+    }
+    </style>
     @yield('css')
 </head>
 <body>
 
-    <div id="app">
+    <div id="app full-height">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -31,7 +67,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name') }}@lokale
+                        {{ config('app.name') }}
                     </a>
                 </div>
 
@@ -40,6 +76,13 @@
                     <ul class="nav navbar-nav">
                         &nbsp;
                     </ul>
+
+                    <form class="navbar-form navbar-left" method="get" action="">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Cari Barang">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -72,7 +115,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/viewuser') }}">Profile</a></li>
+                                    <li><a href="{{ url('/viewuser') }}">Profil</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

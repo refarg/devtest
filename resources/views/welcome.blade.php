@@ -13,7 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background:linear-gradient(#a6a6a6, #fff) no-repeat;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;

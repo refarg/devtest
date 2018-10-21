@@ -32,7 +32,7 @@
                       <div class="form-group{{ $errors->has('buktipembayaran') ? ' has-error' : '' }}">
                       <label for="text" class="col-md-4 control-label">Bukti Pembayaran</label>
                       <div class="col-md-6">
-                      <input type="file" accept="image/*" id="inputgambar" class="form-control" name="buktipembayaran" placeholder="Bukti Pembayaran" onchange="loadFile(event)" />
+                      <input type="file" accept="image/*" id="inputgambar" class="form-control" name="buktipembayaran" placeholder="Bukti Pembayaran" onchange="loadFile(event)" required/>
                       @if ($errors->has('buktipembayaran'))
                           <span class="help-block">
                               <strong>{{ $errors->first('buktipembayaran') }}</strong>
@@ -119,6 +119,7 @@
                             </div>
 
                             @if($tampil->buktibayar=='' and $tampil->statusverif==0)
+                            @if($tampil->iduser==Auth::user()->id)
                             <div class="form-group">
                             <div class="col-md-12 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary">
@@ -129,7 +130,7 @@
                                 </button>
                             </div>
                             </div>
-
+                            @endif
                             </form>
 
                             <div class="modal fade" id="modalBatal" role="dialog">

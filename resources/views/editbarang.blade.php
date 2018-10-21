@@ -99,12 +99,13 @@
                               <div class="input-group">
                               <div class="input-group-addon">Rp.</div>
                             <input type="number" min="0" class="form-control" name="hargabarang" value="{{$edit->hargabarang}}"/>
+                            </div>
                             @if ($errors->has('hargabarang'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('hargabarang') }}</strong>
                                 </span>
                             @endif
-                            </div>
+
                             </div>
                             </div>
 

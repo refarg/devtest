@@ -31,7 +31,7 @@ $(function() {
     <div class="row">
         <div class="col-md-12 col-md-offset-0">
             <div class="panel panel-default">
-                <div class="panel-heading">Daftar Barang</div>
+                <div class="panel-heading">Daftar Pengguna</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -56,7 +56,7 @@ $(function() {
         <p>Alamat: {{$data->alamat}}</p>
         <p>No. HP: {{$data->nomorponsel}}</p>
       </div>
-        <p class="text-center"><a href="/viewuser/{{$data->iduser}}" class="btn btn-primary">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}">Hapus</button></p>
+        <p class="text-center"><a href="/viewuser/{{$data->iduser}}" class="btn btn-primary" disabled>Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" disabled>Hapus</button></p>
     </div>
 </div>
 
@@ -75,7 +75,7 @@ $(function() {
           Ingin melanjutkan?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btn btn-danger" onclick="alert('Gak bisa dihapus goblok!')">Hapus</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btn btn-danger" disabled>Hapus</button>
       </div>
     </div>
   </div>

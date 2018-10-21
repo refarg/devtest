@@ -15,7 +15,7 @@
 
                         <div class="form-group">
                         <div class="col-md-12">
-                            <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                            <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="thumbnail img-responsive center-block" />
                             <p class="text-center" style="font-weight:bold;">Preview Gambar</p>
                         </div>
                       </div>
@@ -91,12 +91,13 @@
                               <div class="input-group">
                               <div class="input-group-addon">Rp.</div>
                             <input type="number" min="0" class="form-control" name="hargabarang" placeholder="Harga Barang"/>
+                            </div>
                             @if ($errors->has('hargabarang'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('hargabarang') }}</strong>
                                 </span>
                             @endif
-                            </div>
+
                             </div>
                             </div>
 

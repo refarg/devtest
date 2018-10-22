@@ -33,7 +33,9 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/hapusreply/{id}','BarangController@hapusreply');
   //RU Profil User
   Route::get('/viewuser','UserController@viewProfil');
+  Route::post('/updateuser/{id}','UserController@updateProfile');
   //Pembelian, pembatalan, dan cek keranjang belanja user
+  Route::get('/belibarang/{id}','BarangController@getbeli');
   Route::get('/listbeli','BarangController@viewBeliuser');
   Route::get('/listbeli/detail/{idbeli}','BarangController@viewdetBeli');
   Route::get('/batalbeli/{id}','BarangController@batalBeli');
@@ -54,7 +56,6 @@ Route::get('/viewbarangmod','BarangController@viewBarangmod');
 //Melihat daftar user dan update data user
 Route::get('/viewuserlist','UserController@viewAll');
 Route::get('/viewuser/{id}','UserController@editGlobal');
-Route::post('/updateuser/{id}','UserController@updateProfile');
 //Melakukan edit barang
 Route::get('/editbarang/{id}','BarangController@geteditBarang');
 Route::post('/updateBarang/{id}','BarangController@editBarang');

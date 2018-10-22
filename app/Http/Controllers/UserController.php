@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Redirect;
 use Auth;
 use App\detailuser;
+use App\pembelian;
 
 class UserController extends Controller
 {
@@ -53,7 +54,9 @@ class UserController extends Controller
   }
 
   public function updateProfile(Request $request, $id){
-    $edit = detailuser::all()->where('iduser',$id)->first();
+    $edit = detailuser::where('iduser','=',$id)->first();
+    $beli = pembelian::where('iduser','=',$id)->where('buktibayar','=','')->where('statusverif','=','0')->get();
+    //dd($beli);
     $validator = $this->validator($request);
     if($validator->passes())
     {
@@ -73,12 +76,16 @@ class UserController extends Controller
         $request->file('avatar')->move("profileimage/", $newname);
           }
         //dd($edit);
-    $edit->update();
-    if (Auth::user()->level==1) {
+    if (Auth::User()->level==1) {
+      $edit->update();
       return redirect('viewuserlist');
     }
-    else{
+    elseif(Auth::User()->level==2 and $edit->iduser==Auth::User()->id and $beli==null){
+      $edit->update();
       return redirect('viewuser');
+    }
+    else{
+      return redirect('forbidden');
     }
     }
     else

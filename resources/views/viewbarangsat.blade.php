@@ -100,26 +100,16 @@ $(".btnko").click(function(){
                             @endif
                             </div>
                             </div>
-                            <form method="post" action="/belibarang/{{$show->idbarang}}">
-                              {{ csrf_field() }}
-                            <div class="form-group{{ $errors->has('jumlah') ? ' has-error' : '' }}">
-                            <label for="text" class="col-md-4 control-label">Jumlah yang diinginkan</label>
-                            <div class="col-md-6">
-                            @if($show->stok==0)
-                            <a href="" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalKosong">Stok Kosong</a>
-                            @elseif($show->stok>0)
-                            <input type="number" min="1" max="{{$show->stok}}" class="form-control" name="jumlahbarang" placeholder="Jumlah barang yang ingin dibeli" required/>
-                            @endif
-                            </div>
-                        </div>
-                        @if($show->stok>0)
+
                         <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary btn-block">Beli</button>
-                        </div>
-                        </div>
+                          @if($show->stok>0)
+                        <button type="submit" onclick="location.href='/belibarang/{{$show->idbarang}}';" class="btn btn-primary btn-block">Beli</button>
+                        @else
+                        <button type="button" class="btn btn-primary btn-danger">Stok Kosong</button>
                         @endif
-                            </form>
+                        </div>
+                        </div>
                       </div>
                 </div>
             </div>

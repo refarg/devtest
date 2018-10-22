@@ -39,6 +39,7 @@ document.getElementById("upload").onchange = function() {
                     <table class="table table-stripped table-bordered">
                       <tr style='font-weight:bold;'>
                         <td class="text-center text-nowrap">ID Pembelian</td>
+                        <td class="text-center text-nowrap">ID Barang</td>
   											<td class="text-center text-nowrap">Jumlah Barang</td>
                         <td class="text-center text-nowrap">Waktu Pembelian</td>
                         <td class="text-center text-nowrap">Total Bayar</td>
@@ -49,6 +50,7 @@ document.getElementById("upload").onchange = function() {
                     @foreach($tampil as $data)
 										<tr>
                       <td class="text-center text-nowrap"><a href="/listbeli/detail/{{$data->idpembelian}}" title="Lihat Detail Pembelian">{{$data->idpembelian}}</a></td>
+                      <td class="text-center text-nowrap"><a href="/viewbarang/{{$data->idbarang}}" title="Lihat Detail Barang">{{$data->idbarang}}</a></td>
 											<td class="text-center text-nowrap">{{$data->jumlahbarang}}</td>
                       <td class="text-center text-nowrap">{{ Carbon\Carbon::parse($data->created_at)->formatLocalized('%A, %d %B %Y %H:%I:%S')}}</td>
                       <td class="text-center text-nowrap">Rp. {{number_format($data->total)}}</td>

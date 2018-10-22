@@ -17,6 +17,7 @@ use App\KomentarBarang;
 use App\replykomentarbarang;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
+use App\detailuser;
 
 class BarangController extends Controller
 {
@@ -72,6 +73,13 @@ class BarangController extends Controller
 
 }
 
+public function getbeli(Request $request, $id){
+  $barang = barang::where('idbarang','=',$id)->first();
+  $detuser = detailuser::where('iduser','=',Auth::User()->id)->first();
+
+  return view('lanjutbeli', compact('barang','detuser'));
+}
+
 public function beliBarang(Request $request, $id){
   $insert = ([
         'idbarang' => $id,
@@ -80,7 +88,7 @@ public function beliBarang(Request $request, $id){
         'statusverif' => 0 ,
         'buktibayar' => '',
         ]);
-  dd($insert);
+  //dd($insert);
         pembelian::create($insert);
 
 $sto = barang::select('idbarang','stok')
@@ -90,7 +98,7 @@ $sto = barang::select('idbarang','stok')
         $edit->stok= $sto->stok - $request->jumlahbarang;
         //dd($insert, $sto);
         $edit->save();
-        return Redirect::back();
+        return redirect('viewbarang/' . $id);
 }
 
 public function batalBeli(Request $request, $id){

@@ -3,12 +3,12 @@
 <script src="{{asset('js/jquery-latest.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-$( ".form-control" ).prop( "disabled", true );
+$( ".form-dsbl" ).prop( "disabled", true );
 });
 $("#confirmedit").click(function(){
     $('#btnupdate').removeClass('hide');
     $('#confirmedit').addClass('hide');
-    $( ".form-control" ).prop( "disabled", false );
+    $( ".form-dsbl" ).prop( "disabled", false );
   });
 </script>
 @endsection
@@ -42,7 +42,7 @@ $("#confirmedit").click(function(){
                       <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                       <label for="text" class="col-md-4 control-label">Avatar</label>
                       <div class="col-md-6">
-                      <input type="file" accept="image/*" id="inputgambar" class="form-control" name="avatar" placeholder="Avatar" onchange="loadFile(event)" />
+                      <input type="file" accept="image/*" id="inputgambar" class="form-control form-dsbl" name="avatar" placeholder="Avatar" onchange="loadFile(event)" />
                       @if ($errors->has('avatar'))
                           <span class="help-block">
                               <strong>{{ $errors->first('avatar') }}</strong>
@@ -54,7 +54,7 @@ $("#confirmedit").click(function(){
                             <div class="form-group{{ $errors->has('namalengkap') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Nama Lengkap</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="namalengkap" value="{{$edit->namalengkap}}" />
+                            <input type="text" class="form-control form-dsbl" name="namalengkap" value="{{$edit->namalengkap}}" />
                             @if ($errors->has('namalengkap'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('namalengkap') }}</strong>
@@ -66,7 +66,7 @@ $("#confirmedit").click(function(){
                             <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Alamat</label>
                             <div class="col-md-6">
-                            <input type="text" class="form-control" name="alamat" value="{{$edit->alamat}}" />
+                            <input type="text" class="form-control form-dsbl" name="alamat" value="{{$edit->alamat}}" />
                             @if ($errors->has('alamat'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('alamat') }}</strong>
@@ -78,7 +78,7 @@ $("#confirmedit").click(function(){
                             <div class="form-group{{ $errors->has('nomorponsel') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Nomor Ponsel</label>
                             <div class="col-md-6">
-                            <input type="number" min="0" class="form-control" name="nomorponsel" value="{{$edit->nomorponsel}}" />
+                            <input type="number" min="0" class="form-control form-dsbl" name="nomorponsel" value="{{$edit->nomorponsel}}" />
                             @if ($errors->has('nomorponsel'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nomorponsel') }}</strong>
@@ -89,8 +89,8 @@ $("#confirmedit").click(function(){
 
                             <div class="form-group">
                             <div class="col-md-12 col-md-offset-5">
-                              <input type="button" id="confirmedit" class="btn btn-danger" value="Edit"/>
-                                <button type="button" class="btn hide btn-primary" id="btnupdate" data-toggle="modal" data-target="#modalEdit">
+                              <input type="button" id="confirmedit" class="btn btn-danger" value="Edit" @if(Auth::User()->level==1 and $edit->id!=Auth::User()->id) disabled @endif/>
+                                <button type="button" class="btn hide btn-primary" id="btnupdate" data-toggle="modal" data-target="#modalEdit" @if(Auth::User()->level==1 and $edit->id!=Auth::User()->id) disabled @endif>
                                     Update
                                 </button>
                                 <div class="modal fade" id="modalEdit" role="dialog">

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Unknown territory, retreating....<br>If you are not redirected to dashboard after 5 seconds,<br>please <a href="/home">click here</a>.
+                    Maaf, anda tidak dapat mengakses fitur tersebut.<br>Penyebab anda melihat halaman ini mungkin adalah sebagai berikut:<br>- Mencoba akses halaman admin<br>- Mengubah detail pengguna ketika memiliki pemesanan yang belum diverifikasi oleh admin<br>- Fitur belum tersedia<br>- Sistem error<br>Jika anda tidak dikembalikan ke tampilan home dalam 10 detik, mohon <a href="/home">klik disini</a>.
                 </div>
             </div>
         </div>
@@ -23,6 +23,6 @@
 <script>
         window.setTimeout(function () {
             window.location = "/home";
-        }, 5000);
+        }, 10000);
     </script>
 @endsection

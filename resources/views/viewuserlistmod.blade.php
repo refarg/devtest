@@ -56,7 +56,7 @@ $(function() {
         <p>Alamat: {{$data->alamat}}</p>
         <p>No. HP: {{$data->nomorponsel}}</p>
       </div>
-        <p class="text-center"><a href="/viewuser/{{$data->iduser}}" class="btn btn-primary" disabled>Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" disabled>Hapus</button></p>
+        <p class="text-center"><button type="button" onclick="location.href='/viewuser/{{$data->iduser}}';" class="btn btn-primary" disabled>Edit</button> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" disabled>Hapus</button></p>
     </div>
 </div>
 

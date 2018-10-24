@@ -1,5 +1,14 @@
 @extends('layouts.app')
-
+@section('css')
+<style type="text/css">
+a{
+  color: #000;
+}
+a:hover, a:focus{
+  color: #000;
+}
+</style>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">

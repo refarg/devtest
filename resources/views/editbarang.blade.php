@@ -84,7 +84,7 @@
                             <div class="form-group{{ $errors->has('stok') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Stok</label>
                             <div class="col-md-6">
-                            <input type="number" min="0" class="form-control" name="stok" value="{{$edit->stok}}"/>
+                            <input type="number" min="0" max="1000" class="form-control" name="stok" value="{{$edit->stok}}"/>
                             @if ($errors->has('stok'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('stok') }}</strong>

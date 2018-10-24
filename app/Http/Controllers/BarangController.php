@@ -32,17 +32,6 @@ class BarangController extends Controller
     $validator = $this->validator($request);
     if($validator->passes())
     {
-      if($request->file('gambar')==""){
-        $insert = ([
-              'namabarang' => $request->namabarang,
-              'idjenis' => $request->jenisbarang,
-              'deskripsi' => $request->deskripsi,
-              'stok' => $request->stok,
-              'hargabarang' => $request->hargabarang,
-              'gambarbarang' => '',
-              ]);
-    }
-    else{
 
       $orname = $request->file('gambarbarang')->getClientOriginalName();
       $filename = pathinfo($orname, PATHINFO_FILENAME);
@@ -59,10 +48,10 @@ class BarangController extends Controller
             'hargabarang' => $request->hargabarang,
             'gambarbarang' => $newname,
             ]);
-    }
+
     //dd($insert);
           barang::create($insert);
-          return redirect('viewbarang');
+          return redirect('viewbarangmod');
     }
     else
     {
@@ -77,7 +66,12 @@ public function getbeli(Request $request, $id){
   $barang = barang::where('idbarang','=',$id)->first();
   $detuser = detailuser::where('iduser','=',Auth::User()->id)->first();
 
+  if(Auth::User()->level!=1){
   return view('lanjutbeli', compact('barang','detuser'));
+  }
+  else{
+  return redirect('home');
+  }
 }
 
 public function beliBarang(Request $request, $id){
@@ -98,7 +92,7 @@ $sto = barang::select('idbarang','stok')
         $edit->stok= $sto->stok - $request->jumlahbarang;
         //dd($insert, $sto);
         $edit->save();
-        return redirect('viewbarang/' . $id);
+        return redirect('viewbarang');
 }
 
 public function batalBeli(Request $request, $id){
@@ -128,10 +122,10 @@ public function validator(Request $request)
     $rules = [
       'namabarang' => 'required|string|max:255',
       'jenisbarang' => 'required|string|max:255',
-      'deskripsi' => 'required|string',
+      'deskripsi' => 'required|string|max:90',
       'stok' => 'required|integer|min:0',
       'hargabarang' => 'required|integer',
-      'gambarbarang' => 'mimes:jpeg,bmp,png',
+      'gambarbarang' => 'required|mimes:jpeg,bmp,png',
     ];
     return Validator::make($request->all(), $rules);
 }

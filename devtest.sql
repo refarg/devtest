@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 22 Okt 2018 pada 11.14
+-- Generation Time: 24 Okt 2018 pada 08.59
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -41,10 +41,16 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
-(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 14, 100000, 'download.jpg'),
-(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 300, 300000, 'maxresdefault.jpg'),
+(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 16, 100000, 'download.jpg'),
+(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 291, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
-(7, 'Mencoba', 2, 'Tes', 5, 90000, 'pexels-photo-206673.jpeg');
+(7, 'Mencoba', 2, 'Tes', 1, 90000, 'pexels-photo-206673.jpeg'),
+(9, 'a', 1, 'a', 1, 1, ''),
+(10, 'b', 1, '2', 2, 2, ''),
+(11, 'c', 1, 'c', 3, 3, ''),
+(12, 'd', 1, 'd', 4, 4, ''),
+(13, 'e', 1, 'e', 5, 5, ''),
+(14, 'awda', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', 1, 10, '_20151020_20560124102018133534.JPG');
 
 -- --------------------------------------------------------
 
@@ -66,10 +72,10 @@ CREATE TABLE `detailuser` (
 --
 
 INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorponsel`, `avatar`) VALUES
-(1, 1, 'Refardo', 'Jl. Kenongo', '085465123546', NULL),
-(2, 2, 'Admin', 'Jl. Tes', '083851016002', 'blank-profile-picture-973460_960_720.png'),
+(1, 1, 'Refardo', 'Jl. Kenongo raya', '08546512354', NULL),
+(2, 2, 'Admin', 'Jl.Tes 1', '083851016002', 'blank-profile-picture-973460_960_720.png'),
 (3, 6, 'Masedo', 'nganu', '085465412326', 'blank-profile-picture-973460_960_720.png'),
-(4, 7, 'Josep', 'Jl. Coba 1', '089832192857', NULL);
+(4, 7, 'Josep', 'Jl. Coba tes', '089832192877', NULL);
 
 -- --------------------------------------------------------
 
@@ -114,7 +120,9 @@ INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`, `c
 (2, 5, 2, 'tessss', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
 (4, 7, 7, 'ngetes', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
 (5, 4, 2, 'nganu', '2018-10-05 13:15:12', '2018-10-05 06:15:12'),
-(7, 6, 6, 'bang buruan di-update dong stoknya', '2018-10-06 10:29:56', '2018-10-06 10:29:56');
+(7, 6, 6, 'bang buruan di-update dong stoknya', '2018-10-06 10:29:56', '2018-10-06 10:29:56'),
+(8, 5, 7, 'nganuu', '2018-10-23 13:36:46', '2018-10-23 13:36:46'),
+(9, 9, 7, 'jvhvjh', '2018-10-23 13:29:59', '2018-10-23 13:29:59');
 
 -- --------------------------------------------------------
 
@@ -172,12 +180,9 @@ CREATE TABLE `pembelian` (
 INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `statusverif`, `buktibayar`, `created_at`, `updated_at`) VALUES
 (4, 4, 1, 30, 1, 'vcredist19102018220614.bmp', '2018-10-19 15:43:39', '2018-10-19 15:43:39'),
 (9, 4, 7, 2, 1, 'Pemandangan-Alam-Terindah-di-Indonesia21102018234038.jpg', '2018-10-21 16:44:49', '2018-10-21 16:44:49'),
-(10, 4, 7, 2, 0, '', '2018-10-05 04:25:13', '2018-10-05 04:25:13'),
-(12, 4, 2, 2, 0, '', '2018-10-05 04:36:22', '2018-10-05 04:36:22'),
-(13, 4, 2, 2, 0, '', '2018-10-05 04:36:52', '2018-10-05 04:36:52'),
-(14, 7, 1, 5, 0, '', '2018-10-06 08:38:06', '2018-10-06 08:38:06'),
-(15, 5, 2, 10, 0, '', '2018-10-19 13:15:13', '2018-10-19 13:15:13'),
-(16, 4, 1, 2, 0, '', '2018-10-19 13:41:33', '2018-10-19 13:41:33');
+(14, 7, 1, 5, 1, '750x500-wisatawan-mancanegara-asik-ngopi-di-festival-kopi-sepuluh-ewu-161106924102018135514.jpg', '2018-10-24 06:55:59', '2018-10-24 06:55:59'),
+(16, 4, 1, 2, 1, '692851-1000xauto-bec24102018135534.jpg', '2018-10-24 06:56:01', '2018-10-24 06:56:01'),
+(18, 5, 7, 9, 1, 'idtbi-2015_fe383c823102018205809.jpg', '2018-10-23 13:59:02', '2018-10-23 13:59:02');
 
 -- --------------------------------------------------------
 
@@ -199,7 +204,6 @@ CREATE TABLE `replykomentarbarang` (
 --
 
 INSERT INTO `replykomentarbarang` (`idreply`, `idkomentar`, `iduser`, `replykomentar`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 'tes bro', '2018-10-06 12:02:18', '0000-00-00 00:00:00'),
 (2, 1, 2, 'bener bro', '2018-10-06 12:53:31', '2018-10-06 05:53:31'),
 (3, 5, 2, 'gini coy', '2018-10-06 07:37:35', '2018-10-06 07:37:35'),
 (4, 1, 2, 'oyi', '2018-10-06 08:02:28', '2018-10-06 08:02:28'),
@@ -228,10 +232,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'jsswa3VBbc5AFdyppCYyxDiqq3CtCVPR4eNAUxbqX9MjY7MkmJOJSpmcBxSu', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'LVpn0xzg8pGKTyY08oLdHwJxfKpma7mrdcxy0Tc7gQieyVXaJ5eVQcBYEeEU', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'UNKdQoXgS7uX8rfyCNfyAgMcoZSVlnvNgcPQNjcYM0o3hQLVyO9FIvJVx1HV', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'KyVPlCyp9K0E7jVbedR1s5Vp4JeIayh6a8H4TI2tlIxH8xYBMnEiQD5qCJYe', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Josep', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'oaUSE9ErjzSvECHmK3uTPmhG8ajdc35wJJRr37lhHE4bSUnAVkBIOBvrIZnF', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Joseph', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'ggoSHqO4qeHy4VQewrwy0hyU060rEHwSzGnTfYU4HsMdN1S2wKZfgxImXwyz', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -307,7 +311,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `detailuser`
 --
@@ -322,7 +326,7 @@ ALTER TABLE `jenisbarang`
 -- AUTO_INCREMENT for table `komentarbarang`
 --
 ALTER TABLE `komentarbarang`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -337,7 +341,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `replykomentarbarang`
 --

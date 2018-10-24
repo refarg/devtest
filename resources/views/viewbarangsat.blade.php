@@ -103,10 +103,12 @@ $(".btnko").click(function(){
 
                         <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
+                          @if(Auth::User()->level!=1)
                           @if($show->stok>0)
                         <button type="submit" onclick="location.href='/belibarang/{{$show->idbarang}}';" class="btn btn-primary btn-block">Beli</button>
                         @else
-                        <button type="button" class="btn btn-primary btn-danger">Stok Kosong</button>
+                        <button type="button" class="btn btn-primary btn-danger" onclick="location.href='/viewbarang';">Stok Kosong</button>
+                        @endif
                         @endif
                         </div>
                         </div>

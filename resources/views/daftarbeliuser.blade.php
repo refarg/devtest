@@ -12,6 +12,12 @@
   right: 0;
   top: 0;
 }
+a{
+  color: #000;
+}
+a:hover, a:focus{
+  color: #000;
+}
 </style>
 @endsection
 @section('js')
@@ -24,6 +30,16 @@ document.getElementById("upload").onchange = function() {
 @section('content')
 <div class="container">
     <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              Pembayaran dapat dilakukan melalui transfer ke rekening:<br>
+              Bank ATM<br>
+              A/N Joseph Christian Saragih<br>
+              Nomor Rekening: 182938218392
+            </div>
+          </div>
+        </div>
         <div class="col-md-12 col-md-offset-0">
             <div class="panel panel-default">
                 <div class="panel-heading">Keranjang Belanja {{ Auth::user()->name }}</div>

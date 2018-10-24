@@ -55,7 +55,7 @@ class UserController extends Controller
 
   public function updateProfile(Request $request, $id){
     $edit = detailuser::where('iduser','=',$id)->first();
-    $beli = pembelian::where('iduser','=',$id)->where('buktibayar','=','')->where('statusverif','=','0')->get();
+    $beli = pembelian::where('iduser','=',$id)->where('statusverif','=','0')->get();
     //dd($beli);
     $validator = $this->validator($request);
     if($validator->passes())
@@ -76,11 +76,7 @@ class UserController extends Controller
         $request->file('avatar')->move("profileimage/", $newname);
           }
         //dd($edit);
-    if (Auth::User()->level==1) {
-      $edit->update();
-      return redirect('viewuserlist');
-    }
-    elseif(Auth::User()->level==2 and $edit->iduser==Auth::User()->id and $beli==null){
+    if(Auth::User()->level==2 and count($beli)==0){
       $edit->update();
       return redirect('viewuser');
     }

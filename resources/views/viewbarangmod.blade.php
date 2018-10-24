@@ -33,6 +33,17 @@ $(function() {
     width: 75%;
     padding-top: 8px;
 }
+.desc{
+  -ms-word-break: break-all;
+  word-break: break-all;
+
+  /* Non standard for webkit */
+  word-break: break-word;
+
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
 </style>
 @endsection
 @extends('layouts.app')
@@ -70,7 +81,7 @@ $(function() {
       <div class="caption cap">
         <h3><a href="/viewbarang/{{$data->idbarang}}">{{$data->namabarang}}</a></h3>
         <p>Jenis: {{$data->jenisbarang}}</p>
-        <p>Deskripsi: {{$data->deskripsi}}</p>
+        <p class="desc">Deskripsi: {{$data->deskripsi}}</p>
         <p>Stok: {{$data->stok}} buah</p>
         <p>Harga: Rp. {{number_format($data->hargabarang)}}</p>
       </div>

@@ -74,7 +74,19 @@ public function getbeli(Request $request, $id){
   }
 }
 
+public function validatorbeli(Request $request)
+{
+    $rules = [
+      'namalengkap' => 'required',
+      'alamat' => 'required',
+      'nomortelepon' => 'required',
+    ];
+    return Validator::make($request->all(), $rules);
+}
+
 public function beliBarang(Request $request, $id){
+  $validator = $this->validatorbeli($request);
+    if($validator->passes()){
   $insert = ([
         'idbarang' => $id,
         'iduser' => Auth::user()->id,
@@ -93,6 +105,12 @@ $sto = barang::select('idbarang','stok')
         //dd($insert, $sto);
         $edit->save();
         return redirect('viewbarang');
+      }
+      else{
+        return Redirect::back()
+            ->withErrors($validator)
+            ->withInput();
+      }
 }
 
 public function batalBeli(Request $request, $id){

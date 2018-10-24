@@ -10,37 +10,37 @@
                     <div class="form-horizontal">
                       <form method="post" action="/belibarang/{{$barang->idbarang}}">
                         {{ csrf_field() }}
-                            <div class="form-group{{ $errors->has('namabarang') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('namalengkap') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Nama Pembeli</label>
                             <div class="col-md-6">
                             <input type="text" class="form-control" name="namalengkap" value="{{$detuser->namalengkap}}" readonly/>
-                            @if ($errors->has('namabarang'))
+                            @if ($errors->has('namalengkap'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('name') }}</strong>
+                                    <strong>{{ $errors->first('namalengkap') }}</strong>
                                 </span>
                             @endif
                             </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('jenisbarang') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Alamat Pembeli</label>
                             <div class="col-md-6">
                             <input type="text" class="form-control" name="alamat" value="{{$detuser->alamat}}" readonly/>
-                              @if ($errors->has('jenisbarang'))
+                              @if ($errors->has('alamat'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('jenisbarang') }}</strong>
+                                      <strong>{{ $errors->first('alamat') }}</strong>
                                   </span>
                               @endif
                             </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('stok') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('nomortelepon') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Nomor Telepon</label>
                             <div class="col-md-6">
                             <input type="text" class="form-control" name="nomortelepon" value="{{$detuser->nomorponsel}}" readonly/>
-                            @if ($errors->has('stok'))
+                            @if ($errors->has('nomortelepon'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('stok') }}</strong>
+                                    <strong>{{ $errors->first('nomortelepon') }}</strong>
                                 </span>
                             @endif
                             </div>

@@ -21,7 +21,7 @@ Route::Auth();
 Route::get('/home', 'HomeController@dashboard')->name('home');
 Route::get('/viewbarang/{id}','BarangController@viewBarangSatuan');
 Route::get('/viewbarang','BarangController@viewBarangUser');
-Route::get('viewbarangs','featureController@paginate');
+Route::get('viewbarangs','featureController@search');
 
 Route::middleware(['auth'])->group(function () {
   //CRUD Komentar User
@@ -71,6 +71,8 @@ Route::get('/batalbelimod/{id}','BarangController@batalBelimod');
 Route::get('/verifikasi/{idbayar}','BarangController@doverif');
 
 });
+
+Route::get('recommend','featureController@recommend');
 
 Route::get('/forbidden', function () {
     return view('forbidden');

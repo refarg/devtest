@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2018 at 07:41 PM
+-- Generation Time: Oct 27, 2018 at 08:53 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 5.6.38
 
@@ -46,7 +46,7 @@ INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, 
 (4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 16, 100000, 'download.jpg'),
 (5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 291, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
-(7, 'Mencoba', 2, 'Tes', 1, 90000, 'pexels-photo-206673.jpeg'),
+(7, 'Mencoba', 2, 'Tes', 0, 90000, 'pexels-photo-206673.jpeg'),
 (14, 'awda', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', 1, 10, '_20151020_20560124102018133534.JPG'),
 (15, 'Piringan Biru', 2, 'Ini Deskripsi Barang', 20, 901293021, '30x3028102018002105.png'),
 (16, 'Piringan Coklat', 2, 'Itu Deskripsi', 230, 910291, '30x3028102018002129.png');
@@ -180,7 +180,8 @@ INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `s
 (9, 4, 7, 2, 1, 'Pemandangan-Alam-Terindah-di-Indonesia21102018234038.jpg', '2018-10-21 16:44:49', '2018-10-21 16:44:49'),
 (14, 7, 1, 5, 1, '750x500-wisatawan-mancanegara-asik-ngopi-di-festival-kopi-sepuluh-ewu-161106924102018135514.jpg', '2018-10-24 06:55:59', '2018-10-24 06:55:59'),
 (16, 4, 1, 2, 1, '692851-1000xauto-bec24102018135534.jpg', '2018-10-24 06:56:01', '2018-10-24 06:56:01'),
-(18, 5, 7, 9, 1, 'idtbi-2015_fe383c823102018205809.jpg', '2018-10-23 13:59:02', '2018-10-23 13:59:02');
+(18, 5, 7, 9, 1, 'idtbi-2015_fe383c823102018205809.jpg', '2018-10-23 13:59:02', '2018-10-23 13:59:02'),
+(19, 7, 7, 1, 0, '', '2018-10-27 18:14:35', '2018-10-27 18:14:35');
 
 -- --------------------------------------------------------
 
@@ -231,7 +232,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'g4kawnYaGhdzmFH3wnHdELti1Cvbb2ew9qaEELV8sYWxBrxQOTD27t3WqgoT', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'jqHKPcE73pkS1PepIy4MHWOEkBAcAiEbOKvErv9nmuvMFvyCHhDYctOFittt', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'AOW0cNxHCGxICBg82OSodPHbuuAoIpXwavtMcdNzR6sdtpKiB7llJVcGjLGs', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
 (7, 2, 'Joseph', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'jnpB4RZEDf5Rw9IGpFles25Fjnlj6kKM7QYCfBeah2goBRj346e9mw9wGwlS', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
@@ -345,7 +346,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `replykomentarbarang`

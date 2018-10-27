@@ -113,6 +113,9 @@ $(function() {
 </div>
 
                     </div>
+                    <div class="text-center">
+                    {{ $tampil->links() }}
+                  </div>
                 </div>
             </div>
         </div>

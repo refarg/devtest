@@ -47,6 +47,11 @@
     .modal-content{
       background:#a6a6a6;
     }
+
+    .navbar-nav>li>a.profile-image {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    }
     </style>
     @yield('css')
 </head>
@@ -77,9 +82,9 @@
                         &nbsp;
                     </ul>
 
-                    <form class="navbar-form navbar-left" method="get" action="">
+                    <form class="navbar-form navbar-left" method="get" action="/viewbarangs">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Cari Barang">
+                      <input type="text" name="nama" class="form-control" placeholder="Cari Barang...">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                   </form>
@@ -110,7 +115,8 @@
                         </li>
                         @endif
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeBAMAAADJHrORAAAAG1BMVEXMzMyWlpa3t7eqqqrFxcW+vr6xsbGjo6OcnJwtaz+fAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOElEQVQYlWNgGHaAyURdAUaC+U4tDTASDEwFBNhUQSSEy+rW0sBSACIhfDYjdQU2VRBJLxfTEAAAv8sIm/VDSJMAAAAASUVORK5CYII=" class="img-circle">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

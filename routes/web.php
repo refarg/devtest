@@ -21,6 +21,7 @@ Route::Auth();
 Route::get('/home', 'HomeController@dashboard')->name('home');
 Route::get('/viewbarang/{id}','BarangController@viewBarangSatuan');
 Route::get('/viewbarang','BarangController@viewBarangUser');
+Route::get('viewbarangs','featureController@paginate');
 
 Route::middleware(['auth'])->group(function () {
   //CRUD Komentar User

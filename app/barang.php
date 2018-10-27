@@ -11,9 +11,16 @@ class barang extends Model
   protected $fillable = [
       'namabarang', 'idjenis', 'deskripsi', 'stok', 'hargabarang','gambarbarang'
   ];
+
   public $timestamps=false;
+
   public function pembelian()
       {
           return $this->hasMany('App\pembelian');
+      }
+
+  public function jenisbarang()
+      {
+          return $this->hasOne('App\jenisbarang','idjenis','idjenis');
       }
 }

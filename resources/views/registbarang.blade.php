@@ -21,7 +21,7 @@
                       </div>
 
                         <div class="form-group{{ $errors->has('gambarbarang') ? ' has-error' : '' }}">
-                        <label for="text" class="col-md-4 control-label">Gambar Barang</label>
+                        <label for="gambarbarang" class="col-md-4 control-label">Gambar Barang</label>
                         <div class="col-md-6">
                         <input type="file" accept="image/*" id="inputgambar" class="form-control" name="gambarbarang" placeholder="Gambar Barang" onchange="loadFile(event)" required/>
                         @if ($errors->has('gambarbarang'))
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('namabarang') ? ' has-error' : '' }}">
-                        <label for="text" class="col-md-4 control-label">Nama Barang</label>
+                        <label for="namabarang" class="col-md-4 control-label">Nama Barang</label>
                         <div class="col-md-6">
                         <input type="text" name="namabarang" class="form-control" placeholder="Nama Barang" />
                         @if ($errors->has('namabarang'))
@@ -45,7 +45,7 @@
                         </div>
 
                             <div class="form-group{{ $errors->has('jenisbarang') ? ' has-error' : '' }}">
-                            <label for="text" class="col-md-4 control-label">Jenis Barang</label>
+                            <label for="jenisbarang" class="col-md-4 control-label">Jenis Barang</label>
                             <div class="col-md-6">
                               <select class="form-control" name="jenisbarang">
                                 <option value="none" disabled selected>Pilih Jenis Barang</option>
@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('deskripsi') ? ' has-error' : '' }}">
-                            <label for="text" class="col-md-4 control-label">Deskripsi</label>
+                            <label for="deskripsi" class="col-md-4 control-label">Deskripsi</label>
                             <div class="col-md-6">
                             <input type="text" class="form-control" name="deskripsi" placeholder="Deskripsi"/>
                             @if ($errors->has('deskripsi'))
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('stok') ? ' has-error' : '' }}">
-                            <label for="text" class="col-md-4 control-label">Stok</label>
+                            <label for="stok" class="col-md-4 control-label">Stok</label>
                             <div class="col-md-6">
                             <input type="number" min="1" max="1000" class="form-control" name="stok" placeholder="Stok"/>
                             @if ($errors->has('stok'))
@@ -86,7 +86,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('hargabarang') ? ' has-error' : '' }}">
-                            <label for="text" class="col-md-4 control-label">Harga Barang</label>
+                            <label for="hargabarang" class="col-md-4 control-label">Harga Barang</label>
                             <div class="col-md-6">
                               <div class="input-group">
                               <div class="input-group-addon">Rp.</div>

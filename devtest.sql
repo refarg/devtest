@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 24 Okt 2018 pada 08.59
--- Versi Server: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Oct 27, 2018 at 07:41 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 5.6.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barang`
+-- Table structure for table `barang`
 --
 
 CREATE TABLE `barang` (
@@ -37,7 +39,7 @@ CREATE TABLE `barang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `barang`
+-- Dumping data for table `barang`
 --
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
@@ -45,17 +47,14 @@ INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, 
 (5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 291, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
 (7, 'Mencoba', 2, 'Tes', 1, 90000, 'pexels-photo-206673.jpeg'),
-(9, 'a', 1, 'a', 1, 1, ''),
-(10, 'b', 1, '2', 2, 2, ''),
-(11, 'c', 1, 'c', 3, 3, ''),
-(12, 'd', 1, 'd', 4, 4, ''),
-(13, 'e', 1, 'e', 5, 5, ''),
-(14, 'awda', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', 1, 10, '_20151020_20560124102018133534.JPG');
+(14, 'awda', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', 1, 10, '_20151020_20560124102018133534.JPG'),
+(15, 'Piringan Biru', 2, 'Ini Deskripsi Barang', 20, 901293021, '30x3028102018002105.png'),
+(16, 'Piringan Coklat', 2, 'Itu Deskripsi', 230, 910291, '30x3028102018002129.png');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detailuser`
+-- Table structure for table `detailuser`
 --
 
 CREATE TABLE `detailuser` (
@@ -68,7 +67,7 @@ CREATE TABLE `detailuser` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `detailuser`
+-- Dumping data for table `detailuser`
 --
 
 INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorponsel`, `avatar`) VALUES
@@ -80,7 +79,7 @@ INSERT INTO `detailuser` (`iddetail`, `iduser`, `namalengkap`, `alamat`, `nomorp
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jenisbarang`
+-- Table structure for table `jenisbarang`
 --
 
 CREATE TABLE `jenisbarang` (
@@ -89,7 +88,7 @@ CREATE TABLE `jenisbarang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `jenisbarang`
+-- Dumping data for table `jenisbarang`
 --
 
 INSERT INTO `jenisbarang` (`idjenis`, `jenisbarang`) VALUES
@@ -99,7 +98,7 @@ INSERT INTO `jenisbarang` (`idjenis`, `jenisbarang`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `komentarbarang`
+-- Table structure for table `komentarbarang`
 --
 
 CREATE TABLE `komentarbarang` (
@@ -112,7 +111,7 @@ CREATE TABLE `komentarbarang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `komentarbarang`
+-- Dumping data for table `komentarbarang`
 --
 
 INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`, `created_at`, `updated_at`) VALUES
@@ -121,13 +120,12 @@ INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`, `c
 (4, 7, 7, 'ngetes', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
 (5, 4, 2, 'nganu', '2018-10-05 13:15:12', '2018-10-05 06:15:12'),
 (7, 6, 6, 'bang buruan di-update dong stoknya', '2018-10-06 10:29:56', '2018-10-06 10:29:56'),
-(8, 5, 7, 'nganuu', '2018-10-23 13:36:46', '2018-10-23 13:36:46'),
-(9, 9, 7, 'jvhvjh', '2018-10-23 13:29:59', '2018-10-23 13:29:59');
+(8, 5, 7, 'nganuu', '2018-10-23 13:36:46', '2018-10-23 13:36:46');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -139,7 +137,7 @@ CREATE TABLE `migrations` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -150,7 +148,7 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `password_resets`
+-- Dumping data for table `password_resets`
 --
 
 INSERT INTO `password_resets` (`idresets`, `email`, `token`, `created_at`) VALUES
@@ -159,7 +157,7 @@ INSERT INTO `password_resets` (`idresets`, `email`, `token`, `created_at`) VALUE
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembelian`
+-- Table structure for table `pembelian`
 --
 
 CREATE TABLE `pembelian` (
@@ -174,7 +172,7 @@ CREATE TABLE `pembelian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `pembelian`
+-- Dumping data for table `pembelian`
 --
 
 INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `statusverif`, `buktibayar`, `created_at`, `updated_at`) VALUES
@@ -187,7 +185,7 @@ INSERT INTO `pembelian` (`idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `s
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `replykomentarbarang`
+-- Table structure for table `replykomentarbarang`
 --
 
 CREATE TABLE `replykomentarbarang` (
@@ -200,7 +198,7 @@ CREATE TABLE `replykomentarbarang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `replykomentarbarang`
+-- Dumping data for table `replykomentarbarang`
 --
 
 INSERT INTO `replykomentarbarang` (`idreply`, `idkomentar`, `iduser`, `replykomentar`, `created_at`, `updated_at`) VALUES
@@ -213,7 +211,7 @@ INSERT INTO `replykomentarbarang` (`idreply`, `idkomentar`, `iduser`, `replykome
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -228,14 +226,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'UNKdQoXgS7uX8rfyCNfyAgMcoZSVlnvNgcPQNjcYM0o3hQLVyO9FIvJVx1HV', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'KyVPlCyp9K0E7jVbedR1s5Vp4JeIayh6a8H4TI2tlIxH8xYBMnEiQD5qCJYe', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'g4kawnYaGhdzmFH3wnHdELti1Cvbb2ew9qaEELV8sYWxBrxQOTD27t3WqgoT', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'jqHKPcE73pkS1PepIy4MHWOEkBAcAiEbOKvErv9nmuvMFvyCHhDYctOFittt', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
 (6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '4B8sOLw5pfNjIulKhwvbB2uijfDxvbSwHZd8MTuHnbsfXTnBbace5l2Xl11h', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Joseph', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'ggoSHqO4qeHy4VQewrwy0hyU060rEHwSzGnTfYU4HsMdN1S2wKZfgxImXwyz', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(7, 2, 'Joseph', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'jnpB4RZEDf5Rw9IGpFles25Fjnlj6kKM7QYCfBeah2goBRj346e9mw9wGwlS', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -311,83 +309,93 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
 -- AUTO_INCREMENT for table `detailuser`
 --
 ALTER TABLE `detailuser`
-  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `iddetail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `jenisbarang`
 --
 ALTER TABLE `jenisbarang`
   MODIFY `idjenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `komentarbarang`
 --
 ALTER TABLE `komentarbarang`
   MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `password_resets`
 --
 ALTER TABLE `password_resets`
   MODIFY `idresets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
   MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `replykomentarbarang`
 --
 ALTER TABLE `replykomentarbarang`
   MODIFY `idreply` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `barang`
+-- Constraints for table `barang`
 --
 ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`idjenis`) REFERENCES `jenisbarang` (`idjenis`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `detailuser`
+-- Constraints for table `detailuser`
 --
 ALTER TABLE `detailuser`
   ADD CONSTRAINT `userdata` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `komentarbarang`
+-- Constraints for table `komentarbarang`
 --
 ALTER TABLE `komentarbarang`
   ADD CONSTRAINT `komentarbarang_ibfk_1` FOREIGN KEY (`idbarang`) REFERENCES `barang` (`idbarang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `komentarbarang_ibfk_2` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pembelian`
+-- Constraints for table `pembelian`
 --
 ALTER TABLE `pembelian`
   ADD CONSTRAINT `barangid` FOREIGN KEY (`idbarang`) REFERENCES `barang` (`idbarang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `userid` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `replykomentarbarang`
+-- Constraints for table `replykomentarbarang`
 --
 ALTER TABLE `replykomentarbarang`
   ADD CONSTRAINT `komenid` FOREIGN KEY (`idkomentar`) REFERENCES `komentarbarang` (`idkomentar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `replyuserid` FOREIGN KEY (`iduser`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

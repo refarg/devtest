@@ -15,6 +15,17 @@ a{
 a:hover, a:focus{
   color: #000;
 }
+.desc{
+  -ms-word-break: break-all;
+  word-break: break-all;
+
+  /* Non standard for webkit */
+  word-break: break-word;
+
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
 </style>
 @endsection
 @section('content')
@@ -43,11 +54,11 @@ a:hover, a:focus{
   										</tr>
                     @foreach($tampil as $data)
 										<tr>
-											<td class="text-center text-nowrap"><a href="/viewbarang/{{$data->idbarang}}" title="Melihat Barang">{{$data->namabarang}}</a></td>
-											<td class="text-center text-nowrap">{{$data->jenisbarang}}</td>
-											<td class="text-center text-nowrap">{{$data->deskripsi}}</td>
+											<td class="desc"><a href="/viewbarang/{{$data->idbarang}}" title="Melihat Barang">{{$data->namabarang}}</a></td>
+											<td class="text-center desc">{{$data->jenisbarang}}</td>
+											<td class="desc">{{$data->deskripsi}}</td>
 											<td class="text-center text-nowrap">{{$data->stok}}</td>
-											<td class="text-center text-nowrap">{{$data->hargabarang}}</td>
+											<td class="text-center desc">{{$data->hargabarang}}</td>
                       <td class="text-center text-nowrap"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary">Edit</a></td>
                       <input type="hidden" name="_token" value="{{ Session::token() }}">
                       <td class="text-center text-nowrap"><button data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}" type="button" class="btnsumbit btn btn-danger">Hapus</a></button>
@@ -75,6 +86,9 @@ a:hover, a:focus{
 										@endforeach
                   </table>
                 </div>
+                <div class="text-center">
+                {{ $tampil->links() }}
+              </div>
             </div>
         </div>
     </div>

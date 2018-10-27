@@ -47,6 +47,11 @@ $(function() {
                     @endif
 
 <div class="row">
+@if(count($tampil)==0)
+<div class="col-sm-6 col-md-4">
+Tidak ada Data Barang
+</div>
+@else
 @foreach($tampil as $data)
 <div class="col-sm-6 col-md-4">
   {{ csrf_field() }}
@@ -69,10 +74,17 @@ $(function() {
     </div>
 </div>
 @endforeach
+@endif
 </div>
 
                     </div>
+
+                      <div class="text-center">
+                      {{ $tampil->links() }}
+                    </div>
+                    
                 </div>
+
             </div>
         </div>
     </div>

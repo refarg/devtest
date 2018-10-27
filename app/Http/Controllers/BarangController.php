@@ -195,7 +195,7 @@ public function viewdetBeli(Request $request, $idbeli){
       $tampil=DB::table('barang')
               ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
               ->select('barang.*', 'jenisbarang.*')
-              ->get();
+              ->paginate(6);
         return view('viewbarang',compact('tampil'));
   }
 
@@ -203,7 +203,7 @@ public function viewdetBeli(Request $request, $idbeli){
     $tampil=DB::table('barang')
             ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
             ->select('barang.*', 'jenisbarang.*')
-            ->get();
+            ->paginate(6);
     //dd($tampil);
         return view('viewbarangm',compact('tampil'));
   }
@@ -324,7 +324,7 @@ $del = replykomentarbarang::find($id);
     $tampil=DB::table('barang')
             ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
             ->select('barang.*', 'jenisbarang.*')
-            ->get();
+            ->paginate(6);
         return view('viewbarangmod',compact('tampil'));
   }
 
@@ -362,7 +362,7 @@ $del = replykomentarbarang::find($id);
   public function hapusBarang($id){
         $edit= barang::find($id);
         $edit->delete();
-        return redirect('viewbarang');
+        return redirect('viewbarangm');
   }
 
   public function editBarang(Request $request, $id){

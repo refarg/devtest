@@ -36,4 +36,23 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    // Enable username only login
+    /*
+     public function username(){
+       return 'name';
+     }
+     */
+
+    // Enable email or username login.
+    // To revert back to email login, just comment the method below
+    // and change the 'name' form into 'email' on login view
+    public function username()
+    {
+      $login = request()->input('name');
+      $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+      request()->merge([$field => $login]);
+      return $field;
+    }
+
 }

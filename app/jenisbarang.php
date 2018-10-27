@@ -12,4 +12,14 @@ class jenisbarang extends Model
       'jenisbarang',
   ];
   public $timestamps=false;
+
+  public function barang()
+      {
+          return $this->belongsTo('App\barang');
+      }
+
+      public function jenisbarang()
+          {
+              return $this->belongsTo('App\jenisbarang');
+          }
 }

@@ -49,12 +49,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
       $messages=[
-        'regex' => 'The :attribute requires capital letter and numbers.',
+        'regex' => 'Isian :attribute membutuhkan huruf kapital dan angka setidaknya 1 karakter.',
       ];
       $validator = Validator::make($data, [
           'name' => 'required|string|max:20',
           'email' => 'required|string|email|max:255|unique:users',
-          'password' => ['required','max:8','confirmed','regex:/^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,50})$/'],
+          'password' => ['required','max:8','min:8','confirmed','regex:/^(?=.*\d)(?=.*[A-Z])(?!.*[^a-zA-Z0-9@#$^+=])(.{8,8})$/'],
       ], $messages);
         return $validator;
 

@@ -56,7 +56,7 @@ $(function() {
                   <h3 class="panel-title pull-left">
                   Daftar Barang
                 </h3>
-                    <a href="/registbarang" class="btn btn-sm btn-primary pull-right">Tambah Barang</a>
+                    <a href="/registbarang" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i> Tambah Barang</a>
                   <div class="clearfix"></div>
                 </div>
 
@@ -85,7 +85,7 @@ $(function() {
         <p>Stok: {{$data->stok}} buah</p>
         <p>Harga: Rp. {{number_format($data->hargabarang)}}</p>
       </div>
-        <p class="text-center"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary">Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}">Hapus</button></p>
+        <p class="text-center"><a href="/editbarang/{{$data->idbarang}}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a> <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{$loop->iteration}}"><i class="glyphicon glyphicon-remove"></i> Hapus</button></p>
     </div>
 </div>
 
@@ -104,7 +104,7 @@ $(function() {
           Ingin melanjutkan?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btnsumbit btn btn-danger" onclick="location.href='/hapusbarangmod/{{$data->idbarang}}';">Hapus</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button> <button type="button" class="btnsumbit btn btn-danger" onclick="location.href='/hapusbarangmod/{{$data->idbarang}}';"><i class="glyphicon glyphicon-remove"></i> Hapus</button>
       </div>
     </div>
   </div>

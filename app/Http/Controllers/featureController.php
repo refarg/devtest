@@ -19,7 +19,7 @@ class featureController extends Controller
               ->orWhere('deskripsi', 'like', "%{$request->nama}%")
               ->orWhere('jenisbarang', 'like', "%{$request->nama}%");
           });
-  $tampil = $check->paginate(2);
+  $tampil = $check->paginate(6);
 
   $tampil->appends($request->only('nama'));
   //dd($tampil);

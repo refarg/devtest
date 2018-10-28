@@ -52,6 +52,10 @@
     padding-top: 10px;
     padding-bottom: 10px;
     }
+    a.profile-image>img{
+      width:30px;
+      height:30px;
+    }
     </style>
     @yield('css')
 </head>
@@ -86,18 +90,17 @@
                     <div class="form-group">
                       <input type="text" name="nama" class="form-control" placeholder="Cari Barang...">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                   </form>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        <li><a href="{{ url('/home') }}">Home</a></li>
-
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}"><i class="glyphicon glyphicon-log-in"></i> Login</a></li>
+                            <li><a href="{{ route('register') }}"><i class="glyphicon glyphicon-user"></i> Register</a></li>
                         @else
+                        <li><a href="{{ url('/home') }}">Home</a></li>
                         @if (Auth::user()->level!=1)
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -116,17 +119,21 @@
                         @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown" role="button" aria-expanded="false">
+                                  @if($userdet->avatar!='')
+                                  <img src="/profileimage/{{$userdet->avatar}}" class="img-circle">
+                                  @else
                                   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeBAMAAADJHrORAAAAG1BMVEXMzMyWlpa3t7eqqqrFxcW+vr6xsbGjo6OcnJwtaz+fAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAOElEQVQYlWNgGHaAyURdAUaC+U4tDTASDEwFBNhUQSSEy+rW0sBSACIhfDYjdQU2VRBJLxfTEAAAv8sIm/VDSJMAAAAASUVORK5CYII=" class="img-circle">
+                                  @endif
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/viewuser') }}">Profil</a></li>
+                                    <li><a href="{{ url('/viewuser') }}"><i class="glyphicon glyphicon-user"></i> Profil</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <i class="glyphicon glyphicon-log-out"></i> Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

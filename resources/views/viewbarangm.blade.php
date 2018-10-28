@@ -70,7 +70,7 @@ Tidak ada Data Barang
         <p>Stok: {{$data->stok}} buah</p>
         <p>Harga: Rp. {{number_format($data->hargabarang)}}</p>
       </div>
-      <a href="/viewbarang/{{$data->idbarang}}" title="Lihat {{$data->namabarang}}" class="btn btn-primary btn-block">Lihat Barang</a>
+      <a href="/viewbarang/{{$data->idbarang}}" title="Lihat {{$data->namabarang}}" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-info-sign"></i> Lihat Barang</a>
     </div>
 </div>
 @endforeach
@@ -82,7 +82,7 @@ Tidak ada Data Barang
                       <div class="text-center">
                       {{ $tampil->links() }}
                     </div>
-                    
+
                 </div>
 
             </div>

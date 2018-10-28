@@ -70,7 +70,7 @@ a:hover, a:focus{
                             <p><img class="img-responsive thumbnail center-block" src="{{ asset('buktitrf/'.$data->buktibayar) }}" /></p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Urungkan</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
                           </div>
                         </div>
                       </div>
@@ -82,6 +82,9 @@ a:hover, a:focus{
                   <h4 class="text-center">Tidak ada barang di dalam keranjang belanja semua user saat ini</h4>
                   @endif
                 </div>
+                <div class="text-center">
+                {{ $tampil->links() }}
+              </div>
             </div>
         </div>
     </div>

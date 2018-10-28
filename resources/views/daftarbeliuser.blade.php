@@ -76,11 +76,11 @@ document.getElementById("upload").onchange = function() {
                         <form enctype="multipart/form-data" id="form" method="post" action="{{url('/submitbukti/'.$data->idpembelian)}}">
                         {{csrf_field()}}
                         <div class="file btn btn-primary">
-                          Pilih Foto
+                          <i class="glyphicon glyphicon-upload"></i> Pilih Foto
                           <input class="iform" id="upload" type="file" name="buktipembayaran" accept="image/*" required />
                         </div>
                       </form></td>
-                      <td class="text-center text-nowrap"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBatal{{$loop->iteration}}">Batal Pesan</button></td>
+                      <td class="text-center text-nowrap"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBatal{{$loop->iteration}}"><i class="glyphicon glyphicon-remove-circle"></i> Batal Pesan</button></td>
                       @elseif($data->statusverif==0)
                       <td class="text-center text-nowrap">Menunggu Verifikasi Admin</td>
                       <td class="text-center text-nowrap"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalView{{$loop->iteration}}">Lihat Gambar</button></td>
@@ -104,7 +104,7 @@ document.getElementById("upload").onchange = function() {
                             <p><img class="img-responsive thumbnail center-block" src="{{ asset('buktitrf/'.$data->buktibayar) }}" /></p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Urungkan</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
                           </div>
                         </div>
                       </div>
@@ -137,6 +137,9 @@ document.getElementById("upload").onchange = function() {
                   <h4 class="text-center">Tidak ada barang di dalam keranjang belanja saat ini</h4>
                   @endif
                 </div>
+                <div class="text-center">
+                {{ $tampil->links() }}
+              </div>
             </div>
         </div>
     </div>

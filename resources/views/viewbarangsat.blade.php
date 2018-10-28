@@ -23,7 +23,7 @@ $(".btnko").click(function(){
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Lihat Barang: {{$show->namabarang}}</div>
+                <div class="panel-heading">Detail Barang: {{$show->namabarang}}</div>
                 <div class="panel-body">
                     <div class="form-horizontal">
 
@@ -31,11 +31,11 @@ $(".btnko").click(function(){
                         <div class="col-md-12">
 
                           @if(is_null($show->gambarbarang))
-                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="thumbnail img-responsive center-block" />
                           @elseif( $show->gambarbarang == '')
-                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="http://placehold.it/200x200" id="showgambar" style="max-width:200px;max-height:200px;" class="thumbnail img-responsive center-block" />
                           @else
-                          <img src="{{ asset('image/'.$show->gambarbarang) }}" alt="Gambar" style="max-width:200px;max-height:200px;" class="img-responsive center-block" />
+                          <img src="{{ asset('image/'.$show->gambarbarang) }}" alt="Gambar" style="max-width:200px;max-height:200px;" class="thumbnail img-responsive center-block" />
                           @endif
                             <p class="text-center" style="font-weight:bold;">Contoh Barang</p>
                         </div>
@@ -80,7 +80,10 @@ $(".btnko").click(function(){
                             <div class="form-group{{ $errors->has('hargabarang') ? ' has-error' : '' }}">
                             <label for="text" class="col-md-4 control-label">Harga Barang</label>
                             <div class="col-md-6">
+                              <div class="input-group">
+                              <div class="input-group-addon">Rp.</div>
                             <input type="text" class="form-control" name="hargabarang" value="{{$show->hargabarang}}" readonly/>
+                              </div>
                             @if ($errors->has('hargabarang'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('hargabarang') }}</strong>
@@ -106,9 +109,9 @@ $(".btnko").click(function(){
                           @if(Auth::check())
                           @if(Auth::User()->level!=1)
                           @if($show->stok>0)
-                        <button type="submit" onclick="location.href='/belibarang/{{$show->idbarang}}';" class="btn btn-primary btn-block">Beli</button>
+                        <button type="submit" onclick="location.href='/belibarang/{{$show->idbarang}}';" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-shopping-cart"></i> Beli</button>
                         @else
-                        <button type="button" class="btn btn-primary btn-danger" onclick="location.href='/viewbarang';">Stok Kosong</button>
+                        <button type="button" class="btn btn-block btn-danger" onclick="location.href='/viewbarang';"><i class="glyphicon glyphicon-remove"></i> Stok Kosong</button>
                         @endif
                         @endif
                         @endif
@@ -314,6 +317,9 @@ $(".btnko").click(function(){
 @endif
 
 @endforeach
+<div class="text-center">
+{{ $komeng->links() }}
+</div>
 @if(!Auth::guest())
 <div class="btnko col-sm-12">
   <div class="panel panel-default">

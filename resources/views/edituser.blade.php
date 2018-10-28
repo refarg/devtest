@@ -89,9 +89,9 @@ $("#confirmedit").click(function(){
 
                             <div class="form-group">
                             <div class="col-md-12 col-md-offset-5">
-                              <input type="button" id="confirmedit" class="btn btn-danger" value="Edit" @if(Auth::User()->level==1 and $edit->id!=Auth::User()->id) disabled @endif/>
+                              <button type="button" id="confirmedit" class="btn btn-danger" @if(Auth::User()->level==1 and $edit->id!=Auth::User()->id) disabled @endif><i class="glyphicon glyphicon-edit"></i> Edit</button>
                                 <button type="button" class="btn hide btn-primary" id="btnupdate" data-toggle="modal" data-target="#modalEdit" @if(Auth::User()->level==1 and $edit->id!=Auth::User()->id) disabled @endif>
-                                    Update
+                                <i class="glyphicon glyphicon-save"></i> Update
                                 </button>
                                 <div class="modal fade" id="modalEdit" role="dialog">
                                   <div class="modal-dialog">

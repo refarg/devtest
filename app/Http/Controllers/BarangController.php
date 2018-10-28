@@ -157,7 +157,7 @@ public function viewBeliadmin(Request $request){
             ->join('detailuser', 'pembelian.iduser', '=', 'detailuser.iduser')
             ->select('pembelian.*', 'barang.*', 'users.name', 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
             ->orderBy('pembelian.created_at', 'asc')
-            ->get();
+            ->paginate(10);
       return view('daftarbeli',compact('tampil'));
 }
 
@@ -170,7 +170,7 @@ public function viewBeliuser(Request $request){
             ->select('pembelian.*', 'barang.*', 'users.name' , 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
             ->where('pembelian.iduser','=',Auth::user()->id)
             ->orderBy('pembelian.created_at', 'asc')
-            ->get();
+            ->paginate(10);
       return view('daftarbeliuser',compact('tampil'));
 }
 
@@ -218,7 +218,7 @@ public function viewdetBeli(Request $request, $idbeli){
               ->join('users','komentarbarang.iduser','=','users.id')
               ->select('komentarbarang.*', 'users.name')
               ->where('komentarbarang.idbarang','=',$id)
-              ->get();
+              ->paginate(4);
       $replykom=DB::table('replykomentarbarang')
               ->join('users','replykomentarbarang.iduser','=','users.id')
               ->join('komentarbarang','komentarbarang.idkomentar','=','replykomentarbarang.idkomentar')

@@ -70,6 +70,7 @@
                         </div>
                       </div>
                     </div>
+
                 </div>
                 <div class="panel-footer text-right">
                   Data Update per {{ Carbon\Carbon::parse(Carbon\Carbon::now())->formatLocalized('%A, %d %B %Y %H:%I:%S')}}

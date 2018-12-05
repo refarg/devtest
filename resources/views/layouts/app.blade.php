@@ -15,7 +15,8 @@
     <style type="text/css">
 
     body{
-      background:url("{{asset('image/abstract-antique-backdrop-164005.jpg')}}") repeat-y, linear-gradient(#a6a6a6, #fff) no-repeat;
+      background:linear-gradient(#a6a6a6, #fff) no-repeat;
+      /* url("{{asset('image/abstract-antique-backdrop-164005.jpg')}}") repeat-y; */
       background-size: cover;
       /* background-blend-mode:saturation; */
       height: 100vh;
@@ -98,7 +99,7 @@
 
                     <form class="navbar-form navbar-left" method="get" action="/viewbarangs">
                     <div class="form-group">
-                      <input type="text" name="nama" class="form-control" placeholder="Cari Barang...">
+                      <input type="text" name="nama" class="form-control" placeholder="Cari Barang..." required>
                     </div>
                     <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                   </form>
@@ -122,6 +123,11 @@
                                 <li>
                                     <a href="{{ url('/listbeli') }}">
                                         Lihat Keranjang Belanja
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/listcheckout') }}">
+                                        Lihat Checkout
                                     </a>
                                 </li>
                             </ul>

@@ -55,7 +55,26 @@
                             <input type="number" min="1" max="{{$barang->stok}}" class="form-control" name="jumlahbarang" placeholder="Jumlah barang yang ingin dibeli" required/>
                             @endif
                             </div>
-                        </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('jasapengiriman') ? ' has-error' : '' }}">
+                            <label for="text" class="col-md-4 control-label">Jasa Pengiriman</label>
+                            <div class="col-md-6">
+                              <select class="form-control" name="jasapengiriman" required>
+                              <option value="none" disabled="" selected="">Pilih Jasa Pengiriman</option>
+                              <option value="JNE">JNE</option>
+                              <option value="J&T">J&T</option>
+                              <option value="Pos Indonesia">Pos Indonesia</option>
+                              <option value="TIKI">TIKI</option>
+                              </select>
+                              @if ($errors->has('jasapengiriman'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('jasapengiriman') }}</strong>
+                                  </span>
+                              @endif
+                            </div>
+                            </div>
+
                         @if($barang->stok>0)
                         <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">

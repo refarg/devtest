@@ -26,9 +26,9 @@
                         </div>
                       </div>
 
+                      @if($tampil->buktibayar=='' and $tampil->statusverif==0 and Auth::User()->level==2)
                       <form enctype="multipart/form-data" id="form" method="post" action="{{url('/submitbukti/'.$tampil->idpembelian)}}">
                       {{csrf_field()}}
-                      @if($tampil->buktibayar=='' and $tampil->statusverif==0)
                       <div class="form-group{{ $errors->has('buktipembayaran') ? ' has-error' : '' }}">
                       <label for="text" class="col-md-4 control-label">Bukti Pembayaran</label>
                       <div class="col-md-6">
@@ -118,8 +118,22 @@
                             </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('jasapengiriman') ? ' has-error' : '' }}">
+                            <label for="text" class="col-md-4 control-label">Jasa Pengiriman</label>
+                            <div class="col-md-6">
+                            <input type="text" class="form-control" name="hargabarang" value="{{$tampil->jasapengiriman}}" readonly/>
+                            </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('nomorresi') ? ' has-error' : '' }}">
+                            <label for="text" class="col-md-4 control-label">Nomor Resi</label>
+                            <div class="col-md-6">
+                            <input type="text" class="form-control" name="hargabarang" @if($tampil->resi=='') value="Belum Ada Resi" @else value="{{$tampil->resi}}" @endif readonly/>
+                            </div>
+                            </div>
+
                             @if($tampil->buktibayar=='' and $tampil->statusverif==0)
-                            @if($tampil->iduser==Auth::user()->id)
+                            @if($tampil->iduser==Auth::user()->id and Auth::User()->level==2)
                             <div class="form-group">
                             <div class="col-md-12 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary">
@@ -130,8 +144,9 @@
                                 </button>
                             </div>
                             </div>
-                            @endif
                             </form>
+                            @endif
+
 
                             <div class="modal fade" id="modalBatal" role="dialog">
                               <div class="modal-dialog">
@@ -155,13 +170,42 @@
                             </div>
                             @endif
 
-                            @if(Auth::User()->level==1 and $tampil->buktibayar!='' and $tampil->statusverif==0)
+
                             <div class="form-group">
                             <div class="col-md-12 col-md-offset-0">
+                              @if(Auth::User()->level==1 and $tampil->buktibayar!='' and $tampil->statusverif==0)
                                 <a href="{{url('/verifikasi/'.$tampil->idpembelian)}}" class="btn btn-block btn-primary">Validasi</a>
+                              @endif
+                              @if(Auth::User()->level==1 and $tampil->buktibayar!='' and $tampil->statusverif==1)
+                                <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#modalKirim">
+                                    Update Resi
+                                </button>
+
+                                <div class="modal fade" id="modalKirim" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <form action="/updateresi/{{$tampil->idpembelian}}" method="post">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Input Resi</h4>
+                                      </div>
+                                      <div class="modal-body">
+
+                                          {{csrf_field()}}
+                                        <input type="text" name="nomorresi" class="form-control" placeholder="Nomor Resi" required></input>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-send"></i> Kirim</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+                                      </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              @endif
                             </div>
                             </div>
-                            @endif
                       </div>
                 </div>
             </div>

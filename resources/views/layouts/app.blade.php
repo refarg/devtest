@@ -15,10 +15,12 @@
     <style type="text/css">
 
     body{
-      background:linear-gradient(#a6a6a6, #fff) no-repeat;
+      background:url("{{asset('image/abstract-antique-backdrop-164005.jpg')}}") repeat-y, linear-gradient(#a6a6a6, #fff) no-repeat;
+      background-size: cover;
+      /* background-blend-mode:saturation; */
       height: 100vh;
+      font-weight:bold;
     }
-
 
     .navbar{
       background:#404040;
@@ -56,11 +58,19 @@
       width:30px;
       height:30px;
     }
+
+    .btn{
+      font-weight:bold;
+    }
+
+    .panel{
+      border:4px solid #fff;
+    }
     </style>
     @yield('css')
 </head>
 <body>
-
+<div class="desaturate">
     <div id="app full-height">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -150,9 +160,20 @@
 
         @yield('content')
     </div>
-
+</div>
     <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript">
+window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted ||
+                         ( typeof window.performance != "undefined" &&
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
+</script>
     @yield('js')
 </body>
 </html>

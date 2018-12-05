@@ -28,6 +28,7 @@
                     <div class="panel-heading">Menu</div>
                       <div class="panel-body">
                           <div class="list-group">
+                              <a href="/viewbarang" class="list-group-item">Lihat Barang</a>
                               <a href="/viewbarangmod" class="list-group-item">Kelola Barang</a>
                               <a href="/viewbarangm" class="list-group-item">Kelola Barang (Tabel)</a>
                               <a href="/listpembelian" class="list-group-item">Kelola Pemesanan</a>

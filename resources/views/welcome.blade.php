@@ -16,7 +16,7 @@
                 background:linear-gradient(#a6a6a6, #fff) no-repeat;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
-                font-weight: 100;
+                font-weight: bold;
                 height: 100vh;
                 margin: 0;
             }
@@ -43,6 +43,7 @@
 
             .content {
                 text-align: center;
+                font-weight:bold;
             }
 
             .title {

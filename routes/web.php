@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/belibarang/{id}','BarangController@beliBarang');
   //Kirim bukti pembayaran
   Route::post('/submitbukti/{bukti}','BarangController@sendBukti');
+
+  Route::post('/checkout','BarangController@docheckout');
+  Route::get('/listcheckout','BarangController@viewCheckoutuser');
 });
 
 
@@ -69,7 +72,8 @@ Route::get('/listpembelian','BarangController@viewBeliadmin');
 Route::get('/batalbelimod/{id}','BarangController@batalBelimod');
 //Validasi pembayaran oleh Admin
 Route::get('/verifikasi/{idbayar}','BarangController@doverif');
-
+//Input resi oleh Admin
+Route::post('/updateresi/{id}','BarangController@updateResi');
 });
 
 Route::get('recommend','featureController@recommend');

@@ -9,7 +9,7 @@ class pembelian extends Model
     //
     protected $table = 'pembelian';
     protected $primaryKey = 'idpembelian';
-    protected $fillable = ['idbarang','iduser','jumlahbarang','statusverif','buktibayar'];
+    protected $fillable = ['idbarang','iduser','jumlahbarang'];
     public $timestamps = true;
 
 }

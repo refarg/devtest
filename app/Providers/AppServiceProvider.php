@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
 use App\detailuser;
 use Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
         $view->with('userdet', $det);
       }
     });
+    Validator::extend(
+          'recaptcha',
+          'App\\Validators\\Recaptcha@validate'
+   );
     }
 
     /**

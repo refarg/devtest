@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2018 at 08:08 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 5.6.38
+-- Generation Time: Nov 12, 2019 at 02:27 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `devtest`
 --
-CREATE DATABASE IF NOT EXISTS `devtest` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `devtest`;
 
 -- --------------------------------------------------------
 
@@ -45,12 +43,12 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`idbarang`, `namabarang`, `idjenis`, `deskripsi`, `stok`, `hargabarang`, `gambarbarang`) VALUES
-(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 7, 100000, 'download.jpg'),
-(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 262, 300000, 'maxresdefault.jpg'),
+(4, 'Piringan Hitam Corak Batik', 1, 'Piringan hitam berhias corak batik dan manik-manik', 2, 100000, 'download.jpg'),
+(5, 'Keranjang Sampah', 2, 'Keranjang Sampah era modern', 253, 300000, 'maxresdefault.jpg'),
 (6, 'Gambar Waterfall', 2, 'Gambar Coretan Grup Band Oasis', 0, 50000, 'waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg'),
-(7, 'Mencoba', 2, 'Tes', 2, 90000, 'pexels-photo-206673.jpeg'),
+(7, 'Mencoba', 2, 'Tes', 0, 90000, 'pexels-photo-206673.jpeg'),
 (14, 'awda', 1, '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', 0, 10, '_20151020_20560124102018133534.JPG'),
-(15, 'Piringan Biru', 2, 'Ini Deskripsi Barang', 18, 901293021, '30x3028102018002105.png'),
+(15, 'Piringan Biru', 2, 'Ini Deskripsi Barang', 12, 901293021, '30x3028102018002105.png'),
 (16, 'Piringan Coklat', 2, 'Itu Deskripsi', 230, 910291, '30x3028102018002129.png'),
 (17, 'Tes', 2, 'Coba saja', 10, 90000, 'bliss-club-wip-large15112018115212.png'),
 (18, 'Coba Tes', 2, 'Coba Barang', 3, 90000, 'EKTP22112018163030.jpg');
@@ -68,7 +66,7 @@ CREATE TABLE `buktitransfer` (
   `jasapengiriman` enum('JNE','J&T','Pos Indonesia','TIKI') NOT NULL,
   `statusverif` int(1) NOT NULL,
   `resi` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -77,9 +75,11 @@ CREATE TABLE `buktitransfer` (
 --
 
 INSERT INTO `buktitransfer` (`idbtransfer`, `idcheckout`, `buktitransfer`, `jasapengiriman`, `statusverif`, `resi`, `created_at`, `updated_at`) VALUES
-(4, 1, 'foot0312201823593605122018235255.png', 'JNE', 1, 'DWD2938', '2018-12-05 17:23:50', '2018-12-05 17:23:50'),
-(5, 2, '0', 'J&T', 0, '', '2018-12-05 16:54:34', '2018-12-05 16:54:34'),
-(6, 3, '0', 'TIKI', 0, '', '2018-12-05 16:56:55', '2018-12-05 16:56:55');
+(8, 1, 'lightbulb12112019155306.png', 'JNE', 1, 'ANBJW12378', '2019-11-12 08:57:02', '2019-11-12 08:57:02'),
+(10, 3, '0', 'Pos Indonesia', 0, '', '2019-11-12 09:07:37', '2019-11-12 09:07:37'),
+(12, 5, '0', 'JNE', 0, '', '2019-11-12 13:15:43', '2019-11-12 13:15:43'),
+(13, 6, '0', 'Pos Indonesia', 0, '', '2019-11-12 13:16:36', '2019-11-12 13:16:36'),
+(14, 7, '0', 'J&T', 0, '', '2019-11-12 13:16:48', '2019-11-12 13:16:48');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE `checkout` (
   `idbarang` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
   `jumlahbarang` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,12 +102,15 @@ CREATE TABLE `checkout` (
 --
 
 INSERT INTO `checkout` (`idcheckout`, `idpembelian`, `idbarang`, `iduser`, `jumlahbarang`, `created_at`, `updated_at`) VALUES
-(17, 1, 5, 6, 1, '2018-12-05 16:49:55', '2018-12-05 16:49:55'),
-(18, 2, 7, 6, 2, '2018-12-05 16:54:02', '2018-12-05 16:54:02'),
-(19, 2, 4, 6, 2, '2018-12-05 16:54:19', '2018-12-05 16:54:19'),
-(20, 3, 5, 6, 1, '2018-12-05 16:56:31', '2018-12-05 16:56:31'),
-(21, 3, 14, 6, 1, '2018-12-05 16:56:40', '2018-12-05 16:56:40'),
-(22, 3, 15, 6, 1, '2018-12-05 16:56:47', '2018-12-05 16:56:47');
+(25, 1, 4, 7, 1, '2019-11-12 07:48:12', '2019-11-12 07:48:12'),
+(26, 1, 5, 7, 1, '2019-11-12 07:54:12', '2019-11-12 07:54:12'),
+(28, 3, 5, 7, 2, '2019-11-12 09:07:13', '2019-11-12 09:07:13'),
+(29, 3, 7, 7, 1, '2019-11-12 09:07:28', '2019-11-12 09:07:28'),
+(32, 4, 7, 7, 1, '2019-11-12 11:09:37', '2019-11-12 11:09:37'),
+(34, 5, 15, 7, 2, '2019-11-12 11:50:16', '2019-11-12 11:50:16'),
+(35, 6, 5, 7, 1, '2019-11-12 13:16:07', '2019-11-12 13:16:07'),
+(36, 6, 4, 7, 1, '2019-11-12 13:16:19', '2019-11-12 13:16:19'),
+(37, 7, 7, 7, 1, '2019-11-12 13:16:28', '2019-11-12 13:16:28');
 
 -- --------------------------------------------------------
 
@@ -164,7 +167,7 @@ CREATE TABLE `komentarbarang` (
   `idbarang` int(11) NOT NULL,
   `iduser` int(10) NOT NULL,
   `komentar` varchar(255) COLLATE utf8_bin NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -178,7 +181,7 @@ INSERT INTO `komentarbarang` (`idkomentar`, `idbarang`, `iduser`, `komentar`, `c
 (4, 7, 7, 'ngetes', '2018-10-05 13:02:56', '0000-00-00 00:00:00'),
 (5, 4, 2, 'nganu', '2018-10-05 13:15:12', '2018-10-05 06:15:12'),
 (7, 6, 6, 'bang buruan di-update dong stoknya', '2018-10-06 10:29:56', '2018-10-06 10:29:56'),
-(8, 5, 7, 'nganuu', '2018-10-23 13:36:46', '2018-10-23 13:36:46'),
+(8, 5, 7, 'gini', '2019-11-12 12:46:35', '2019-11-12 12:46:35'),
 (9, 4, 6, 'tes', '2018-12-05 18:43:54', '2018-12-05 18:43:54');
 
 -- --------------------------------------------------------
@@ -203,7 +206,7 @@ CREATE TABLE `password_resets` (
   `idresets` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_bin NOT NULL,
   `token` varchar(255) COLLATE utf8_bin NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -224,7 +227,7 @@ CREATE TABLE `pembelian` (
   `idbarang` int(11) NOT NULL,
   `iduser` int(10) NOT NULL,
   `jumlahbarang` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -239,7 +242,7 @@ CREATE TABLE `replykomentarbarang` (
   `idkomentar` int(11) NOT NULL,
   `iduser` int(10) NOT NULL,
   `replykomentar` varchar(255) COLLATE utf8_bin NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -277,9 +280,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `level`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 2, 'refardo', 'refardo@gmail.com', '$2y$10$vvIaNHQGGCos12itINZ7YOyuuPSLTOQG5hMVfmghPpZsdYn.LGtKe', 'TATgRdE1sdS1e9a5xH8XdsFbWbIKk0j4KR8grpaFwD4L0zP78QwR0K33suLz', '2018-09-27 05:30:08', '2018-09-27 05:36:50'),
-(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'OaxuBpF418G1h6Eael2dJiTNr8PHHerLujQ2JlwKJU4x701UTi8ya4Ozjn8s', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
-(6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', '49bpFzdE9QOJO41YiBXzUHDeiTOGZ2hE3wFVPcH4HxrNafJYfSEJBDgrvWQA', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
-(7, 2, 'Joseph', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'Eliw4uWlTy2jLagK4DInInHmYgPorKjdzhkXyt6AFAl59fCil0emkCquP0xs', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
+(2, 1, 'theadmin', 'admin@mail.com', '$2y$10$nm.NbTjvplxCKUtx82NOxOLld46g5mOeo00c1oo/1bxh9HLG0iivm', 'CJvvin2yJBvwNxctUtakMIqFO5fmVQWJbagZEZ56DKas6UTBKxoxkrb119q0', '2018-09-27 05:38:34', '2018-09-27 05:38:34'),
+(6, 2, 'Masedo', 'refardo@google.com', '$2y$10$u3U9yNivasZJ86qe7DU6bufNtv226ln3rmxsIC6wWK3fGtdPBjA5a', 'zriNZcfAURsDPPfH9DUo6ngIgCWmWVGVLbAPuJg0Qy9aTWKs0irvVzJHR4ew', '2018-10-02 02:28:10', '2018-10-02 02:28:10'),
+(7, 2, 'Joseph', 'tesbro@mail.com', '$2y$10$p.fUKjslUKF6uGItVJN1guboEEJBm6jUmi2JHMuzOpeqCDNOMoEcW', 'Q5XPQCn3YPKM8RcYWzBzIIsJYURxzMgXUOOu6VSs6BJCsX1WvPDqOsA03nkD', '2018-10-02 02:28:59', '2018-10-02 02:28:59');
 
 --
 -- Indexes for dumped tables
@@ -373,13 +376,13 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT for table `buktitransfer`
 --
 ALTER TABLE `buktitransfer`
-  MODIFY `idbtransfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idbtransfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `checkout`
 --
 ALTER TABLE `checkout`
-  MODIFY `idcheckout` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idcheckout` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `detailuser`
@@ -415,7 +418,7 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `idpembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `replykomentarbarang`

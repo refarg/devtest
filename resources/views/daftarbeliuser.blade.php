@@ -22,8 +22,28 @@ a:hover, a:focus{
 @endsection
 @section('js')
 <script>
-document.getElementById("upload").onchange = function() {
-    document.getElementById("form").submit();
+$(document).ready(function(){
+  $('#checkAll').on('click', function(e) {
+      var checkbox = $("input.checkinput");
+      checkbox.prop('checked', !checkbox.prop('checked'))
+      if(checkbox.prop('checked')){
+          $('#checkAll').attr('value','Uncheck All');
+      }
+      else{
+        $('#checkAll').attr('value','Check All');
+      }
+
+
+});
+
+});
+
+function checkChecked(formname) {
+        if ($('input[name="checko[]"]:checked').length > 0) {
+          } else {
+                  alert("Mohon pilih barang yang akan di-checkout");
+                    event.preventDefault();
+            }
 }
 </script>
 @endsection
@@ -52,87 +72,45 @@ document.getElementById("upload").onchange = function() {
                     @endif
 
                     @if(count($tampil) > 0)
-                    <table class="table table-stripped table-bordered">
+                    <form class="form" id="theform" action="{{route('checkout')}}" method="post" onsubmit="return checkChecked('theform');">
+                      {{csrf_field()}}
+                    <table class="table table-responsive table-stripped table-bordered">
                       <tr style='font-weight:bold;'>
-                        <td class="text-center text-nowrap">ID Pembelian</td>
-                        <td class="text-center text-nowrap">ID Barang</td>
-  											<td class="text-center text-nowrap">Jumlah Barang</td>
-                        <td class="text-center text-nowrap">Waktu Pembelian</td>
-                        <td class="text-center text-nowrap">Total Bayar</td>
-                        <td class="text-center text-nowrap">Status Verif.</td>
-                        <td class="text-center text-nowrap">Bukti Pembayaran</td>
-                        <td class="text-center text-nowrap">Batalkan Pemesanan</td>
+                        <td class="text-center">ID Keranjang</td>
+                        <td class="text-center">Nama Barang</td>
+  											<td class="text-center">Jumlah Barang</td>
+                        <td class="text-center">Waktu Pembelian</td>
+                        <td class="text-center">Total Bayar</td>
+                        <td class="text-center"><input type="button" id="checkAll" class="btn btn-primary" value="Check All"/></td>
   										</tr>
+
                     @foreach($tampil as $data)
 										<tr>
-                      <td class="text-center text-nowrap"><a href="/listbeli/detail/{{$data->idpembelian}}" title="Lihat Detail Pembelian">{{$data->idpembelian}}</a></td>
-                      <td class="text-center text-nowrap"><a href="/viewbarang/{{$data->idbarang}}" title="Lihat Detail Barang">{{$data->idbarang}}</a></td>
-											<td class="text-center text-nowrap">{{$data->jumlahbarang}}</td>
-                      <td class="text-center text-nowrap">{{ Carbon\Carbon::parse($data->created_at)->formatLocalized('%A, %d %B %Y %H:%I:%S')}}</td>
-                      <td class="text-center text-nowrap">Rp. {{number_format($data->total)}}</td>
-                      @if($data->buktibayar=='')
-                      <td class="text-center text-nowrap">Menunggu Pembayaran</td>
-                      <td class="text-center text-nowrap">
-                        <form enctype="multipart/form-data" id="form" method="post" action="{{url('/submitbukti/'.$data->idpembelian)}}">
-                        {{csrf_field()}}
-                        <div class="file btn btn-primary">
-                          <i class="glyphicon glyphicon-upload"></i> Pilih Foto
-                          <input class="iform" id="upload" type="file" name="buktipembayaran" accept="image/*" required />
-                        </div>
-                      </form></td>
-                      <td class="text-center text-nowrap"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalBatal{{$loop->iteration}}"><i class="glyphicon glyphicon-remove-circle"></i> Batal Pesan</button></td>
-                      @elseif($data->statusverif==0)
-                      <td class="text-center text-nowrap">Menunggu Verifikasi Admin</td>
-                      <td class="text-center text-nowrap"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalView{{$loop->iteration}}">Lihat Gambar</button></td>
-                      @else
-                      <td class="text-center text-nowrap">Telah Diverifikasi</td>
-                      <td class="text-center text-nowrap"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalView{{$loop->iteration}}">Lihat Gambar</button></td>
-                      @endif
+                      <td class="text-center"><a href="/listbeli/detail/{{$data->idpembelian}}" title="Lihat Detail Pembelian">{{$data->idpembelian}}</a></td>
+                      <td class="text-center"><a href="/viewbarang/{{$data->idbarang}}" title="Lihat Detail Barang">{{$data->namabarang}}</a></td>
+											<td class="text-center">{{$data->jumlahbarang}}</td>
+                      <td class="text-center">{{ Carbon\Carbon::parse($data->created_at)->formatLocalized('%A, %d %B %Y %H:%I:%S')}}</td>
+                      <td class="text-center">Rp. {{number_format($data->total)}}</td>
+                      <td class="text-center"><input class="checkinput" type="checkbox" name="checko[]" value="{{$data->idpembelian}}"></td>
 										</tr>
-
-                    @if($data->buktibayar!='')
-                    <div class="modal fade" id="modalView{{ $loop->iteration }}" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Bukti Pembayaran</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p><img class="img-responsive thumbnail center-block" src="{{ asset('buktitrf/'.$data->buktibayar) }}" /></p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    @endif
-
-                    <div class="modal fade" id="modalBatal{{ $loop->iteration }}" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Konfirmasi Pembatalan</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Anda hendak membatalkan pemesanan dengan rincian sebagai berikut:
-                              <p>Nama Barang: {{$data->namabarang}}<br>Jumlah yang dipesan: {{$data->jumlahbarang}}<br>Total harus dibayar: Rp. {{number_format($data->total)}}</p>
-                              Ingin melanjutkan?
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Urungkan</button> <button type="button" class="btn btn-danger" onclick="location.href='/batalbeli/{{$data->idpembelian}}';">Lanjut Membatalkan</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 										@endforeach
                   </table>
+
+                    <div class="form-inline col-md-offset-4">
+                      <div class="form-group mb-2">
+                        <select class="form-control" name="jasapengiriman" required>
+                        <option value="" disabled="" selected="">Pilih Jasa Pengiriman</option>
+                        <option value="JNE">JNE</option>
+                        <option value="J&T">J&T</option>
+                        <option value="Pos Indonesia">Pos Indonesia</option>
+                        <option value="TIKI">TIKI</option>
+                        </select>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                      <input class="btn btn-primary" id="checkoutbtn" type="submit" value="Checkout">
+                      </div>
+                    </div>
+                  </form>
                   @else
                   <h4 class="text-center">Tidak ada barang di dalam keranjang belanja saat ini</h4>
                   @endif

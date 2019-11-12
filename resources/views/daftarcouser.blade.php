@@ -42,7 +42,7 @@ document.getElementById("upload").onchange = function() {
         </div>
         <div class="col-md-12 col-md-offset-0">
             <div class="panel panel-default">
-                <div class="panel-heading">Keranjang Pembelian {{ Auth::user()->name }}</div>
+                <div class="panel-heading">Daftar Checkout {{ Auth::user()->name }}</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -55,10 +55,6 @@ document.getElementById("upload").onchange = function() {
                     <table class="table table-stripped table-bordered">
                       <tr style='font-weight:bold;'>
                         <td class="text-center text-nowrap">ID Pembelian</td>
-                        <td class="text-center text-nowrap">ID Barang</td>
-  											<td class="text-center text-nowrap">Jumlah Barang</td>
-                        <td class="text-center text-nowrap">Waktu Pembelian</td>
-                        <td class="text-center text-nowrap">Total Bayar</td>
                         <td class="text-center text-nowrap">Status Verif.</td>
                         <td class="text-center text-nowrap">Bukti Pembayaran</td>
   										</tr>
@@ -70,12 +66,9 @@ document.getElementById("upload").onchange = function() {
                       @if($data->idpembelian==$store)
                       <td class="text-center text-nowrap" style="border-top:0;border-bottom:0;"></td>
                       @else
-                      <td class="text-center text-nowrap"><a href="/listbeli/detail/{{$data->idpembelian}}" title="Lihat Detail Pembelian">{{$data->idpembelian}}</a></td>
+                      <td class="text-center text-nowrap" style="border-bottom:0;"><a href="/listcheckout/detail/{{$data->idpembelian}}" title="Lihat Detail Pembelian">{{$data->idpembelian}}</a></td>
                       @endif
-                      <td class="text-center text-nowrap"><a href="/viewbarang/{{$data->idbarang}}" title="Lihat Detail Barang">{{$data->idbarang}}</a></td>
-											<td class="text-center text-nowrap">{{$data->jumlahbarang}}</td>
-                      <td class="text-center text-nowrap">{{ Carbon\Carbon::parse($data->created_at)->formatLocalized('%A, %d %B %Y %H:%I:%S')}}</td>
-                      <td class="text-center text-nowrap">Rp. {{number_format($data->total)}}</td>
+
                       @if($data->buktitransfer=='0')
                       <td class="text-center text-nowrap">Menunggu Pembayaran</td>
                       @if($data->idpembelian==$store)
@@ -90,6 +83,7 @@ document.getElementById("upload").onchange = function() {
                         </div>
                       </form></td>
                       @endif
+
                       @elseif($data->statusverif!=0 or $data->resi!='')
                       <td class="text-center text-nowrap" >Telah diverifikasi admin</td>
                       @if($data->idpembelian==$store)

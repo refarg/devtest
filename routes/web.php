@@ -38,14 +38,17 @@ Route::middleware(['auth'])->group(function () {
   //Pembelian, pembatalan, dan cek keranjang belanja user
   Route::get('/belibarang/{id}','BarangController@getbeli');
   Route::get('/listbeli','BarangController@viewBeliuser');
-  Route::get('/listbeli/detail/{idbeli}','BarangController@viewdetBeli');
+  Route::get('/listbeli/detail/{idkeranjang}', 'BarangController@lihatKeranjang');
+
   Route::get('/batalbeli/{id}','BarangController@batalBeli');
   Route::post('/belibarang/{id}','BarangController@beliBarang');
   //Kirim bukti pembayaran
   Route::post('/submitbukti/{bukti}','BarangController@sendBukti');
 
-  Route::post('/checkout','BarangController@docheckout');
+  Route::post('/checkout','BarangController@docheckout')->name('checkout');
   Route::get('/listcheckout','BarangController@viewCheckoutuser');
+  Route::get('/listcheckout/detail/{idbeli}','BarangController@viewdetBeli');
+  Route::post('/undocheckout/{id}','BarangController@batalcheckout');
 });
 
 

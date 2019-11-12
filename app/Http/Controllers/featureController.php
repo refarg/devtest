@@ -20,8 +20,14 @@ class featureController extends Controller
   $tampil = $check->paginate(6);
 
   $tampil->appends($request->only('nama'));
-  //dd($tampil);
-  return view('viewbarangm', compact('tampil'));
+  $recom = DB::table('barang')
+          ->join('jenisbarang', 'barang.idjenis', '=', 'jenisbarang.idjenis')
+          ->join('checkout', 'checkout.idbarang', '=', 'barang.idbarang')
+          ->select('barang.*','jenisbarang.*', DB::raw('count(checkout.idbarang) as hitung'))
+          ->groupBy('checkout.idbarang')
+          ->orderBy('hitung','desc')
+          ->take(5)->get();
+  return view('viewbarangm', compact('tampil', 'recom'));
 }
 
 public function recommend(Request $request)

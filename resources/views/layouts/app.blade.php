@@ -127,7 +127,7 @@
                                 </li>
                                 <li>
                                     <a href="{{ url('/listcheckout') }}">
-                                        Lihat Checkout
+                                        Lihat Barang dipesan
                                     </a>
                                 </li>
                             </ul>

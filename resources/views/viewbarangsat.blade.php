@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('js')
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @foreach($komeng as $komen)
 <script>
 $(".reply{{$komen->idkomentar}}").hide();
@@ -330,9 +331,11 @@ $(".btnko").click(function(){
   <div class="panel panel-default">
 <div class="panel-heading">Tambahkan Komentar sebagai {{Auth::user()->name}}</div>
 <div class="panel-body">
-  <form class="form-horizontal" enctype="multipart/form-data" action="/postkomen/{{$show->idbarang}}" method="POST">
+  <form class="form-vertical" enctype="multipart/form-data" action="/postkomen/{{$show->idbarang}}" method="POST">
     {{csrf_field()}}
-  <textarea class="form-control" rows="5" id="comment" name="komentar"></textarea>
+  <div class="pull-left g-recaptcha" id="feedback-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY')  }}"></div>
+  <textarea class="pull-right form-control" style="width:50%;" rows="3" cols="5" id="comment" name="komentar"></textarea>
+  <div style="clear:both" />
   <button type="submit" class="pull-right btn btn-primary float-right">Submit</button>
   </form>
 </div>

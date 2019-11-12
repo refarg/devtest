@@ -174,25 +174,27 @@ public function validatorbeli(Request $request)
 }
 
 public function beliBarang(Request $request, $id){
-  $validator = $this->validatorbeli($request);
-    if($validator->passes()){
-  $insert = ([
+    $validator = $this->validatorbeli($request);
+      if($validator->passes()){
+        $insert = ([
         'idbarang' => $id,
         'iduser' => Auth::user()->id,
         'jumlahbarang' => $request->jumlahbarang,
         ]);
-  //dd($insert);
+        //dd($insert);
         pembelian::create($insert);
 
-$sto = barang::select('idbarang','stok')
-->where('idbarang','=',$id)
-->first();
+        $sto = barang::select('idbarang','stok')
+        ->where('idbarang','=',$id)
+        ->first();
+
         $edit =barang::find($id);
         $edit->stok= $sto->stok - $request->jumlahbarang;
         //dd($insert, $sto);
         $edit->save();
         return redirect('viewbarang');
       }
+
       else{
         return Redirect::back()
             ->withErrors($validator)
@@ -201,20 +203,28 @@ $sto = barang::select('idbarang','stok')
 }
 
 public function docheckout(Request $request){
-  $getbeli = pembelian::where('iduser','=',Auth::User()->id)->get();
-  $getid = checkout::select('idpembelian')->orderBy('idpembelian', 'desc')->first();
-  if(is_null($getid)){
+if(empty($request->checko) && $request->jasapengiriman == null ){
+  return Redirect::back();
+}
+else{
+  $getbeli = pembelian::whereIn('idpembelian', json_decode('[' . implode(', ', $request->input('checko')) . ']', true))->where('iduser','=',Auth::User()->id)->get();
+  // dd($getbeli);
+  $getco = checkout::select('idpembelian')->orderBy('idpembelian', 'desc')->first();
+  // dd($getco);
+  if(is_null($getco)){
     $temp = 0+1;
   }
   else{
-  $temp = $getid->idpembelian +1;
+  $temp = $getco->idpembelian +1;
   }
-  // dd($getall);
   $getall = $getbeli->toArray();
+  // dd($getall);
+
   foreach($getall as $input){
     $input['idpembelian'] = $temp;
     checkout::insert($input);
   }
+
   foreach($getbeli as $deletthis){
     $deletthis->delete();
   }
@@ -227,10 +237,26 @@ public function docheckout(Request $request){
         'resi' => '',
         ]);
 
-        buktitransfer::create($insert);
-
-
+  buktitransfer::create($insert);
   return Redirect::back();
+  }
+}
+
+public function batalcheckout(Request $request, $id){
+if ($request->dlco!=null && $request->dlco==$id) {
+  $getco = checkout::where('idpembelian', '=', $id)->get();
+  foreach ($getco as $getco) {
+    $editbarang = barang::where('idbarang','=',$getco->idbarang)->first();
+    $editbarang->stok = $editbarang->stok + $getco->jumlahbarang;
+    $editbarang->save();
+  }
+  $getco->delete();
+  buktitransfer::where('idcheckout', '=', $id)->delete();
+  return redirect('listcheckout');
+  }
+  else{
+    return Redirect::back();
+  }
 }
 
 public function batalBeli(Request $request, $id){
@@ -315,7 +341,7 @@ public function commentrules(Request $request){
   public function postkomen(Request $request, $id){
     $validator = $this->commentrules($request);
       if($validator->passes()){
-    $insert=([
+        $insert=([
           'idbarang' => $id,
           'iduser' => Auth::user()->id,
           'komentar' => $request->komentar,
@@ -420,9 +446,26 @@ public function viewdetBeli(Request $request, $idbeli){
             ->select('buktitransfer.*', 'checkout.*', 'barang.*', 'users.name' , 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
             ->where('checkout.idpembelian','=',$idbeli)
             ->get();
-
       if(Auth::user()->level==1 || Auth::user()->id==$tampil[0]->iduser){
       return view('viewdetailbeli',compact('tampil'));
+    }
+    else{
+      return redirect('home');
+    }
+}
+
+public function lihatKeranjang(Request $request, $idkeranjang){
+      $tampil=DB::table('pembelian')
+            ->join('barang', 'pembelian.idbarang', '=', 'barang.idbarang')
+            ->join('users', 'pembelian.iduser', '=', 'users.id')
+            ->join('detailuser', 'pembelian.iduser', '=', 'detailuser.iduser')
+            ->select('pembelian.*', 'barang.*', 'users.name' , 'detailuser.*', DB::raw('jumlahbarang*hargabarang as total'))
+            ->where([['pembelian.iduser','=',Auth::user()->id],['pembelian.idpembelian','=',$idkeranjang]])
+            ->orderBy('pembelian.created_at', 'asc')
+            ->first();
+            // dd($tampil);
+      if(Auth::user()->level==1 || Auth::user()->id==$tampil->iduser){
+      return view('viewdetailkeranjang',compact('tampil'));
     }
     else{
       return redirect('home');

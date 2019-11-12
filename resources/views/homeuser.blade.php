@@ -8,7 +8,8 @@
                           <div class="panel-body">
                               <div class="list-group">
                                   <a href="/viewbarang" class="list-group-item">Lihat Semua Barang</a>
-                                  <a href="/listbeli" class="list-group-item">Daftar Barang Dipesan</a>
+                                  <a href="/listcheckout" class="list-group-item">Lihat Barang dipesan</a>
+                                  <a href="/listbeli" class="list-group-item">Keranjang Belanja</a>
                                   <a href="/viewuser" class="list-group-item">Lihat Profil Pengguna</a>
                               </div>
                             </div>
